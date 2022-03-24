@@ -14,20 +14,19 @@ const HotelUpdate = () => {
   });
   const location = useLocation();
 
-  const getHotel = async () => {
-    try {
-      const recovered = await baseAPI.get(
-        `v1/hotels/${location.state.hotelId}`
-      );
-      setOriginalHotel(recovered.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const getHotel = async () => {
+      try {
+        const recovered = await baseAPI.get(
+          `v1/hotels/${location.state.hotelId}`
+        );
+        setOriginalHotel(recovered.data.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getHotel();
-  }, []);
+  }, [location.state.hotelId]);
 
   const setEditFieldStatus = (key, bool) => {
     setIsInput({
