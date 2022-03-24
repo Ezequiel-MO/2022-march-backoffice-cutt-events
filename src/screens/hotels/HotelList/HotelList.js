@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const HotelList = () => {
+  const navigate = useNavigate();
   const [hotels, setHotels] = useState([]);
   const handleGetHotelList = async () => {
     try {
@@ -22,16 +24,29 @@ const HotelList = () => {
   };
 
   const hotelList = hotels.map((hotel) => (
-    <li key={hotel._id}>{hotel.name}</li>
+    <>
+      <li key={hotel._id}>
+        {hotel.name}
+        <button
+          onClick={() =>
+            navigate("/hotel-update", {
+              state: { hotelId: hotel._id, hotelName: hotel.name },
+            })
+          }
+        >
+          Update a Hotel
+        </button>
+        <button onClick={() => handleDeleteHotel(hotel._id)}>
+          Delete Hotel
+        </button>
+      </li>
+    </>
   ));
   return (
     <>
       <ul>{hotelList}</ul>
 
       <button onClick={handleGetHotelList}>Get Hotel List</button>
-      <button onClick={() => handleDeleteHotel("623b49aacc1f35fe5517fde9")}>
-        Delete Hotel
-      </button>
     </>
   );
 };

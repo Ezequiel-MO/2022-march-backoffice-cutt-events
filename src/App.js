@@ -5,12 +5,14 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.css";
+import Dashboard from "./screens/Dashboard/Dashboard";
 import EventList from "./screens/events/EventList/EventList";
 import EventSpecs from "./screens/events/EventSpecs/EventSpecs";
 import EventUpdate from "./screens/events/EventUpdate/EventUpdate";
 import HotelList from "./screens/hotels/HotelList/HotelList";
 import HotelSpecs from "./screens/hotels/HotelSpecs/HotelSpecs";
 import HotelUpdate from "./screens/hotels/HotelUpdate/HotelUpdate";
+import MasterHotel from "./screens/hotels/MasterHotel";
 import ProjectList from "./screens/projects/ProjectList/ProjectList";
 import ProjectSpecs from "./screens/projects/ProjectSpecs/ProjectSpecs";
 import ProjectUpdate from "./screens/projects/ProjectUpdate/ProjectUpdate";
@@ -22,9 +24,11 @@ function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Dashboard />} />
         <Route path="/project-specs" element={<ProjectSpecs />} />
         <Route path="/project-update" element={<ProjectUpdate />} />
         <Route path="/project-list" element={<ProjectList />} />
+        <Route path="/hotel" element={<MasterHotel />} />
         <Route path="/hotel-specs" element={<HotelSpecs />} />
         <Route path="/hotel-update" element={<HotelUpdate />} />
         <Route path="/hotel-list" element={<HotelList />} />
