@@ -24,23 +24,19 @@ const HotelList = () => {
   };
 
   const hotelList = hotels.map((hotel) => (
-    <>
-      <li key={hotel._id}>
-        {hotel.name}
-        <button
-          onClick={() =>
-            navigate("/hotel-update", {
-              state: { hotelId: hotel._id, hotelName: hotel.name },
-            })
-          }
-        >
-          Update a Hotel
-        </button>
-        <button onClick={() => handleDeleteHotel(hotel._id)}>
-          Delete Hotel
-        </button>
-      </li>
-    </>
+    <li key={hotel._id}>
+      {hotel.name}
+      <button
+        onClick={() =>
+          navigate("/hotel-update", {
+            state: { hotelId: hotel._id, hotelName: hotel.name },
+          })
+        }
+      >
+        Update a Hotel
+      </button>
+      <button onClick={() => handleDeleteHotel(hotel._id)}>Delete Hotel</button>
+    </li>
   ));
   return (
     <>
