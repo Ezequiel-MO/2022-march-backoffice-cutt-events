@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const RestaurantList = () => {
+  const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
   const handleGetRestaurantList = async () => {
     try {
@@ -22,18 +24,30 @@ const RestaurantList = () => {
   };
 
   const restaurantList = restaurants.map((restaurant) => (
-    <li key={restaurant._id}>{restaurant.name}</li>
+    <li key={restaurant._id}>
+      {restaurant.name}
+      <button
+        onClick={() =>
+          navigate("/restaurant-update", {
+            state: {
+              restaurantId: restaurant._id,
+              restaurantName: restaurant.name,
+            },
+          })
+        }
+      >
+        Update a Restaurant
+      </button>
+      <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
+        Delete Restaurant
+      </button>
+    </li>
   ));
+
   return (
     <>
       <ul>{restaurantList}</ul>
-
       <button onClick={handleGetRestaurantList}>Get Restaurant List</button>
-      <button
-        onClick={() => handleDeleteRestaurant("6239c8de280a9aac2e73fcb4")}
-      >
-        Delete Restaurant
-      </button>
     </>
   );
 };

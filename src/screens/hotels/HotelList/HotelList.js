@@ -38,6 +38,7 @@ const HotelList = () => {
       <button onClick={() => handleDeleteHotel(hotel._id)}>Delete Hotel</button>
     </li>
   ));
+
   return (
     <>
       <ul>{hotelList}</ul>

@@ -6,7 +6,7 @@ const Dashboard = () => {
     <>
       <button>Config New Project</button>
       <button onClick={() => navigate("/hotel")}>Hotel Master</button>
-      <button>Restaurant Master</button>
+      <button onClick={() => navigate("/restaurant")}>Restaurant Master</button>
       <button>Event Master</button>
     </>
   );

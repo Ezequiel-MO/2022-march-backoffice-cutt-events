@@ -16,6 +16,7 @@ import MasterHotel from "./screens/hotels/MasterHotel";
 import ProjectList from "./screens/projects/ProjectList/ProjectList";
 import ProjectSpecs from "./screens/projects/ProjectSpecs/ProjectSpecs";
 import ProjectUpdate from "./screens/projects/ProjectUpdate/ProjectUpdate";
+import MasterRestaurant from "./screens/restaurants/MasterRestaurant";
 import RestaurantList from "./screens/restaurants/RestaurantList/RestaurantList";
 import RestaurantSpecs from "./screens/restaurants/RestaurantSpecs/RestaurantSpecs";
 import RestaurantUpdate from "./screens/restaurants/RestaurantUpdate/RestaurantUpdate";
@@ -32,6 +33,7 @@ function App() {
         <Route path="/hotel-specs" element={<HotelSpecs />} />
         <Route path="/hotel-update" element={<HotelUpdate />} />
         <Route path="/hotel-list" element={<HotelList />} />
+        <Route path="/restaurant" element={<MasterRestaurant />} />
         <Route path="/restaurant-specs" element={<RestaurantSpecs />} />
         <Route path="/restaurant-update" element={<RestaurantUpdate />} />
         <Route path="/restaurant-list" element={<RestaurantList />} />

@@ -15,6 +15,7 @@ const HotelUpdate = () => {
     restaurants: false,
     swimmingPool: false,
     wifiSpeed: false,
+    textContent: false,
   });
   const [updatedHotel, setUpdatedHotel] = useState({
     name: "",
@@ -27,6 +28,7 @@ const HotelUpdate = () => {
     restaurants: "",
     swimmingPool: "",
     wifiSpeed: "",
+    textContent: "",
   });
   const location = useLocation();
 
@@ -71,7 +73,7 @@ const HotelUpdate = () => {
 
   const handleUpdateHotel = (e) => {
     setUpdatedHotel({
-      ...originalHotel,
+      ...updatedHotel,
       [e.target.name]: e.target.value,
     });
   };
