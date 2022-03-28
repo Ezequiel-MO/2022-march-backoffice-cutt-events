@@ -1,16 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import baseAPI from "../../../axios/axiosConfig";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProjects } from "../../../Redux/Actions/ProjectActions";
+import { useNavigate } from "react-router-dom";
 
 const ProjectList = () => {
-  const [projects, setProjects] = useState([]);
-  const handleGetProjectList = async () => {
-    try {
-      const response = await baseAPI.get("v1/projects");
-      setProjects(response.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const {
+    projectList: { projects },
+  } = useSelector((state) => state);
+
+  useEffect(() => {
+    dispatch(fetchProjects());
+  }, [dispatch]);
 
   const handleDeleteProject = async (projectId) => {
     try {
@@ -22,15 +25,26 @@ const ProjectList = () => {
   };
 
   const projectList = projects.map((project) => (
-    <li key={project._id}>{project.code}</li>
+    <li key={project._id}>
+      {project.code}
+      <button
+        onClick={() =>
+          navigate("/project-update", {
+            state: { projectId: project._id, projectName: project.groupName },
+          })
+        }
+      >
+        Update a Project
+      </button>
+      <button onClick={() => handleDeleteProject(project._id)}>
+        Delete Project
+      </button>
+    </li>
   ));
+
   return (
     <>
       <ul>{projectList}</ul>
-      <button onClick={handleGetProjectList}>Get Project List</button>
-      <button onClick={() => handleDeleteProject("6237450f7c388800b1edadbb")}>
-        Delete Project
-      </button>
     </>
   );
 };

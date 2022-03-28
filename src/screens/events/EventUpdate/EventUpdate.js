@@ -1,39 +1,143 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
-import { updateEvent } from "../../../dev-data/event-data";
 
 const EventUpdate = () => {
-  const [updatedEvent, setUpdatedEvent] = useState({});
   const [originalEvent, setOriginalEvent] = useState({});
+  const [isInput, setIsInput] = useState({
+    name: false,
+    city: false,
+    textContent: false,
+    /*  location: false, */
+    price: false,
+    introduction: false,
+  });
 
-  const handleEventUpdate = async (eventId) => {
+  const [updatedEvent, setUpdatedEvent] = useState({
+    name: "",
+    city: "",
+    textContent: "",
+    /*  location: '', */
+    price: "",
+    introduction: "",
+  });
+
+  const location = useLocation();
+
+  const filterOutEvent = (obj) => {
+    let filteredOutObj = {};
+    Object.keys(obj).forEach((item) => {
+      if (
+        item !== "_id" &&
+        item !== "__v" &&
+        item !== "updatedAt" &&
+        item !== "location" &&
+        item !== "imageContentUrl" &&
+        item !== "transfer"
+      ) {
+        filteredOutObj[item] = obj[item];
+      }
+    });
+    return filteredOutObj;
+  };
+
+  useEffect(() => {
+    const getEvent = async () => {
+      try {
+        const recovered = await baseAPI.get(
+          `v1/events/${location.state.eventId}`
+        );
+        const filteredOutEventObj = filterOutEvent(recovered.data.data.data);
+        setOriginalEvent(filteredOutEventObj);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getEvent();
+  }, [location.state.eventId]);
+
+  const setEditFieldStatus = (key, bool) => {
+    setIsInput({
+      ...isInput,
+      [key]: bool,
+    });
+  };
+
+  const handleUpdateEvent = (e) => {
+    setUpdatedEvent({
+      ...updatedEvent,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
-      const updated = await baseAPI.patch(`v1/events/${eventId}`, updateEvent);
+      const updated = await baseAPI.patch(
+        `v1/events/${location.state.eventId}`,
+        updatedEvent
+      );
       setUpdatedEvent(updated.data.data.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleGetSingleEvent = async (eventId) => {
-    try {
-      const recovered = await baseAPI.get(`v1/events/${eventId}`);
-      setOriginalEvent(recovered);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const renderOriginalEvent = (
+    <>
+      {Object.keys(originalEvent).map((field) => (
+        <div key={`${field}`}>
+          {isInput[field] ? (
+            <div style={{ display: "flex" }}>
+              <p>{field} :</p>
+              {field === "textContent" || field === "introduction" ? (
+                <textarea
+                  placeholder={`New ${field}  ...`}
+                  onBlur={() => setEditFieldStatus(`${field}`, false)}
+                  name={`${field}`}
+                  value={updatedEvent[`${field}`]}
+                  onChange={handleUpdateEvent}
+                  autoFocus
+                />
+              ) : (
+                <input
+                  type="text"
+                  placeholder={`New ${field}  ...`}
+                  onBlur={() => setEditFieldStatus(`${field}`, false)}
+                  name={`${field}`}
+                  value={updatedEvent[`${field}`]}
+                  onChange={handleUpdateEvent}
+                  autoFocus
+                />
+              )}
+            </div>
+          ) : (
+            <li onClick={() => setEditFieldStatus(`${field}`, true)}>
+              {updatedEvent[`${field}`]
+                ? `${field} : ${updatedEvent[field]}`
+                : `${field} : ${originalEvent[field]}`}
+            </li>
+          )}
+        </div>
+      ))}
+    </>
+  );
+
   return (
     <>
-      {JSON.stringify(originalEvent)}
+      <form onSubmit={handleSubmit}>
+        <div>
+          <h3>Original Event</h3>
+          {renderOriginalEvent}
+        </div>
+        <hr />
+        <button type="submit">Update and Save</button>
+      </form>
       <hr />
-      {JSON.stringify(updatedEvent)}
-      <button onClick={() => handleGetSingleEvent("623c603f5f2681300d9312db")}>
-        Recover an event
-      </button>
-      <button onClick={() => handleEventUpdate("623c603f5f2681300d9312db")}>
-        Amend an existingn event
-      </button>
+      <div>
+        <h3>Updated Event</h3>
+        {JSON.stringify(updatedEvent)}
+      </div>
     </>
   );
 };

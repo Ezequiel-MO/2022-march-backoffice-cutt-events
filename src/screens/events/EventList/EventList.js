@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const EventList = () => {
+  const navigate = useNavigate();
   const [events, setEvents] = useState([]);
   const handleGetEventList = async () => {
     try {
@@ -22,16 +24,28 @@ const EventList = () => {
   };
 
   const eventList = events.map((event) => (
-    <li key={event._id}>{event.name}</li>
+    <li key={event._id}>
+      {event.name}
+      <button
+        onClick={() =>
+          navigate("/event-update", {
+            state: {
+              eventId: event._id,
+              eventName: event.name,
+            },
+          })
+        }
+      >
+        Update an Event
+      </button>
+      <button onClick={() => handleDeleteEvent(event._id)}>Delete Event</button>
+    </li>
   ));
+
   return (
     <>
       <ul>{eventList}</ul>
-
       <button onClick={handleGetEventList}>Get Event List</button>
-      <button onClick={() => handleDeleteEvent("6239b84a280a9aac2e73fc95")}>
-        Delete Event
-      </button>
     </>
   );
 };

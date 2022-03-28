@@ -1,0 +1,4 @@
+export const actionTypes = {
+  FETCH_PROJECTS: "FETCH_PROJECTS",
+  SELECTED_PROJECT: "SELECTED_PROJECT",
+};

@@ -80,6 +80,7 @@ const HotelUpdate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(updatedHotel);
     try {
       const updated = await baseAPI.patch(
         `v1/hotels/${location.state.hotelId}`,

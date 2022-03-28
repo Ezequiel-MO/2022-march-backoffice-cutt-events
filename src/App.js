@@ -9,10 +9,12 @@ import Dashboard from "./screens/Dashboard/Dashboard";
 import EventList from "./screens/events/EventList/EventList";
 import EventSpecs from "./screens/events/EventSpecs/EventSpecs";
 import EventUpdate from "./screens/events/EventUpdate/EventUpdate";
+import MasterEvent from "./screens/events/MasterEvent";
 import HotelList from "./screens/hotels/HotelList/HotelList";
 import HotelSpecs from "./screens/hotels/HotelSpecs/HotelSpecs";
 import HotelUpdate from "./screens/hotels/HotelUpdate/HotelUpdate";
 import MasterHotel from "./screens/hotels/MasterHotel";
+import MasterProject from "./screens/projects/MasterProject";
 import ProjectList from "./screens/projects/ProjectList/ProjectList";
 import ProjectSpecs from "./screens/projects/ProjectSpecs/ProjectSpecs";
 import ProjectUpdate from "./screens/projects/ProjectUpdate/ProjectUpdate";
@@ -26,6 +28,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Dashboard />} />
+        <Route path="/project" element={<MasterProject />} />
         <Route path="/project-specs" element={<ProjectSpecs />} />
         <Route path="/project-update" element={<ProjectUpdate />} />
         <Route path="/project-list" element={<ProjectList />} />
@@ -37,6 +40,7 @@ function App() {
         <Route path="/restaurant-specs" element={<RestaurantSpecs />} />
         <Route path="/restaurant-update" element={<RestaurantUpdate />} />
         <Route path="/restaurant-list" element={<RestaurantList />} />
+        <Route path="/event" element={<MasterEvent />} />
         <Route path="/event-specs" element={<EventSpecs />} />
         <Route path="/event-update" element={<EventUpdate />} />
         <Route path="/event-list" element={<EventList />} />
