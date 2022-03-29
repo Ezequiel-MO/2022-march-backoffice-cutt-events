@@ -42,6 +42,10 @@ const EventUpdate = () => {
   };
 
   useEffect(() => {
+    setUpdatedEvent(originalEvent);
+  }, [originalEvent]);
+
+  useEffect(() => {
     const getEvent = async () => {
       try {
         const recovered = await baseAPI.get(

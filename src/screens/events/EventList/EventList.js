@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const EventList = () => {
   const navigate = useNavigate();
   const [events, setEvents] = useState([]);
-  const handleGetEventList = async () => {
-    try {
-      const response = await baseAPI.get("v1/events");
-      setEvents(response.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+  useEffect(() => {
+    const getEventList = async () => {
+      try {
+        const response = await baseAPI.get("v1/events");
+        setEvents(response.data.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getEventList();
+  }, []);
 
   const handleDeleteEvent = async (eventId) => {
     try {
@@ -45,7 +49,6 @@ const EventList = () => {
   return (
     <>
       <ul>{eventList}</ul>
-      <button onClick={handleGetEventList}>Get Event List</button>
     </>
   );
 };

@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
   const [restaurants, setRestaurants] = useState([]);
-  const handleGetRestaurantList = async () => {
-    try {
-      const response = await baseAPI.get("v1/restaurants");
-      setRestaurants(response.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+  useEffect(() => {
+    const getRestaurantList = async () => {
+      try {
+        const response = await baseAPI.get("v1/restaurants");
+        setRestaurants(response.data.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getRestaurantList();
+  }, []);
 
   const handleDeleteRestaurant = async (restaurantId) => {
     try {
@@ -47,7 +51,6 @@ const RestaurantList = () => {
   return (
     <>
       <ul>{restaurantList}</ul>
-      <button onClick={handleGetRestaurantList}>Get Restaurant List</button>
     </>
   );
 };

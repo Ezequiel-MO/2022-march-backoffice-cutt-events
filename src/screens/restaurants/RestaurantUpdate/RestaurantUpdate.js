@@ -42,6 +42,10 @@ const RestaurantUpdate = () => {
   };
 
   useEffect(() => {
+    setUpdatedRestaurant(originalRestaurant);
+  }, [originalRestaurant]);
+
+  useEffect(() => {
     const getRestaurant = async () => {
       try {
         const recovered = await baseAPI.get(

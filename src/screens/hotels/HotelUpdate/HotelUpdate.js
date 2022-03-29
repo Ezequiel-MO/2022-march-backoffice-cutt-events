@@ -50,6 +50,10 @@ const HotelUpdate = () => {
   };
 
   useEffect(() => {
+    setUpdatedHotel(originalHotel);
+  }, [originalHotel]);
+
+  useEffect(() => {
     const getHotel = async () => {
       try {
         const recovered = await baseAPI.get(
