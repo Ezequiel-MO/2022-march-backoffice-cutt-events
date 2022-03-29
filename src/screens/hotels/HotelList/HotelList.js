@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { number } from "yup";
 import baseAPI from "../../../axios/axiosConfig";
 
 const HotelList = () => {
@@ -12,14 +11,16 @@ const HotelList = () => {
   useEffect(() => {
     const getHotelList = async () => {
       try {
-        const response = await baseAPI.get(`/v1/hotels`);
+        const response = await baseAPI.get(
+          `/v1/hotels?city=${city}&numberStars=${numberStars}`
+        );
         setHotels(response.data.data.data);
       } catch (error) {
         console.log(error);
       }
     };
     getHotelList();
-  }, []);
+  }, [city, numberStars]);
 
   const handleDeleteHotel = async (hotelId) => {
     try {
@@ -29,21 +30,6 @@ const HotelList = () => {
       console.log(error);
     }
   };
-
-  useEffect(() => {
-    console.log("city", city, "nrStars", numberStars);
-    const getFilters = async () => {
-      try {
-        const response = await baseAPI.get(
-          `/v1/hotels?city=${city}&numberStars=${numberStars}`
-        );
-        setHotels(response.data.data.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getFilters();
-  }, [city, numberStars]);
 
   const hotelList = hotels.map((hotel) => (
     <li key={hotel._id}>
@@ -64,7 +50,6 @@ const HotelList = () => {
   return (
     <>
       <h1>Hotel List</h1>
-      {/*   form to select between existing cities and filter by city */}
       <form>
         <div>
           <label htmlFor="cities">Filter by city:</label>
