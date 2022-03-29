@@ -1,18 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const HotelList = () => {
   const navigate = useNavigate();
   const [hotels, setHotels] = useState([]);
-  const handleGetHotelList = async () => {
-    try {
-      const response = await baseAPI.get("/v1/hotels");
-      setHotels(response.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+  useEffect(() => {
+    const getHotelList = async () => {
+      try {
+        const response = await baseAPI.get("/v1/hotels");
+        setHotels(response.data.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getHotelList();
+  }, []);
 
   const handleDeleteHotel = async (hotelId) => {
     try {
@@ -42,8 +46,6 @@ const HotelList = () => {
   return (
     <>
       <ul>{hotelList}</ul>
-
-      <button onClick={handleGetHotelList}>Get Hotel List</button>
     </>
   );
 };

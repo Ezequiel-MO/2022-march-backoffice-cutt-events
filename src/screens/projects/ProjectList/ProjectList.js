@@ -1,19 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import baseAPI from "../../../axios/axiosConfig";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProjects } from "../../../Redux/Actions/ProjectActions";
 import { useNavigate } from "react-router-dom";
 
 const ProjectList = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const {
-    projectList: { projects },
-  } = useSelector((state) => state);
+  const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchProjects());
-  }, [dispatch]);
+    const getProjectList = async () => {
+      try {
+        const response = await baseAPI.get("/v1/projects");
+        setProjects(response.data.data.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProjectList();
+  }, []);
 
   const handleDeleteProject = async (projectId) => {
     try {

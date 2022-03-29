@@ -1,18 +1,23 @@
+import React from "react";
 import baseAPI from "../../../axios/axiosConfig";
-import { initialProject } from "../../../dev-data/project-data";
+import ProjectMasterForm from "./ProjectMasterForm";
 
 const ProjectSpecs = () => {
-  const handleProjectCreate = async () => {
+  const postToEndpoint = async (data, endPoint) => {
     try {
-      await baseAPI.post("/v1/projects", initialProject);
+      await baseAPI.post(`v1/${endPoint}`, data);
     } catch (error) {
       console.log(error);
     }
   };
 
+  const submitForm = (values, endpoint) => {
+    postToEndpoint(values, endpoint);
+  };
+
   return (
     <>
-      <button onClick={handleProjectCreate}>Create a new project</button>
+      <ProjectMasterForm submitForm={submitForm} />
     </>
   );
 };

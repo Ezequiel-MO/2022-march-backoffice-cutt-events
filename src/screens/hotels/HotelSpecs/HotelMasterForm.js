@@ -76,7 +76,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     label="Address"
                     name="address"
                     placeholder="ex : c/Pina 57"
-                    type="string"
+                    type="text"
                   />
                 </div>
                 <div>
@@ -100,7 +100,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     label="Check-in and Check-out"
                     name="checkin_out"
                     placeholder="ex : 12noon/3pm"
-                    type="string"
+                    type="text"
                   />
                 </div>
                 <div>
@@ -122,7 +122,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     label="Wi-Fi Speed"
                     name="wifiSpeed"
                     placeholder="ex : Available all rooms/common areas"
-                    type="string"
+                    type="text"
                   />
                 </div>
                 <div>
@@ -130,7 +130,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     label="Swimming Pool"
                     name="swimmingPool"
                     placeholder="ex : 1x Outdoor/ 1x Indoor"
-                    type="string"
+                    type="text"
                   />
                 </div>
                 <div>
@@ -138,7 +138,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     label="Restaurants"
                     name="restaurants"
                     placeholder="ex : 1x Restaurant/ 1x Bar"
-                    type="string"
+                    type="text"
                   />
                 </div>
                 <div>
