@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
+import {
+  ADD_EVENT_TO_PROJECT,
+  selectCurrentProject,
+} from "../../../redux/features/CurrentProjectSlice";
 
 const EventList = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
   const [events, setEvents] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [price, setPrice] = useState(100);
+  const currentProject = useSelector(selectCurrentProject);
+
+  useEffect(() => {
+    if (currentProject) {
+      const { groupLocation } = currentProject;
+      setCity(groupLocation);
+    }
+  }, [currentProject]);
 
   useEffect(() => {
     const getEventList = async () => {
@@ -31,6 +46,16 @@ const EventList = () => {
     }
   };
 
+  const AddEventToProject = (eventId) => {
+    dispatch(
+      ADD_EVENT_TO_PROJECT({
+        dayOfEvent: location.state.dayOfEvent,
+        timeOfEvent: location.state.timeOfEvent,
+        eventId,
+      })
+    );
+  };
+
   const eventList = events.map((event) => (
     <li key={event._id}>
       {event.name}
@@ -47,6 +72,11 @@ const EventList = () => {
         Update an Event
       </button>
       <button onClick={() => handleDeleteEvent(event._id)}>Delete Event</button>
+      {currentProject ? (
+        <button onClick={() => AddEventToProject(event._id)}>
+          Add Event To Project
+        </button>
+      ) : null}
     </li>
   ));
 
@@ -54,18 +84,20 @@ const EventList = () => {
     <>
       <h1>Event List</h1>
       <form>
-        <div>
-          <label htmlFor="cities">Filter by city:</label>
-          <select
-            name="cities"
-            id="cities"
-            onChange={(e) => setCity(e.target.value)}
-          >
-            <option value="Barcelona">Barcelona</option>
-            <option value="Valencia">Valencia</option>
-            <option value="Madrid">Madrid</option>
-          </select>
-        </div>
+        {!currentProject ? (
+          <div>
+            <label htmlFor="cities">Filter by city:</label>
+            <select
+              name="cities"
+              id="cities"
+              onChange={(e) => setCity(e.target.value)}
+            >
+              <option value="Barcelona">Barcelona</option>
+              <option value="Valencia">Valencia</option>
+              <option value="Madrid">Madrid</option>
+            </select>
+          </div>
+        ) : null}
         <div>
           <label htmlFor="price">Filter by Price:</label>
           <select

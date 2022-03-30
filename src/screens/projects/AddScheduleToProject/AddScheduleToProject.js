@@ -1,17 +1,25 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
   computeTotalDays,
   whichDay,
 } from "../../../helperFunctions/helperFunctions";
-import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import {
+  ADD_DAYS_TO_PROJECT_SCHEDULE,
+  selectCurrentProject,
+} from "../../../redux/features/CurrentProjectSlice";
 
 const AddScheduleToProject = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { arrivalDay, departureDay } = useSelector(selectCurrentProject);
   const diffDays = computeTotalDays(arrivalDay, departureDay);
   const [days, setDays] = useState([]);
+
+  useEffect(() => {
+    dispatch(ADD_DAYS_TO_PROJECT_SCHEDULE(days));
+  }, [days]);
 
   useEffect(() => {
     for (let i = 1; i <= diffDays; i++) {
@@ -19,6 +27,7 @@ const AddScheduleToProject = () => {
         ...days,
         {
           date: whichDay(i, diffDays),
+          dayOfEvent: i,
           morningEvents: [],
           lunch: [],
           afternoonEvents: [],
@@ -28,6 +37,7 @@ const AddScheduleToProject = () => {
         },
       ]);
     }
+
     return () => {
       setDays([]);
     };
@@ -40,7 +50,10 @@ const AddScheduleToProject = () => {
         <li
           onClick={() =>
             navigate(`/event-list`, {
-              state: { timeOfEvent: day.morningEvents, dayOfEvent: day.date },
+              state: {
+                timeOfEvent: "morningEvents",
+                dayOfEvent: day.dayOfEvent,
+              },
             })
           }
         >

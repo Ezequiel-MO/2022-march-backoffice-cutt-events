@@ -21,11 +21,42 @@ export const currentProjectSlice = createSlice({
         },
       };
     },
+    ADD_DAYS_TO_PROJECT_SCHEDULE: (state, action) => {
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          schedule: action.payload,
+        },
+      };
+    },
+    ADD_EVENT_TO_PROJECT: (state, action) => {
+      const { dayOfEvent, timeOfEvent, eventId } = action.payload;
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          schedule: state.project.schedule.map((day, index) => {
+            if (index === dayOfEvent - 1) {
+              return {
+                ...day,
+                [timeOfEvent]: [...day.morningEvents, eventId],
+              };
+            }
+            return day;
+          }),
+        },
+      };
+    },
   },
 });
 
-export const { SET_CURRENT_PROJECT, ADD_HOTEL_TO_PROJECT } =
-  currentProjectSlice.actions;
+export const {
+  SET_CURRENT_PROJECT,
+  ADD_HOTEL_TO_PROJECT,
+  ADD_DAYS_TO_PROJECT_SCHEDULE,
+  ADD_EVENT_TO_PROJECT,
+} = currentProjectSlice.actions;
 
 export const selectCurrentProject = (state) => state.currentProject.project;
 
