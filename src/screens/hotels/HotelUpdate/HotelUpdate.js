@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const HotelUpdate = () => {
+  let params = useParams();
   const [originalHotel, setOriginalHotel] = useState({});
   const [isInput, setIsInput] = useState({
     name: false,
@@ -30,7 +31,6 @@ const HotelUpdate = () => {
     wifiSpeed: "",
     textContent: "",
   });
-  const location = useLocation();
 
   const filterOutHotel = (obj) => {
     let filteredOutObj = {};
@@ -56,9 +56,7 @@ const HotelUpdate = () => {
   useEffect(() => {
     const getHotel = async () => {
       try {
-        const recovered = await baseAPI.get(
-          `v1/hotels/${location.state.hotelId}`
-        );
+        const recovered = await baseAPI.get(`v1/hotels/${params.hotelId}`);
         const filteredOutHotelObj = filterOutHotel(recovered.data.data.data);
         setOriginalHotel(filteredOutHotelObj);
       } catch (error) {
@@ -66,7 +64,7 @@ const HotelUpdate = () => {
       }
     };
     getHotel();
-  }, [location.state.hotelId]);
+  }, [params.hotelId]);
 
   const setEditFieldStatus = (key, bool) => {
     setIsInput({
@@ -87,7 +85,7 @@ const HotelUpdate = () => {
     console.log(updatedHotel);
     try {
       const updated = await baseAPI.patch(
-        `v1/hotels/${location.state.hotelId}`,
+        `v1/hotels/${params.hotelId}`,
         updatedHotel
       );
       setUpdatedHotel(updated.data.data.data);

@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import TextInput from "../../../UI/inputs/TextInput";
@@ -10,15 +10,23 @@ const AddHotelToProject = () => {
   const dispatch = useDispatch();
   let params = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
 
   const addHotelWithPricesToProject = async (values) => {
     try {
       const hotel = await baseAPI.get(`/v1/hotels/${params.hotelId}`);
       const hotelWithPrices = {
         ...hotel.data.data.data,
-        prices: [values],
+        price: [values],
       };
       dispatch(ADD_HOTEL_TO_PROJECT(hotelWithPrices));
+      alert("Hotel Added");
+      let moreHotels = prompt("Would you like to add more hotels ?", "yes/no");
+      if (moreHotels === "yes") {
+        navigate("/hotel-list");
+      } else {
+        navigate("/project-specs");
+      }
     } catch (err) {
       console.log(err);
     }
@@ -26,7 +34,9 @@ const AddHotelToProject = () => {
 
   return (
     <>
-      <h2>Add rates to {location.state.hotelName}</h2>
+      <h2>
+        Add rates to {location.state.hotelName && location.state.hotelName}
+      </h2>
       <Formik
         initialValues={{
           DUInr: "",
