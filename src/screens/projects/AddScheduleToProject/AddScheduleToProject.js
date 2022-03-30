@@ -1,49 +1,12 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  computeTotalDays,
-  whichDay,
-} from "../../../helperFunctions/helperFunctions";
-import {
-  ADD_DAYS_TO_PROJECT_SCHEDULE,
-  selectCurrentProject,
-} from "../../../redux/features/CurrentProjectSlice";
+import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
 const AddScheduleToProject = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { arrivalDay, departureDay } = useSelector(selectCurrentProject);
-  const diffDays = computeTotalDays(arrivalDay, departureDay);
-  const [days, setDays] = useState([]);
+  const currentProject = useSelector(selectCurrentProject);
 
-  useEffect(() => {
-    dispatch(ADD_DAYS_TO_PROJECT_SCHEDULE(days));
-  }, [days]);
-
-  useEffect(() => {
-    for (let i = 1; i <= diffDays; i++) {
-      setDays((days) => [
-        ...days,
-        {
-          date: whichDay(i, diffDays),
-          dayOfEvent: i,
-          morningEvents: [],
-          lunch: [],
-          afternoonEvents: [],
-          dinner: [],
-          transfer_in: [],
-          transfer_out: [],
-        },
-      ]);
-    }
-
-    return () => {
-      setDays([]);
-    };
-  }, []);
-
-  const renderSchedule = days?.map((day) => (
+  const renderSchedule = currentProject.schedule.map((day, index) => (
     <li key={day.date}>
       {day.date}
       <ul>
@@ -52,7 +15,7 @@ const AddScheduleToProject = () => {
             navigate(`/event-list`, {
               state: {
                 timeOfEvent: "morningEvents",
-                dayOfEvent: day.dayOfEvent,
+                dayOfEvent: index,
               },
             })
           }
@@ -71,7 +34,6 @@ const AddScheduleToProject = () => {
     </li>
   ));
 
-  //render a list of all days contained between currentProject start and end date
   return <ul>{renderSchedule}</ul>;
 };
 
