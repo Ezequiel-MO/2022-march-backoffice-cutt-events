@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
+import {
+  ADD_EVENT_TO_PROJECT,
+  selectCurrentProject,
+} from "../../../redux/features/CurrentProjectSlice";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const dispatch = useDispatch();
   const [restaurants, setRestaurants] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [price, setPrice] = useState(100);
+  const currentProject = useSelector(selectCurrentProject);
+
+  useEffect(() => {
+    if (currentProject) {
+      const { groupLocation } = currentProject;
+      setCity(groupLocation);
+    }
+  }, [currentProject]);
 
   useEffect(() => {
     const getRestaurantList = async () => {
@@ -31,6 +46,16 @@ const RestaurantList = () => {
     }
   };
 
+  const AddRestaurantToProject = (restaurantId) => {
+    dispatch(
+      ADD_EVENT_TO_PROJECT({
+        dayOfEvent: location.state.dayOfEvent,
+        timeOfEvent: location.state.timeOfEvent,
+        id: restaurantId,
+      })
+    );
+  };
+
   const restaurantList = restaurants.map((restaurant) => (
     <li key={restaurant._id}>
       {restaurant.name}
@@ -49,6 +74,11 @@ const RestaurantList = () => {
       <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
         Delete Restaurant
       </button>
+      {currentProject ? (
+        <button onClick={() => AddRestaurantToProject(restaurant._id)}>
+          Add Restaurant To Project
+        </button>
+      ) : null}
     </li>
   ));
 
@@ -56,18 +86,20 @@ const RestaurantList = () => {
     <>
       <h1>Restaurant List</h1>
       <form>
-        <div>
-          <label htmlFor="cities">Filter by city:</label>
-          <select
-            name="cities"
-            id="cities"
-            onChange={(e) => setCity(e.target.value)}
-          >
-            <option value="Barcelona">Barcelona</option>
-            <option value="Valencia">Valencia</option>
-            <option value="Madrid">Madrid</option>
-          </select>
-        </div>
+        {!currentProject ? (
+          <div>
+            <label htmlFor="cities">Filter by city:</label>
+            <select
+              name="cities"
+              id="cities"
+              onChange={(e) => setCity(e.target.value)}
+            >
+              <option value="Barcelona">Barcelona</option>
+              <option value="Valencia">Valencia</option>
+              <option value="Madrid">Madrid</option>
+            </select>
+          </div>
+        ) : null}
         <div>
           <label htmlFor="price">Filter by Price:</label>
           <select

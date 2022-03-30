@@ -22,7 +22,7 @@ export const currentProjectSlice = createSlice({
       };
     },
     ADD_EVENT_TO_PROJECT: (state, action) => {
-      const { dayOfEvent, timeOfEvent, eventId } = action.payload;
+      const { dayOfEvent, timeOfEvent, id } = action.payload;
       return {
         ...state,
         project: {
@@ -31,7 +31,7 @@ export const currentProjectSlice = createSlice({
             if (index === dayOfEvent) {
               return {
                 ...day,
-                [timeOfEvent]: [...day.morningEvents, eventId],
+                [timeOfEvent]: [...day[timeOfEvent], id],
               };
             }
             return day;

@@ -22,7 +22,18 @@ const AddScheduleToProject = () => {
         >
           Add morning events to {day.date}
         </li>
-        <li>Add lunch venues ...</li>
+        <li
+          onClick={() =>
+            navigate(`/restaurant-list`, {
+              state: {
+                timeOfEvent: "lunch",
+                dayOfEvent: index,
+              },
+            })
+          }
+        >
+          Add lunch venues ...
+        </li>
         <li>Add any afternoon events</li>
         <li>Add dinner venues ...</li>
         {day.date === "Arrival Day" ? (

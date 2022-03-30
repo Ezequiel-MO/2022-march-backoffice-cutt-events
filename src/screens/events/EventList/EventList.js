@@ -51,7 +51,7 @@ const EventList = () => {
       ADD_EVENT_TO_PROJECT({
         dayOfEvent: location.state.dayOfEvent,
         timeOfEvent: location.state.timeOfEvent,
-        eventId,
+        id: eventId,
       })
     );
   };
