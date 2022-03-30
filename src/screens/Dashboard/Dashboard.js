@@ -4,10 +4,11 @@ const Dashboard = () => {
   const navigate = useNavigate();
   return (
     <>
-      <button onClick={() => navigate("/project")}>Config New Project</button>
-      <button onClick={() => navigate("/hotel")}>Hotel Master</button>
-      <button onClick={() => navigate("/restaurant")}>Restaurant Master</button>
-      <button onClick={() => navigate("/event")}>Event Master</button>
+      <h1>Master Resources</h1>
+      <button onClick={() => navigate("/project")}>Projects</button>
+      <button onClick={() => navigate("/hotel")}>Hotels</button>
+      <button onClick={() => navigate("/restaurant")}>Restaurants</button>
+      <button onClick={() => navigate("/event")}>Events</button>
     </>
   );
 };

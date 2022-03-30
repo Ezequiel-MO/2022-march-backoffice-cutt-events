@@ -10,6 +10,7 @@ import EventList from "./screens/events/EventList/EventList";
 import EventSpecs from "./screens/events/EventSpecs/EventSpecs";
 import EventUpdate from "./screens/events/EventUpdate/EventUpdate";
 import MasterEvent from "./screens/events/MasterEvent";
+import AddHotelToProject from "./screens/hotels/AddHotelToProject/AddHotelToProject";
 import HotelList from "./screens/hotels/HotelList/HotelList";
 import HotelSpecs from "./screens/hotels/HotelSpecs/HotelSpecs";
 import HotelUpdate from "./screens/hotels/HotelUpdate/HotelUpdate";
@@ -33,6 +34,7 @@ function App() {
         <Route path="/project-update" element={<ProjectUpdate />} />
         <Route path="/project-list" element={<ProjectList />} />
         <Route path="/hotel" element={<MasterHotel />} />
+        <Route path="/hotel-add/:hotelId" element={<AddHotelToProject />} />
         <Route path="/hotel-specs" element={<HotelSpecs />} />
         <Route path="/hotel-update" element={<HotelUpdate />} />
         <Route path="/hotel-list" element={<HotelList />} />

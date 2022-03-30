@@ -1,0 +1,116 @@
+import { useLocation, useParams } from "react-router-dom";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
+import TextInput from "../../../UI/inputs/TextInput";
+import baseAPI from "../../../axios/axiosConfig";
+import { ADD_HOTEL_TO_PROJECT } from "../../../redux/features/CurrentProjectSlice";
+import { useDispatch } from "react-redux";
+
+const AddHotelToProject = () => {
+  const dispatch = useDispatch();
+  let params = useParams();
+  const location = useLocation();
+
+  const addHotelWithPricesToProject = async (values) => {
+    try {
+      const hotel = await baseAPI.get(`/v1/hotels/${params.hotelId}`);
+      const hotelWithPrices = {
+        ...hotel.data.data.data,
+        prices: [values],
+      };
+      dispatch(ADD_HOTEL_TO_PROJECT(hotelWithPrices));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  return (
+    <>
+      <h2>Add rates to {location.state.hotelName}</h2>
+      <Formik
+        initialValues={{
+          DUInr: "",
+          DUIprice: "",
+          breakfast: "",
+          DoubleRoomNr: "",
+          DoubleRoomPrice: "",
+          DailyTax: "",
+        }}
+        onSubmit={(values) => {
+          addHotelWithPricesToProject(values);
+        }}
+        validationSchema={Yup.object({
+          DUInr: Yup.number(),
+          DUIprice: Yup.number(),
+          breakfast: Yup.number(),
+          DoubleRoomNr: Yup.number(),
+          DoubleRoomPrice: Yup.number(),
+          DailyTax: Yup.number(),
+        })}
+      >
+        {(formik) => (
+          <Form>
+            <fieldset>
+              <div>
+                <div>
+                  <TextInput
+                    label="Number of DUIs"
+                    name="DUInr"
+                    placeholder="Ex. 40"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label="Rate per DUI"
+                    name="DUIprice"
+                    placeholder="Rate per night per room"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label="Breakfast"
+                    name="breakfast"
+                    placeholder="If included, enter 0"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label="Number of Double Rooms"
+                    name="DoubleRoomNr"
+                    placeholder="Number of Double Rooms"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label="Rate per Double Room"
+                    name="DoubleRoomPrice"
+                    placeholder="Rate per night per room"
+                    type="number"
+                  />
+                </div>
+                <div>
+                  <TextInput
+                    label="City Tax"
+                    name="DailyTax"
+                    placeholder="City Tax p.person per night"
+                    type="number"
+                  />
+                </div>
+              </div>
+
+              <div className="button">
+                <button type="submit">Add Hotel to Project</button>
+              </div>
+            </fieldset>
+          </Form>
+        )}
+      </Formik>
+    </>
+  );
+};
+
+export default AddHotelToProject;

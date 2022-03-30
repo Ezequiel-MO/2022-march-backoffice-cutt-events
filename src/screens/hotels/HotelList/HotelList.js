@@ -1,12 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
+import { useSelector } from "react-redux";
+import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
 const HotelList = () => {
   const navigate = useNavigate();
   const [hotels, setHotels] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [numberStars, setNumberStars] = useState(3);
+  const currentProject = useSelector(selectCurrentProject);
+
+  useEffect(() => {
+    if (currentProject) {
+      const { groupLocation } = currentProject;
+      setCity(groupLocation);
+    }
+  }, [currentProject]);
 
   useEffect(() => {
     const getHotelList = async () => {
@@ -37,13 +47,24 @@ const HotelList = () => {
       <button
         onClick={() =>
           navigate("/hotel-update", {
-            state: { hotelId: hotel._id, hotelName: hotel.name },
+            state: { hotelId: hotel._id },
           })
         }
       >
         Update a Hotel
       </button>
       <button onClick={() => handleDeleteHotel(hotel._id)}>Delete Hotel</button>
+      {currentProject ? (
+        <button
+          onClick={() =>
+            navigate(`/hotel-add/${hotel._id}`, {
+              state: { hotelName: hotel.name },
+            })
+          }
+        >
+          Add To Project
+        </button>
+      ) : null}
     </li>
   ));
 
@@ -51,18 +72,20 @@ const HotelList = () => {
     <>
       <h1>Hotel List</h1>
       <form>
-        <div>
-          <label htmlFor="cities">Filter by city:</label>
-          <select
-            name="cities"
-            id="cities"
-            onChange={(e) => setCity(e.target.value)}
-          >
-            <option value="Barcelona">Barcelona</option>
-            <option value="Valencia">Valencia</option>
-            <option value="Madrid">Madrid</option>
-          </select>
-        </div>
+        {!currentProject ? (
+          <div>
+            <label htmlFor="cities">Filter by city:</label>
+            <select
+              name="cities"
+              id="cities"
+              onChange={(e) => setCity(e.target.value)}
+            >
+              <option value="Barcelona">Barcelona</option>
+              <option value="Valencia">Valencia</option>
+              <option value="Madrid">Madrid</option>
+            </select>
+          </div>
+        ) : null}
         <div>
           <label htmlFor="nrStars">Filter by Nr of Stars:</label>
           <select
