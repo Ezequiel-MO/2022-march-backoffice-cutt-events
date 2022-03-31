@@ -21,7 +21,7 @@ export const currentProjectSlice = createSlice({
         },
       };
     },
-    ADD_EVENT_TO_PROJECT: (state, action) => {
+    ADD_EVENT_TO_SCHEDULE: (state, action) => {
       const { dayOfEvent, timeOfEvent, event } = action.payload;
       return {
         ...state,
@@ -45,7 +45,7 @@ export const currentProjectSlice = createSlice({
 export const {
   SET_CURRENT_PROJECT,
   ADD_HOTEL_TO_PROJECT,
-  ADD_EVENT_TO_PROJECT,
+  ADD_EVENT_TO_SCHEDULE,
 } = currentProjectSlice.actions;
 
 export const selectCurrentProject = (state) => state.currentProject.project;

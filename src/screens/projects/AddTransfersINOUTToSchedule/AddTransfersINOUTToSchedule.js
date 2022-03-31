@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  ADD_EVENT_TO_SCHEDULE,
+  selectCurrentProject,
+} from "../../../redux/features/CurrentProjectSlice";
 import baseAPI from "../../../axios/axiosConfig";
-import { useSelector } from "react-redux";
-import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
-const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
+const AddTransfersINOUTToSchedule = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const [transfers, setTransfers] = useState([]);
+  const dispatch = useDispatch();
   const [city, setCity] = useState("Barcelona");
   const [vehicleCapacity, setVehicleCapacity] = useState(20);
+  const [transfers, setTransfers] = useState([]);
+
   const currentProject = useSelector(selectCurrentProject);
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
@@ -33,46 +39,34 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
     getTransferList();
   }, [city, vehicleCapacity]);
 
-  const handleDeleteTransfer = async (transferId) => {
-    try {
-      await baseAPI.delete(`v1/transfers/${transferId}`);
-      alert("Transfer Deleted");
-    } catch (error) {
-      console.log(error);
-    }
+  const handleAddTransfer = (transfer) => {
+    dispatch(
+      ADD_EVENT_TO_SCHEDULE({
+        dayOfEvent: location.state.dayOfEvent,
+        timeOfEvent: location.state.timeOfEvent,
+        event: transfer,
+      })
+    );
+    alert("Transfer added");
+    navigate("/project/schedule");
   };
 
   const transferList = transfers.map((transfer) => (
     <li key={transfer._id}>
       {transfer.company} <span>{transfer.vehicleType}</span>
-      <span>{transfer.vehicleCapacity}</span>
-      {addEventToSchedule || currentProjectIsLive ? (
-        <>
-          <button onClick={() => handleAddTransfer(transfer)}>
-            Add Transfer to Event
-          </button>
-        </>
-      ) : (
-        <>
-          <button onClick={() => navigate(`/transfer-update/${transfer._id}`)}>
-            Update a Transfer
-          </button>
-          <button onClick={() => handleDeleteTransfer(transfer._id)}>
-            Delete Transfer
-          </button>
-        </>
-      )}
+      <span>{transfer.transfer_in_out}</span>
+      <button onClick={() => handleAddTransfer(transfer)}>
+        {location.state.timeOfEvent === "transfer_in" ? (
+          <p>Add Transfer In to the schedule</p>
+        ) : (
+          <p>Add Transfer Out to the schedule</p>
+        )}
+      </button>
     </li>
   ));
 
   return (
     <>
-      {addEventToSchedule || currentProjectIsLive ? (
-        <h3>Add transfer to the Event ? </h3>
-      ) : (
-        <h1>Transfer List</h1>
-      )}
-
       <form>
         {!currentProjectIsLive ? (
           <div>
@@ -107,4 +101,4 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
   );
 };
 
-export default TransferList;
+export default AddTransfersINOUTToSchedule;

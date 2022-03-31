@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ADD_EVENT_TO_PROJECT } from "../../../redux/features/CurrentProjectSlice";
+import { ADD_EVENT_TO_SCHEDULE } from "../../../redux/features/CurrentProjectSlice";
 import TransferList from "../../transfers/TransferList/TransferList";
 
 const AddEventToSchedule = () => {
@@ -22,7 +22,7 @@ const AddEventToSchedule = () => {
 
   const handleAddEvent = () => {
     dispatch(
-      ADD_EVENT_TO_PROJECT({
+      ADD_EVENT_TO_SCHEDULE({
         dayOfEvent: location.state.dayOfEvent,
         timeOfEvent: location.state.timeOfEvent,
         event: eventWithTransfer,

@@ -59,9 +59,31 @@ const AddScheduleToProject = () => {
           Add dinner venues ...
         </li>
         {day.date === "Arrival Day" ? (
-          <li>Add transfer in </li>
+          <li
+            onClick={() =>
+              navigate(`/project/schedule/transfers_in_out`, {
+                state: {
+                  timeOfEvent: "transfer_in",
+                  dayOfEvent: index,
+                },
+              })
+            }
+          >
+            Add transfer in
+          </li>
         ) : day.date === "Departure Day" ? (
-          <li>Add transfer out</li>
+          <li
+            onClick={() =>
+              navigate(`/project/schedule/transfers_in_out`, {
+                state: {
+                  timeOfEvent: "transfer_out",
+                  dayOfEvent: index,
+                },
+              })
+            }
+          >
+            Add transfer out
+          </li>
         ) : null}
       </ul>
     </li>
