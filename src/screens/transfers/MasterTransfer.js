@@ -4,7 +4,7 @@ const MasterTransfer = () => {
   const navigate = useNavigate();
   return (
     <>
-      <button onClick={() => navigate("/project/list")}>
+      <button onClick={() => navigate("/transfer/list")}>
         Get a List of All Transfers in the Data Base
       </button>
 

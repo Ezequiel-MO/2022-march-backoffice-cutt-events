@@ -6,9 +6,9 @@ import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlic
 
 const TransferList = () => {
   const navigate = useNavigate();
-  const [hotels, setHotels] = useState([]);
+  const [transfers, setTransfers] = useState([]);
   const [city, setCity] = useState("Barcelona");
-  const [numberStars, setNumberStars] = useState(3);
+  const [vehicleCapacity, setVehicleCapacity] = useState(20);
   const currentProject = useSelector(selectCurrentProject);
 
   useEffect(() => {
@@ -19,46 +19,38 @@ const TransferList = () => {
   }, [currentProject]);
 
   useEffect(() => {
-    const getHotelList = async () => {
+    const getTransferList = async () => {
       try {
         const response = await baseAPI.get(
-          `/v1/hotels?city=${city}&numberStars=${numberStars}`
+          `/v1/transfers?city=${city}&vehicleCapacity=${vehicleCapacity}`
         );
-        setHotels(response.data.data.data);
+        setTransfers(response.data.data.data);
       } catch (error) {
         console.log(error);
       }
     };
-    getHotelList();
-  }, [city, numberStars]);
+    getTransferList();
+  }, [city, vehicleCapacity]);
 
-  const handleDeleteHotel = async (hotelId) => {
+  const handleDeleteTransfer = async (transferId) => {
     try {
-      await baseAPI.delete(`v1/hotels/${hotelId}`);
-      alert("Hotel Deleted");
+      await baseAPI.delete(`v1/transfers/${transferId}`);
+      alert("Transfer Deleted");
     } catch (error) {
       console.log(error);
     }
   };
 
-  const hotelList = hotels.map((hotel) => (
-    <li key={hotel._id}>
-      {hotel.name} <span>{hotel.city}</span>
-      <button onClick={() => navigate(`/hotel-update/${hotel._id}`)}>
-        Update a Hotel
+  const transferList = transfers.map((transfer) => (
+    <li key={transfer._id}>
+      {transfer.company} <span>{transfer.vehicleType}</span>
+      <span>{transfer.vehicleCapacity}</span>
+      <button onClick={() => navigate(`/transfer-update/${transfer._id}`)}>
+        Update a Transfer
       </button>
-      <button onClick={() => handleDeleteHotel(hotel._id)}>Delete Hotel</button>
-      {currentProject ? (
-        <button
-          onClick={() =>
-            navigate(`/hotel-add/${hotel._id}`, {
-              state: { hotelName: hotel.name },
-            })
-          }
-        >
-          Add To Project
-        </button>
-      ) : null}
+      <button onClick={() => handleDeleteTransfer(transfer._id)}>
+        Delete Transfer
+      </button>
     </li>
   ));
 
@@ -81,19 +73,19 @@ const TransferList = () => {
           </div>
         ) : null}
         <div>
-          <label htmlFor="nrStars">Filter by Nr of Stars:</label>
+          <label htmlFor="vehicleCapacity">Filter by Company:</label>
           <select
-            name="nrStars"
-            id="nrStars"
-            onChange={(e) => setNumberStars(e.target.value)}
+            name="vehicleCapacity"
+            id="vehicleCapacity"
+            onChange={(e) => setVehicleCapacity(parseInt(e.target.value))}
           >
-            <option value={3}>3-star</option>
-            <option value={4}>4-star</option>
-            <option value={5}>5-star</option>
+            <option value={20}>Mini Bus</option>
+            <option value={30}>30-seater Bus</option>
+            <option value={50}>50-seater Bus</option>
           </select>
         </div>
       </form>
-      <ul>{hotelList}</ul>
+      <ul>{transferList}</ul>
     </>
   );
 };
