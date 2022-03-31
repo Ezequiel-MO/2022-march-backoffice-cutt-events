@@ -82,6 +82,7 @@ const TransferList = () => {
             <option value={20}>Mini Bus</option>
             <option value={30}>30-seater Bus</option>
             <option value={50}>50-seater Bus</option>
+            <option value={70}>70-seater Bus</option>
           </select>
         </div>
       </form>
