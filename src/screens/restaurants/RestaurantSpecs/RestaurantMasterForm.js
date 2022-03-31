@@ -110,7 +110,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                   />
                 </div>
               </div>
-              <div className="button">
+              <div>
                 <button type="submit">Save and submit</button>
               </div>
             </fieldset>

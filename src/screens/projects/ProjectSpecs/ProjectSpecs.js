@@ -1,10 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import baseAPI from "../../../axios/axiosConfig";
-import {
-  ADD_DAYS_TO_PROJECT_SCHEDULE,
-  SET_CURRENT_PROJECT,
-} from "../../../redux/features/CurrentProjectSlice";
+import { SET_CURRENT_PROJECT } from "../../../redux/features/CurrentProjectSlice";
 import ProjectMasterForm from "./ProjectMasterForm";
 import { useNavigate } from "react-router-dom";
 import {

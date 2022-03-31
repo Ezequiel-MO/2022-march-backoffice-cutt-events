@@ -24,6 +24,9 @@ import RestaurantList from "./screens/restaurants/RestaurantList/RestaurantList"
 import RestaurantSpecs from "./screens/restaurants/RestaurantSpecs/RestaurantSpecs";
 import RestaurantUpdate from "./screens/restaurants/RestaurantUpdate/RestaurantUpdate";
 import AddScheduleToProject from "./screens/projects/AddScheduleToProject/AddScheduleToProject";
+import MasterTransfer from "./screens/transfers/MasterTransfer";
+import TransferSpecs from "./screens/transfers/TransferSpecs/TransferSpecs";
+import TransferList from "./screens/transfers/TransferList/TransferList";
 
 function App() {
   return (
@@ -48,6 +51,9 @@ function App() {
         <Route path="/event-specs" element={<EventSpecs />} />
         <Route path="/event-update" element={<EventUpdate />} />
         <Route path="/event-list" element={<EventList />} />
+        <Route path="/transfer" element={<MasterTransfer />} />
+        <Route path="/transfer/specs" element={<TransferSpecs />} />
+        <Route path="/transfer/list" element={<TransferList />} />
         <Route path="/*" element={<Navigate to="/" />} />
       </Routes>
     </Router>
