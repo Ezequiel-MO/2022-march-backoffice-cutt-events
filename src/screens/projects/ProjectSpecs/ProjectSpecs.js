@@ -15,7 +15,6 @@ const ProjectSpecs = () => {
   const transformData = (data, diffDays) => {
     let transformedData = { ...data };
     transformedData.schedule = [];
-    console.log("daaata", transformedData);
     for (let i = 1; i <= diffDays; i++) {
       transformedData.schedule.push({
         date: whichDay(i, diffDays),

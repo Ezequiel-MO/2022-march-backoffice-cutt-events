@@ -7,19 +7,23 @@ const MasterProject = () => {
   const currentProject = useSelector(selectCurrentProject);
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
+  const handleClearProject = () => {
+    localStorage.removeItem("currentProject");
+    alert("Project cleared");
+    navigate("/");
+  };
+
   return (
     <>
       {currentProjectIsLive ? (
         <>
-          <button onClick={() => navigate("/hotel-list")}>
+          <button onClick={() => navigate("/hotel/list")}>
             Add a Hotel to current project
           </button>
           <button onClick={() => navigate("/project/schedule")}>
             Configure schedule for current project
           </button>
-          <button onClick={() => localStorage.removeItem("currentProject")}>
-            CLEAR EXISTING PROJECT
-          </button>
+          <button onClick={handleClearProject}>CLEAR EXISTING PROJECT</button>
         </>
       ) : (
         <>

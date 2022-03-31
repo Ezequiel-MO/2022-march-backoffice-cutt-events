@@ -1,10 +1,26 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import baseAPI from "../../../axios/axiosConfig";
 
 const AddScheduleToProject = () => {
   const navigate = useNavigate();
   const currentProject = useSelector(selectCurrentProject);
+
+  const handlePatchProject = async () => {
+    try {
+      const response = await baseAPI.patch(
+        `/v1/projects/${currentProject._id}`,
+        {
+          schedule: currentProject.schedule,
+          hotels: currentProject.hotels,
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const renderSchedule = currentProject.schedule.map((day, index) => (
     <li key={day.date}>
@@ -89,7 +105,14 @@ const AddScheduleToProject = () => {
     </li>
   ));
 
-  return <ul>{renderSchedule}</ul>;
+  return (
+    <>
+      <ul>{renderSchedule}</ul>
+      <button onClick={handlePatchProject}>
+        I'm ready to save my final project
+      </button>
+    </>
+  );
 };
 
 export default AddScheduleToProject;
