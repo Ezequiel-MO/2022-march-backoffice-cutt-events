@@ -23,9 +23,9 @@ const AddHotelToProject = () => {
       alert("Hotel Added");
       let moreHotels = prompt("Would you like to add more hotels ?", "yes/no");
       if (moreHotels === "yes") {
-        navigate("/hotel-list");
+        navigate("/hotel/list");
       } else {
-        navigate("/project-specs");
+        navigate("/project/specs");
       }
     } catch (err) {
       console.log(err);

@@ -12,7 +12,7 @@ const AddScheduleToProject = () => {
       <ul>
         <li
           onClick={() =>
-            navigate(`/event-list`, {
+            navigate(`/event/list`, {
               state: {
                 timeOfEvent: "morningEvents",
                 dayOfEvent: index,
@@ -24,7 +24,7 @@ const AddScheduleToProject = () => {
         </li>
         <li
           onClick={() =>
-            navigate(`/restaurant-list`, {
+            navigate(`/restaurant/list`, {
               state: {
                 timeOfEvent: "lunch",
                 dayOfEvent: index,
@@ -36,7 +36,7 @@ const AddScheduleToProject = () => {
         </li>
         <li
           onClick={() =>
-            navigate(`/event-list`, {
+            navigate(`/event/list`, {
               state: {
                 timeOfEvent: "afternoonEvents",
                 dayOfEvent: index,
@@ -48,7 +48,7 @@ const AddScheduleToProject = () => {
         </li>
         <li
           onClick={() =>
-            navigate(`/restaurant-list`, {
+            navigate(`/restaurant/list`, {
               state: {
                 timeOfEvent: "dinner",
                 dayOfEvent: index,

@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
-import {
-  ADD_EVENT_TO_PROJECT,
-  selectCurrentProject,
-} from "../../../redux/features/CurrentProjectSlice";
+import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
 const EventList = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
   const [events, setEvents] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [price, setPrice] = useState(100);
@@ -46,14 +42,14 @@ const EventList = () => {
     }
   };
 
-  const AddEventToProject = (eventId) => {
-    dispatch(
-      ADD_EVENT_TO_PROJECT({
+  const AddEventToProject = (event) => {
+    navigate(`/project/schedule/add/${event._id}`, {
+      state: {
+        event,
         dayOfEvent: location.state.dayOfEvent,
         timeOfEvent: location.state.timeOfEvent,
-        id: eventId,
-      })
-    );
+      },
+    });
   };
 
   const eventList = events.map((event) => (
@@ -73,7 +69,7 @@ const EventList = () => {
       </button>
       <button onClick={() => handleDeleteEvent(event._id)}>Delete Event</button>
       {currentProject ? (
-        <button onClick={() => AddEventToProject(event._id)}>
+        <button onClick={() => AddEventToProject(event)}>
           Add Event To Project
         </button>
       ) : null}

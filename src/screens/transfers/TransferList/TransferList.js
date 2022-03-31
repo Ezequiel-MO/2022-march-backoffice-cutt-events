@@ -4,7 +4,7 @@ import baseAPI from "../../../axios/axiosConfig";
 import { useSelector } from "react-redux";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
-const TransferList = () => {
+const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
   const navigate = useNavigate();
   const [transfers, setTransfers] = useState([]);
   const [city, setCity] = useState("Barcelona");
@@ -45,12 +45,22 @@ const TransferList = () => {
     <li key={transfer._id}>
       {transfer.company} <span>{transfer.vehicleType}</span>
       <span>{transfer.vehicleCapacity}</span>
-      <button onClick={() => navigate(`/transfer-update/${transfer._id}`)}>
-        Update a Transfer
-      </button>
-      <button onClick={() => handleDeleteTransfer(transfer._id)}>
-        Delete Transfer
-      </button>
+      {addEventToSchedule ? (
+        <>
+          <button onClick={() => handleAddTransfer(transfer)}>
+            Add Transfer to Event
+          </button>
+        </>
+      ) : (
+        <>
+          <button onClick={() => navigate(`/transfer-update/${transfer._id}`)}>
+            Update a Transfer
+          </button>
+          <button onClick={() => handleDeleteTransfer(transfer._id)}>
+            Delete Transfer
+          </button>
+        </>
+      )}
     </li>
   ));
 
@@ -73,7 +83,7 @@ const TransferList = () => {
           </div>
         ) : null}
         <div>
-          <label htmlFor="vehicleCapacity">Filter by Company:</label>
+          <label htmlFor="vehicleCapacity">Filter by Vehicle Size:</label>
           <select
             name="vehicleCapacity"
             id="vehicleCapacity"

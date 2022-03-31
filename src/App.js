@@ -28,6 +28,7 @@ import MasterTransfer from "./screens/transfers/MasterTransfer";
 import TransferSpecs from "./screens/transfers/TransferSpecs/TransferSpecs";
 import TransferList from "./screens/transfers/TransferList/TransferList";
 import TransferUpdate from "./screens/transfers/TransferUpdate/TransferUpdate";
+import AddEventToSchedule from "./screens/events/AddEventToSchedule/AddEventToSchedule";
 
 function App() {
   return (
@@ -52,6 +53,10 @@ function App() {
         <Route path="/event/specs" element={<EventSpecs />} />
         <Route path="/event-update" element={<EventUpdate />} />
         <Route path="/event/list" element={<EventList />} />
+        <Route
+          path="/project/schedule/add/:eventId"
+          element={<AddEventToSchedule />}
+        />
         <Route path="/transfer" element={<MasterTransfer />} />
         <Route path="/transfer/specs" element={<TransferSpecs />} />
         <Route path="/transfer/list" element={<TransferList />} />
