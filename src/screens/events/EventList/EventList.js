@@ -31,7 +31,9 @@ const EventList = () => {
         console.log(error);
       }
     };
-    getEventList();
+    if (city && price) {
+      getEventList();
+    }
   }, [city, price]);
 
   const handleDeleteEvent = async (eventId) => {

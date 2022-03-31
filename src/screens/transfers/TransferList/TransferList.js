@@ -67,7 +67,12 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
 
   return (
     <>
-      <h1>Transfer List</h1>
+      {addEventToSchedule ? (
+        <h3>Add transfer to the Event ? </h3>
+      ) : (
+        <h1>Transfer List</h1>
+      )}
+
       <form>
         {!currentProjectIsLive ? (
           <div>

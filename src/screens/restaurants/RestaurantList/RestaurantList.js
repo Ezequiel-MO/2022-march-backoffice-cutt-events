@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
-import {
-  ADD_EVENT_TO_PROJECT,
-  selectCurrentProject,
-} from "../../../redux/features/CurrentProjectSlice";
+import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
   const [restaurants, setRestaurants] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [price, setPrice] = useState(null);
@@ -35,7 +31,9 @@ const RestaurantList = () => {
         console.log(error);
       }
     };
-    getRestaurantList();
+    if (city && price) {
+      getRestaurantList();
+    }
   }, [city, price]);
 
   const handleDeleteRestaurant = async (restaurantId) => {
@@ -47,39 +45,43 @@ const RestaurantList = () => {
     }
   };
 
-  const AddRestaurantToProject = (restaurantId) => {
-    dispatch(
-      ADD_EVENT_TO_PROJECT({
+  const AddRestaurantToProject = (restaurant) => {
+    navigate(`/project/schedule/${restaurant._id}/event`, {
+      state: {
+        event: restaurant,
         dayOfEvent: location.state.dayOfEvent,
         timeOfEvent: location.state.timeOfEvent,
-        id: restaurantId,
-      })
-    );
+      },
+    });
   };
 
   const restaurantList = restaurants.map((restaurant) => (
     <li key={restaurant._id}>
       {restaurant.name}
-      <button
-        onClick={() =>
-          navigate("/restaurant-update", {
-            state: {
-              restaurantId: restaurant._id,
-              restaurantName: restaurant.name,
-            },
-          })
-        }
-      >
-        Update a Restaurant
-      </button>
-      <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
-        Delete Restaurant
-      </button>
+
       {currentProjectIsLive ? (
-        <button onClick={() => AddRestaurantToProject(restaurant._id)}>
+        <button onClick={() => AddRestaurantToProject(restaurant)}>
           Add Restaurant To Project
         </button>
-      ) : null}
+      ) : (
+        <>
+          <button
+            onClick={() =>
+              navigate("/restaurant-update", {
+                state: {
+                  restaurantId: restaurant._id,
+                  restaurantName: restaurant.name,
+                },
+              })
+            }
+          >
+            Update a Restaurant
+          </button>
+          <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
+            Delete Restaurant
+          </button>
+        </>
+      )}
     </li>
   ));
 

@@ -38,6 +38,10 @@ function App() {
         <Route path="/project" element={<MasterProject />} />
         <Route path="/hotel-add/:hotelId" element={<AddHotelToProject />} />
         <Route path="/project/schedule" element={<AddScheduleToProject />} />
+        <Route
+          path="/project/schedule/:eventId/event"
+          element={<AddEventToSchedule />}
+        />
         <Route path="/project/specs" element={<ProjectSpecs />} />
         <Route path="/project/update" element={<ProjectUpdate />} />
         <Route path="/project/list" element={<ProjectList />} />
@@ -53,10 +57,7 @@ function App() {
         <Route path="/event/specs" element={<EventSpecs />} />
         <Route path="/event-update" element={<EventUpdate />} />
         <Route path="/event/list" element={<EventList />} />
-        <Route
-          path="/project/schedule/:eventId/event"
-          element={<AddEventToSchedule />}
-        />
+
         <Route path="/transfer" element={<MasterTransfer />} />
         <Route path="/transfer/specs" element={<TransferSpecs />} />
         <Route path="/transfer/list" element={<TransferList />} />
