@@ -40,13 +40,13 @@ function App() {
         <Route path="/project/update" element={<ProjectUpdate />} />
         <Route path="/project/list" element={<ProjectList />} />
         <Route path="/hotel" element={<MasterHotel />} />
-        <Route path="/hotel-specs" element={<HotelSpecs />} />
+        <Route path="/hotel/specs" element={<HotelSpecs />} />
         <Route path="/hotel-update/:hotelId" element={<HotelUpdate />} />
-        <Route path="/hotel-list" element={<HotelList />} />
+        <Route path="/hotel/list" element={<HotelList />} />
         <Route path="/restaurant" element={<MasterRestaurant />} />
-        <Route path="/restaurant-specs" element={<RestaurantSpecs />} />
+        <Route path="/restaurant/specs" element={<RestaurantSpecs />} />
         <Route path="/restaurant-update" element={<RestaurantUpdate />} />
-        <Route path="/restaurant-list" element={<RestaurantList />} />
+        <Route path="/restaurant/list" element={<RestaurantList />} />
         <Route path="/event" element={<MasterEvent />} />
         <Route path="/event-specs" element={<EventSpecs />} />
         <Route path="/event-update" element={<EventUpdate />} />
