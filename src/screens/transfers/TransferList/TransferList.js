@@ -10,13 +10,14 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
   const [city, setCity] = useState("Barcelona");
   const [vehicleCapacity, setVehicleCapacity] = useState(20);
   const currentProject = useSelector(selectCurrentProject);
+  const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
   useEffect(() => {
-    if (currentProject) {
+    if (currentProjectIsLive) {
       const { groupLocation } = currentProject;
       setCity(groupLocation);
     }
-  }, [currentProject]);
+  }, [currentProject, currentProjectIsLive]);
 
   useEffect(() => {
     const getTransferList = async () => {
@@ -68,7 +69,7 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
     <>
       <h1>Transfer List</h1>
       <form>
-        {!currentProject ? (
+        {!currentProjectIsLive ? (
           <div>
             <label htmlFor="cities">Filter by city:</label>
             <select

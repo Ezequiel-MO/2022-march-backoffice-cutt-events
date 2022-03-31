@@ -13,15 +13,16 @@ const RestaurantList = () => {
   const dispatch = useDispatch();
   const [restaurants, setRestaurants] = useState([]);
   const [city, setCity] = useState("Barcelona");
-  const [price, setPrice] = useState(100);
+  const [price, setPrice] = useState(null);
   const currentProject = useSelector(selectCurrentProject);
+  const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
   useEffect(() => {
-    if (currentProject) {
+    if (currentProjectIsLive) {
       const { groupLocation } = currentProject;
       setCity(groupLocation);
     }
-  }, [currentProject]);
+  }, [currentProject, currentProjectIsLive]);
 
   useEffect(() => {
     const getRestaurantList = async () => {
@@ -74,7 +75,7 @@ const RestaurantList = () => {
       <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
         Delete Restaurant
       </button>
-      {currentProject ? (
+      {currentProjectIsLive ? (
         <button onClick={() => AddRestaurantToProject(restaurant._id)}>
           Add Restaurant To Project
         </button>
@@ -86,7 +87,7 @@ const RestaurantList = () => {
     <>
       <h1>Restaurant List</h1>
       <form>
-        {!currentProject ? (
+        {!currentProjectIsLive ? (
           <div>
             <label htmlFor="cities">Filter by city:</label>
             <select
@@ -105,7 +106,7 @@ const RestaurantList = () => {
           <select
             name="price"
             id="price"
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(parseInt(e.target.value))}
           >
             <option value={25}>Less than €25</option>
             <option value={40}>Less than €40</option>

@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 const MasterProject = () => {
   const navigate = useNavigate();
+
   return (
     <>
       <button onClick={() => navigate("/project/list")}>
@@ -16,6 +17,9 @@ const MasterProject = () => {
       </button>
       <button onClick={() => navigate("/project/schedule")}>
         Configure schedule for current project
+      </button>
+      <button onClick={() => localStorage.removeItem("currentProject")}>
+        CLEAR EXISTING PROJECT
       </button>
     </>
   );

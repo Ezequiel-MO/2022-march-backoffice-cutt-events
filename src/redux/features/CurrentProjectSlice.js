@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 //set initial state.project to 'currentProject' from localStorage
 const initialState = {
-  project: JSON.parse(localStorage.getItem("currentProject")),
+  project: JSON.parse(localStorage.getItem("currentProject")) || {},
 };
 
 export const currentProjectSlice = createSlice({

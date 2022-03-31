@@ -9,15 +9,16 @@ const EventList = () => {
   const location = useLocation();
   const [events, setEvents] = useState([]);
   const [city, setCity] = useState("Barcelona");
-  const [price, setPrice] = useState(100);
+  const [price, setPrice] = useState(null);
   const currentProject = useSelector(selectCurrentProject);
+  const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
   useEffect(() => {
-    if (currentProject) {
+    if (currentProjectIsLive) {
       const { groupLocation } = currentProject;
       setCity(groupLocation);
     }
-  }, [currentProject]);
+  }, [currentProject, currentProjectIsLive]);
 
   useEffect(() => {
     const getEventList = async () => {
@@ -43,7 +44,7 @@ const EventList = () => {
   };
 
   const AddEventToProject = (event) => {
-    navigate(`/project/schedule/add/${event._id}`, {
+    navigate(`/project/schedule/${event._id}/event`, {
       state: {
         event,
         dayOfEvent: location.state.dayOfEvent,
@@ -55,24 +56,30 @@ const EventList = () => {
   const eventList = events.map((event) => (
     <li key={event._id}>
       {event.name}
-      <button
-        onClick={() =>
-          navigate("/event-update", {
-            state: {
-              eventId: event._id,
-              eventName: event.name,
-            },
-          })
-        }
-      >
-        Update an Event
-      </button>
-      <button onClick={() => handleDeleteEvent(event._id)}>Delete Event</button>
-      {currentProject ? (
+
+      {currentProjectIsLive ? (
         <button onClick={() => AddEventToProject(event)}>
           Add Event To Project
         </button>
-      ) : null}
+      ) : (
+        <>
+          <button
+            onClick={() =>
+              navigate("/event-update", {
+                state: {
+                  eventId: event._id,
+                  eventName: event.name,
+                },
+              })
+            }
+          >
+            Update an Event
+          </button>
+          <button onClick={() => handleDeleteEvent(event._id)}>
+            Delete Event
+          </button>
+        </>
+      )}
     </li>
   ));
 
@@ -80,7 +87,7 @@ const EventList = () => {
     <>
       <h1>Event List</h1>
       <form>
-        {!currentProject ? (
+        {!currentProjectIsLive ? (
           <div>
             <label htmlFor="cities">Filter by city:</label>
             <select
@@ -99,7 +106,7 @@ const EventList = () => {
           <select
             name="price"
             id="price"
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(parseInt(e.target.value))}
           >
             <option value={25}>Less than €25</option>
             <option value={40}>Less than €40</option>

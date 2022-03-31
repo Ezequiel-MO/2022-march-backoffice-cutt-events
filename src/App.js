@@ -54,7 +54,7 @@ function App() {
         <Route path="/event-update" element={<EventUpdate />} />
         <Route path="/event/list" element={<EventList />} />
         <Route
-          path="/project/schedule/add/:eventId"
+          path="/project/schedule/:eventId/event"
           element={<AddEventToSchedule />}
         />
         <Route path="/transfer" element={<MasterTransfer />} />

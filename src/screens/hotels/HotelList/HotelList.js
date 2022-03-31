@@ -10,13 +10,14 @@ const HotelList = () => {
   const [city, setCity] = useState("Barcelona");
   const [numberStars, setNumberStars] = useState(3);
   const currentProject = useSelector(selectCurrentProject);
+  console.log("currentProject", currentProject);
+  const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
   useEffect(() => {
-    if (currentProject) {
-      const { groupLocation } = currentProject;
-      setCity(groupLocation);
+    if (currentProjectIsLive) {
+      setCity(currentProject.groupLocation);
     }
-  }, [currentProject]);
+  }, [currentProject, currentProjectIsLive]);
 
   useEffect(() => {
     const getHotelList = async () => {
@@ -48,7 +49,7 @@ const HotelList = () => {
         Update a Hotel
       </button>
       <button onClick={() => handleDeleteHotel(hotel._id)}>Delete Hotel</button>
-      {currentProject ? (
+      {currentProjectIsLive ? (
         <button
           onClick={() =>
             navigate(`/hotel-add/${hotel._id}`, {
@@ -66,7 +67,7 @@ const HotelList = () => {
     <>
       <h1>Hotel List</h1>
       <form>
-        {!currentProject ? (
+        {!currentProjectIsLive ? (
           <div>
             <label htmlFor="cities">Filter by city:</label>
             <select
