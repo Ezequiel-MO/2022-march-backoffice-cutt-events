@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
@@ -56,68 +57,87 @@ const RestaurantList = () => {
   };
 
   const restaurantList = restaurants.map((restaurant) => (
-    <li key={restaurant._id}>
-      {restaurant.name}
-
-      {currentProjectIsLive ? (
-        <button onClick={() => AddRestaurantToProject(restaurant)}>
-          Add Restaurant To Project
-        </button>
-      ) : (
-        <>
-          <button
-            onClick={() =>
-              navigate("/restaurant-update", {
-                state: {
-                  restaurantId: restaurant._id,
-                  restaurantName: restaurant.name,
-                },
-              })
-            }
-          >
-            Update a Restaurant
-          </button>
-          <button onClick={() => handleDeleteRestaurant(restaurant._id)}>
-            Delete Restaurant
-          </button>
-        </>
-      )}
-    </li>
+    <tr key={restaurant._id}>
+      <td>{restaurant.name}</td>
+      <td>{restaurant.city}</td>
+      <td>{restaurant.price}</td>
+      <td
+        className="hover:cursor-pointer"
+        onClick={() => navigate(`/restaurant/${restaurant._id}/update`)}
+      >
+        <Icon
+          icon="arcticons:huawei-system-update"
+          color="#ea5933"
+          width="30"
+        />
+      </td>
+      <td
+        className="hover:cursor-pointer"
+        onClick={() => handleDeleteRestaurant(restaurant._id)}
+      >
+        <Icon icon="ei:trash" color="#ea5933" width="30" />
+      </td>
+      {location.state ? (
+        <td
+          className="hover:cursor-pointer"
+          onClick={() => AddRestaurantToProject(restaurant)}
+        >
+          <Icon icon="ic:twotone-add-circle" color="#ea5933" width="25" />
+        </td>
+      ) : null}
+    </tr>
   ));
 
   return (
     <>
-      <h1>Restaurant List</h1>
-      <form>
-        {!currentProjectIsLive ? (
-          <div>
-            <label htmlFor="cities">Filter by city:</label>
+      <h1 className="text-2xl mb-4 indent-8">Restaurant List</h1>
+      <hr />
+      <div className="container grid grid-cols-4 gap-4 my-4">
+        <form className="text-orange-50">
+          {!currentProjectIsLive ? (
+            <div className="block relative w-64">
+              <label htmlFor="cities">Filter by city:</label>
+              <select
+                name="cities"
+                id="cities"
+                className="block cursor-pointer w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => setCity(e.target.value)}
+              >
+                <option value="Barcelona">Barcelona</option>
+                <option value="Valencia">Valencia</option>
+                <option value="Madrid">Madrid</option>
+              </select>
+            </div>
+          ) : null}
+          <div className="block relative w-64">
+            <label htmlFor="price">Filter by Price:</label>
             <select
-              name="cities"
-              id="cities"
-              onChange={(e) => setCity(e.target.value)}
+              name="price"
+              id="price"
+              className="block cursor-pointer w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setPrice(parseInt(e.target.value))}
             >
-              <option value="Barcelona">Barcelona</option>
-              <option value="Valencia">Valencia</option>
-              <option value="Madrid">Madrid</option>
+              <option value={25}>Less than €25</option>
+              <option value={40}>Less than €40</option>
+              <option value={60}>Less than €60</option>
+              <option value={900}>All prices</option>
             </select>
           </div>
-        ) : null}
-        <div>
-          <label htmlFor="price">Filter by Price:</label>
-          <select
-            name="price"
-            id="price"
-            onChange={(e) => setPrice(parseInt(e.target.value))}
-          >
-            <option value={25}>Less than €25</option>
-            <option value={40}>Less than €40</option>
-            <option value={60}>Less than €60</option>
-            <option value={900}>All prices</option>
-          </select>
-        </div>
-      </form>
-      <ul>{restaurantList}</ul>
+        </form>
+        <table className="table-auto col-span-3">
+          <thead className="bg-gray-50 border-b text-left">
+            <tr>
+              <th>Rest Name</th>
+              <th>City</th>
+              <th>Menus from</th>
+              <th>Update</th>
+              <th>Delete</th>
+              {location.state && <th>Add To Project</th>}
+            </tr>
+          </thead>
+          <tbody className="text-white-50">{restaurantList}</tbody>
+        </table>
+      </div>
     </>
   );
 };

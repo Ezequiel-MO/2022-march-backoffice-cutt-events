@@ -2,12 +2,24 @@ import React, { useEffect, useState } from "react";
 import baseAPI from "../../../axios/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useSelector } from "react-redux";
+import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
 const ProjectList = () => {
   const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [city, setCity] = useState("Barcelona");
-  const [accountManager, setAccountManager] = useState("John Doe");
+  const [accountManager, setAccountManager] = useState("Montse Miranda");
+  const currentProject = useSelector(selectCurrentProject);
+  const currentProjectIsLive = Object.keys(currentProject).length !== 0;
+
+  useEffect(() => {
+    if (currentProjectIsLive) {
+      const { groupLocation, accountManager } = currentProject;
+      setCity(groupLocation);
+      setAccountManager(accountManager);
+    }
+  }, [currentProject, currentProjectIsLive]);
 
   useEffect(() => {
     const getProjectList = async () => {
@@ -75,7 +87,7 @@ const ProjectList = () => {
             <select
               name="cities"
               id="cities"
-              className="block cursor-pointer appearance-none w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              className="block cursor-pointer  w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               onChange={(e) => setCity(e.target.value)}
             >
               <option value="Barcelona">Barcelona</option>
@@ -88,7 +100,7 @@ const ProjectList = () => {
             <select
               name="accountManager"
               id="accountManager"
-              className="block cursor-pointer appearance-none w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              className="block cursor-pointer  w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               onChange={(e) => setAccountManager(e.target.value)}
             >
               <option value="Montse Miranda">Montse Miranda</option>

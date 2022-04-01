@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const RestaurantUpdate = () => {
+  let params = useParams();
   const [originalRestaurant, setOriginalRestaurant] = useState({});
   const [isInput, setIsInput] = useState({
     name: false,
@@ -21,8 +22,6 @@ const RestaurantUpdate = () => {
     price: "",
     introduction: "",
   });
-
-  const location = useLocation();
 
   const filterOutRestaurant = (obj) => {
     let filteredOutObj = {};
@@ -49,7 +48,7 @@ const RestaurantUpdate = () => {
     const getRestaurant = async () => {
       try {
         const recovered = await baseAPI.get(
-          `v1/restaurants/${location.state.restaurantId}`
+          `v1/restaurants/${params.restaurantId}`
         );
         const filteredOutRestaurantObj = filterOutRestaurant(
           recovered.data.data.data
@@ -60,7 +59,7 @@ const RestaurantUpdate = () => {
       }
     };
     getRestaurant();
-  }, [location.state.restaurantId]);
+  }, [params.restaurantId]);
 
   const setEditFieldStatus = (key, bool) => {
     setIsInput({
@@ -80,7 +79,7 @@ const RestaurantUpdate = () => {
     e.preventDefault();
     try {
       const updated = await baseAPI.patch(
-        `v1/restaurants/${location.state.restaurantId}`,
+        `v1/restaurants/${params.restaurantId}`,
         updatedRestaurant
       );
       setUpdatedRestaurant(updated.data.data.data);

@@ -38,7 +38,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/project" element={<MasterProject />} />
-          <Route path="/hotel-add/:hotelId" element={<AddHotelToProject />} />
+          <Route path="/hotel/:hotelId/add" element={<AddHotelToProject />} />
           <Route path="/project/schedule" element={<AddScheduleToProject />} />
           <Route
             path="/project/schedule/:eventId/event"
@@ -53,11 +53,14 @@ function App() {
           <Route path="/project/list" element={<ProjectList />} />
           <Route path="/hotel" element={<MasterHotel />} />
           <Route path="/hotel/specs" element={<HotelSpecs />} />
-          <Route path="/hotel-update/:hotelId" element={<HotelUpdate />} />
+          <Route path="/hotel/:hotelId/update" element={<HotelUpdate />} />
           <Route path="/hotel/list" element={<HotelList />} />
           <Route path="/restaurant" element={<MasterRestaurant />} />
           <Route path="/restaurant/specs" element={<RestaurantSpecs />} />
-          <Route path="/restaurant-update" element={<RestaurantUpdate />} />
+          <Route
+            path="/restaurant/:restaurantId/update"
+            element={<RestaurantUpdate />}
+          />
           <Route path="/restaurant/list" element={<RestaurantList />} />
           <Route path="/event" element={<MasterEvent />} />
           <Route path="/event/specs" element={<EventSpecs />} />
