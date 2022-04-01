@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 
 const EventUpdate = () => {
+  let params = useParams();
   const [originalEvent, setOriginalEvent] = useState({});
   const [isInput, setIsInput] = useState({
     name: false,
@@ -21,8 +22,6 @@ const EventUpdate = () => {
     price: "",
     introduction: "",
   });
-
-  const location = useLocation();
 
   const filterOutEvent = (obj) => {
     let filteredOutObj = {};
@@ -48,9 +47,7 @@ const EventUpdate = () => {
   useEffect(() => {
     const getEvent = async () => {
       try {
-        const recovered = await baseAPI.get(
-          `v1/events/${location.state.eventId}`
-        );
+        const recovered = await baseAPI.get(`v1/events/${params.eventId}`);
         const filteredOutEventObj = filterOutEvent(recovered.data.data.data);
         setOriginalEvent(filteredOutEventObj);
       } catch (error) {
@@ -58,7 +55,7 @@ const EventUpdate = () => {
       }
     };
     getEvent();
-  }, [location.state.eventId]);
+  }, [params.eventId]);
 
   const setEditFieldStatus = (key, bool) => {
     setIsInput({
@@ -78,7 +75,7 @@ const EventUpdate = () => {
     e.preventDefault();
     try {
       const updated = await baseAPI.patch(
-        `v1/events/${location.state.eventId}`,
+        `v1/events/${params.eventId}`,
         updatedEvent
       );
       setUpdatedEvent(updated.data.data.data);

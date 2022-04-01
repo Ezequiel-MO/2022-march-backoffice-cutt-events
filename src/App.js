@@ -64,13 +64,13 @@ function App() {
           <Route path="/restaurant/list" element={<RestaurantList />} />
           <Route path="/event" element={<MasterEvent />} />
           <Route path="/event/specs" element={<EventSpecs />} />
-          <Route path="/event-update" element={<EventUpdate />} />
+          <Route path="/event/:eventId/update" element={<EventUpdate />} />
           <Route path="/event/list" element={<EventList />} />
           <Route path="/transfer" element={<MasterTransfer />} />
           <Route path="/transfer/specs" element={<TransferSpecs />} />
           <Route path="/transfer/list" element={<TransferList />} />
           <Route
-            path="/transfer-update/:transferId"
+            path="/transfer/:transferId/update"
             element={<TransferUpdate />}
           />
           <Route path="/*" element={<Navigate to="/" />} />

@@ -56,7 +56,7 @@ const RestaurantList = () => {
     });
   };
 
-  const restaurantList = restaurants.map((restaurant) => (
+  const restaurantList = restaurants.slice(0, 15).map((restaurant) => (
     <tr key={restaurant._id}>
       <td>{restaurant.name}</td>
       <td>{restaurant.city}</td>

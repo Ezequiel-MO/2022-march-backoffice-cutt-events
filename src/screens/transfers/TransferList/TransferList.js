@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
+import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
@@ -43,66 +44,95 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
   };
 
   const transferList = transfers.map((transfer) => (
-    <li key={transfer._id}>
-      {transfer.company} <span>{transfer.vehicleType}</span>
-      <span>{transfer.vehicleCapacity}</span>
-      {addEventToSchedule || currentProjectIsLive ? (
-        <>
-          <button onClick={() => handleAddTransfer(transfer)}>
-            Add Transfer to Event
-          </button>
-        </>
+    <tr key={transfer._id}>
+      <td>{transfer.company}</td>
+      <td>{transfer.city}</td>
+      <td>{transfer.vehicleType}</td>
+      <td>{transfer.vehicleCapacity}</td>
+      {addEventToSchedule && currentProjectIsLive ? (
+        <td
+          className="hover:cursor-pointer"
+          onClick={() => handleAddTransfer(transfer)}
+        >
+          <Icon icon="ic:twotone-add-circle" color="#ea5933" width="25" />
+        </td>
       ) : (
         <>
-          <button onClick={() => navigate(`/transfer-update/${transfer._id}`)}>
-            Update a Transfer
-          </button>
-          <button onClick={() => handleDeleteTransfer(transfer._id)}>
-            Delete Transfer
-          </button>
+          <td
+            className="hover:cursor-pointer"
+            onClick={() => navigate(`/transfer/${transfer._id}/update`)}
+          >
+            <Icon
+              icon="arcticons:huawei-system-update"
+              color="#ea5933"
+              width="30"
+            />
+          </td>
+          <td
+            className="hover:cursor-pointer"
+            onClick={() => handleDeleteTransfer(transfer._id)}
+          >
+            <Icon icon="ei:trash" color="#ea5933" width="30" />
+          </td>
         </>
       )}
-    </li>
+    </tr>
   ));
 
   return (
     <>
-      {addEventToSchedule || currentProjectIsLive ? (
-        <h3>Add transfer to the Event ? </h3>
+      {addEventToSchedule && currentProjectIsLive ? (
+        <h1 className="text-2xl mb-4 indent-8">Add Transfer to an Event ? </h1>
       ) : (
-        <h1>Transfer List</h1>
+        <h1 className="text-2xl mb-4 indent-8">Transfer List</h1>
       )}
-
-      <form>
-        {!currentProjectIsLive ? (
-          <div>
-            <label htmlFor="cities">Filter by city:</label>
+      <hr />
+      <div className="container grid grid-cols-4 gap-4 my-4">
+        <form className="text-orange-50">
+          {!currentProjectIsLive ? (
+            <div className="block relative w-64">
+              <label htmlFor="cities">Filter by city:</label>
+              <select
+                name="cities"
+                id="cities"
+                className="block cursor-pointer w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                onChange={(e) => setCity(e.target.value)}
+              >
+                <option value="Barcelona">Barcelona</option>
+                <option value="Valencia">Valencia</option>
+                <option value="Madrid">Madrid</option>
+              </select>
+            </div>
+          ) : null}
+          <div className="block relative w-64">
+            <label htmlFor="vehicleCapacity">Filter by Vehicle Size:</label>
             <select
-              name="cities"
-              id="cities"
-              onChange={(e) => setCity(e.target.value)}
+              name="vehicleCapacity"
+              id="vehicleCapacity"
+              className="block cursor-pointer w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+              onChange={(e) => setVehicleCapacity(parseInt(e.target.value))}
             >
-              <option value="Barcelona">Barcelona</option>
-              <option value="Valencia">Valencia</option>
-              <option value="Madrid">Madrid</option>
+              <option value={20}>Mini Bus</option>
+              <option value={30}>30-seater Bus</option>
+              <option value={50}>50-seater Bus</option>
+              <option value={70}>70-seater Bus</option>
             </select>
           </div>
-        ) : null}
-        <div>
-          <label htmlFor="vehicleCapacity">Filter by Vehicle Size:</label>
-          <select
-            name="vehicleCapacity"
-            id="vehicleCapacity"
-            onChange={(e) => setVehicleCapacity(parseInt(e.target.value))}
-          >
-            <option value={20}>Mini Bus</option>
-            <option value={30}>30-seater Bus</option>
-            <option value={50}>50-seater Bus</option>
-            <option value={70}>70-seater Bus</option>
-          </select>
-        </div>
-      </form>
-      <ul>{transferList}</ul>
+        </form>
+        <table className="table-auto col-span-3">
+          <thead className="bg-gray-50 border-b text-left">
+            <tr>
+              <th>Company</th>
+              <th>City</th>
+              <th>Vehicle Type</th>
+              <th>Vehicle Capacity</th>
+              <th>Update</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody className="text-white-50">{transferList}</tbody>
+        </table>
+      </div>
     </>
   );
 };
