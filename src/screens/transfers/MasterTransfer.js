@@ -3,15 +3,24 @@ import { useNavigate } from "react-router-dom";
 const MasterTransfer = () => {
   const navigate = useNavigate();
   return (
-    <>
-      <button onClick={() => navigate("/transfer/list")}>
-        Get a List of All Transfers in the Data Base
-      </button>
+    <div className="container ">
+      <h1 className="text-2xl">Manage Transfers</h1>
+      <ul className="indent-6 text-white-100">
+        <li
+          onClick={() => navigate("/transfer/list")}
+          className="hover:text-orange-50 cursor-pointer"
+        >
+          Get a List of All Transfers in the Data Base
+        </li>
 
-      <button onClick={() => navigate("/transfer/specs")}>
-        Create a New Transfer service and Save in the Data Base
-      </button>
-    </>
+        <li
+          onClick={() => navigate("/transfer/specs")}
+          className="hover:text-orange-50 cursor-pointer"
+        >
+          Create a New Transfer service and Save in the Data Base
+        </li>
+      </ul>
+    </div>
   );
 };
 

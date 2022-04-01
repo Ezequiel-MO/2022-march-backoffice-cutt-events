@@ -14,29 +14,46 @@ const MasterProject = () => {
   };
 
   return (
-    <>
+    <div className="container">
+      <h1 className="text-2xl">Manage Projects</h1>
       {currentProjectIsLive ? (
-        <>
-          <button onClick={() => navigate("/hotel/list")}>
+        <ul className="indent-6 text-white-100">
+          <li
+            onClick={() => navigate("/hotel/list")}
+            className="hover:text-orange-50 cursor-pointer"
+          >
             Add a Hotel to current project
-          </button>
-          <button onClick={() => navigate("/project/schedule")}>
+          </li>
+          <li
+            onClick={() => navigate("/project/schedule")}
+            className="hover:text-orange-50 cursor-pointer"
+          >
             Configure schedule for current project
-          </button>
-          <button onClick={handleClearProject}>CLEAR EXISTING PROJECT</button>
-        </>
+          </li>
+          <li
+            onClick={handleClearProject}
+            className="hover:text-orange-50 cursor-pointer"
+          >
+            CLEAR EXISTING PROJECT
+          </li>
+        </ul>
       ) : (
-        <>
-          <button onClick={() => navigate("/project/list")}>
+        <ul className="indent-6 text-white-100">
+          <li
+            onClick={() => navigate("/project/list")}
+            className="hover:text-orange-50 cursor-pointer"
+          >
             Get a List of All Projects in the Data Base
-          </button>
-
-          <button onClick={() => navigate("/project/specs")}>
+          </li>
+          <li
+            onClick={() => navigate("/project/specs")}
+            className="hover:text-orange-50 cursor-pointer"
+          >
             Create a New Project and Save in the Data Base
-          </button>
-        </>
+          </li>
+        </ul>
       )}
-    </>
+    </div>
   );
 };
 
