@@ -56,7 +56,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Restaurant Name"
                     type="text"
                   />
@@ -76,7 +76,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Restaurant City"
                     type="text"
                   />
@@ -96,7 +96,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 2.154007"
                     type="number"
                   />
@@ -116,7 +116,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 41.390205"
                     type="number"
                   />
@@ -136,7 +136,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 35"
                     type="number"
                   />
@@ -159,7 +159,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                      transition
                      ease-in-out
                      my-7
-                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                     focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none
                    "
                     name="textContent"
                     placeholder="Write a description"

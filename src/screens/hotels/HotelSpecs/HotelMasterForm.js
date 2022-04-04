@@ -73,7 +73,7 @@ const HotelMasterForm = ({ submitForm }) => {
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Hotel Excelsior - 4star Superior"
                     type="text"
                   />
@@ -93,7 +93,7 @@ const HotelMasterForm = ({ submitForm }) => {
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="City"
                     type="text"
                   />
@@ -113,7 +113,7 @@ const HotelMasterForm = ({ submitForm }) => {
                       transition
                       ease-in-out
                       m-0
-                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : c/Pina 57"
                     type="text"
                   />
@@ -133,7 +133,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 4"
                     type="number"
                   />
@@ -153,7 +153,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 100 rooms"
                     type="number"
                   />
@@ -173,7 +173,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 12noon/3pm"
                     type="text"
                   />
@@ -195,7 +195,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 4"
                     type="number"
                   />
@@ -215,7 +215,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : Available all rooms/common areas"
                     type="text"
                   />
@@ -235,7 +235,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 1x Outdoor/ 1x Indoor"
                     type="text"
                   />
@@ -255,7 +255,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 1x Restaurant/ 1x Bar"
                     type="text"
                   />
@@ -275,7 +275,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 2.154007"
                     type="number"
                   />
@@ -295,7 +295,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     m-0
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 41.390205"
                     type="number"
                   />
@@ -318,7 +318,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     transition
                     ease-in-out
                     my-7
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none
                   "
                     name="textContent"
                     placeholder="Write a description"

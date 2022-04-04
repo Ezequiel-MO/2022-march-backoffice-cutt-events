@@ -41,122 +41,294 @@ const TransferMasterForm = ({ submitForm }) => {
         })}
       >
         {(formik) => (
-          <Form className="form">
-            <fieldset>
-              <legend>
-                <h4>Transfers form</h4>
-              </legend>
-              <div className="form-inputs">
-                <div>
+          <div className="block p-6 rounded-lg shadow-lg bg-white w-3/4">
+            <Form>
+              <fieldset className="grid grid-cols-2 gap-4">
+                <legend>
+                  <h4>Transfers form</h4>
+                </legend>
+                <div className="form-group mb-6">
                   <TextInput
                     label="City"
                     name="city"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Ex: Lisboa"
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Company"
                     name="company"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Transportation company ..."
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Transfer in/out"
                     name="transfer_in_out"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 70"
                     type="number"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Dispo 4h"
                     name="dispo_4h"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 220"
                     type="number"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Hextra"
                     name="hextra"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 50"
                     type="number"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Hextra night"
                     name="hextra_night"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 58"
                     type="number"
                   />
-                </div>
-                <div>
+
                   <TextInput
                     label="Dispo 5h out"
                     name="dispo_5h_out"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 260"
                     type="number"
                   />
                 </div>
-                <div>
+
+                <div className="form-group mb-6">
                   <TextInput
                     label="Dispo 4h airport"
                     name="dispo_4h_airport"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 280"
                     type="number"
                   />
-                </div>
-                <div>
+
                   <TextInput
                     label="Dispo 4h night"
                     name="dispo_4h_night"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 250"
                     type="number"
                   />
-                </div>
-                <div>
+
                   <TextInput
                     label="Transfer in/out night"
                     name="transfer_in_out_night"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 82"
                     type="number"
                   />
-                </div>
-                <div>
+
                   <TextInput
                     label="Dispo 6h night"
                     name="dispo_6h_night"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 340"
                     type="number"
                   />
-                </div>
-                <div>
+
                   <TextInput
                     label="Vehicle type"
                     name="vehicleType"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : Bus"
                     type="text"
                   />
-                </div>
-                <div>
+
                   <TextInput
                     label="vehicle capacity"
                     name="vehicleCapacity"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 30"
                     type="text"
                   />
+                  <div className="flex space-x-2 justify-center mt-7">
+                    <button
+                      className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                      type="submit"
+                    >
+                      Save and submit
+                    </button>
+                  </div>
                 </div>
-                <div>
-                  <button type="submit">Save In DataBase</button>
-                </div>
-              </div>
-            </fieldset>
-          </Form>
+              </fieldset>
+            </Form>
+          </div>
         )}
       </Formik>
     </>
