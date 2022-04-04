@@ -4,6 +4,7 @@ import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
 import { TextAreaInput } from "../../../UI/inputs/TextAreaInput";
 import { CheckboxInput } from "../../../UI/inputs/CheckboxInput";
+import { Icon } from "@iconify/react";
 
 const HotelMasterForm = ({ submitForm }) => {
   const fileInput = useRef();
@@ -49,135 +50,286 @@ const HotelMasterForm = ({ submitForm }) => {
         })}
       >
         {(formik) => (
-          <Form className="form">
-            <fieldset>
-              <legend>
-                <h4>General Hotel data</h4>
-              </legend>
-              <div className="form-inputs">
-                <div>
+          <div className="block p-6 rounded-lg shadow-lg bg-white w-2/3">
+            <Form>
+              <fieldset className="grid grid-cols-3 gap-4">
+                <legend>
+                  <h4>General Hotel data</h4>
+                </legend>
+                <div className="form-group mb-6">
                   <TextInput
                     label="Name"
                     name="name"
+                    className="form-control
+                      
+                      w-full
+                      px-3
+                      py-1.5
+                      text-base
+                      text-gray-700
+                      bg-white bg-clip-padding
+                      border border-solid border-gray-300
+                      rounded
+                      transition
+                      ease-in-out
+                      m-0
+                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="Hotel Excelsior - 4star Superior"
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="City"
                     name="city"
+                    className="form-control
+                      block
+                      w-full
+                      px-3
+                      py-1.5
+                      text-base
+                      text-gray-700
+                      bg-white bg-clip-padding
+                      border border-solid border-gray-300
+                      rounded
+                      transition
+                      ease-in-out
+                      m-0
+                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="City"
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Address"
                     name="address"
+                    className="form-control
+                      block
+                      w-full
+                      px-3
+                      py-1.5
+                      text-base
+                      text-gray-700
+                      bg-white bg-clip-padding
+                      border border-solid border-gray-300
+                      rounded
+                      transition
+                      ease-in-out
+                      m-0
+                      focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : c/Pina 57"
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Category"
                     name="numberStars"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 4"
                     type="number"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Total Number Of Rooms"
                     name="numberRooms"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 100 rooms"
                     type="number"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Check-in and Check-out"
                     name="checkin_out"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 12noon/3pm"
                     type="text"
                   />
                 </div>
-                <div>
+                <div className="form-group mb-6">
                   <TextInput
                     label="Nr Of Meeting Rooms"
                     name="meetingRooms"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 4"
                     type="number"
                   />
-                </div>
-                <div>
-                  <CheckboxInput
-                    label="Wheelchair Accessible"
-                    name="wheelChairAccessible"
-                  />
-                </div>
-                <div>
                   <TextInput
                     label="Wi-Fi Speed"
                     name="wifiSpeed"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : Available all rooms/common areas"
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Swimming Pool"
                     name="swimmingPool"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 1x Outdoor/ 1x Indoor"
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Restaurants"
                     name="restaurants"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 1x Restaurant/ 1x Bar"
                     type="text"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Coords Longitude"
                     name="longitude"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 2.154007"
                     type="number"
                   />
-                </div>
-                <div>
                   <TextInput
                     label="Coords Latitude"
                     name="latitude"
+                    className="form-control
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    m-0
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     placeholder="ex : 41.390205"
                     type="number"
                   />
                 </div>
-              </div>
-              <div className="form-inputs">
-                <div>
+                <div className="form-group">
                   <TextAreaInput
-                    className="text-area-input-hotel"
-                    name="introduction"
-                    placeholder="Write an intro"
-                    type="text"
-                  />
-                </div>
-                <div>
-                  <TextAreaInput
-                    className="text-area-input-hotel"
+                    className="
+                    form-control
+                    h-60
+                    block
+                    w-full
+                    px-3
+                    py-1.5
+                    text-base
+                    font-normal
+                    text-gray-700
+                    bg-white bg-clip-padding
+                    border border-solid border-gray-300
+                    rounded
+                    transition
+                    ease-in-out
+                    my-7
+                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                  "
                     name="textContent"
                     placeholder="Write a description"
                     type="text"
                   />
-                </div>
-                <div>
-                  <label htmlFor="file-upload" className="custom-file-upload">
-                    {/*  <Icon icon="akar-icons:cloud-upload" width="40" /> */}
+                  <CheckboxInput
+                    label="Wheelchair Accessible"
+                    name="wheelChairAccessible"
+                  />
+                  <label htmlFor="file-upload" className="mx-3">
+                    <Icon icon="akar-icons:cloud-upload" width="40" />
                     <span>Upload Images</span>
                   </label>
                   <input
@@ -188,12 +340,17 @@ const HotelMasterForm = ({ submitForm }) => {
                     multiple
                   />
                 </div>
-                <div className="hotel-button">
-                  <button type="submit">Save In DataBase</button>
+                <div className="flex space-x-2 justify-center">
+                  <button
+                    className="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    type="submit"
+                  >
+                    Save In DataBase
+                  </button>
                 </div>
-              </div>
-            </fieldset>
-          </Form>
+              </fieldset>
+            </Form>
+          </div>
         )}
       </Formik>
     </>
