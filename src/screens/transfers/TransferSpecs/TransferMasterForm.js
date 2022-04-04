@@ -45,126 +45,42 @@ const TransferMasterForm = ({ submitForm }) => {
             <Form>
               <fieldset className="grid grid-cols-2 gap-4">
                 <legend>
-                  <h4>Transfers form</h4>
+                  <h1 className="text-2xl mb-4">Transfer List</h1>
                 </legend>
                 <div className="form-group mb-6">
                   <TextInput
                     label="City"
                     name="city"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Ex: Lisboa"
                     type="text"
                   />
                   <TextInput
                     label="Company"
                     name="company"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Transportation company ..."
                     type="text"
                   />
                   <TextInput
                     label="Transfer in/out"
                     name="transfer_in_out"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 70"
                     type="number"
                   />
                   <TextInput
                     label="Dispo 4h"
                     name="dispo_4h"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 220"
                     type="number"
                   />
                   <TextInput
                     label="Hextra"
                     name="hextra"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 50"
                     type="number"
                   />
                   <TextInput
                     label="Hextra night"
                     name="hextra_night"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 58"
                     type="number"
                   />
@@ -172,20 +88,6 @@ const TransferMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Dispo 5h out"
                     name="dispo_5h_out"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 260"
                     type="number"
                   />
@@ -195,20 +97,6 @@ const TransferMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Dispo 4h airport"
                     name="dispo_4h_airport"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 280"
                     type="number"
                   />
@@ -216,20 +104,6 @@ const TransferMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Dispo 4h night"
                     name="dispo_4h_night"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 250"
                     type="number"
                   />
@@ -237,20 +111,6 @@ const TransferMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Transfer in/out night"
                     name="transfer_in_out_night"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 82"
                     type="number"
                   />
@@ -258,20 +118,6 @@ const TransferMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Dispo 6h night"
                     name="dispo_6h_night"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 340"
                     type="number"
                   />
@@ -279,20 +125,6 @@ const TransferMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Vehicle type"
                     name="vehicleType"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : Bus"
                     type="text"
                   />
@@ -300,20 +132,6 @@ const TransferMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="vehicle capacity"
                     name="vehicleCapacity"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 30"
                     type="text"
                   />

@@ -37,106 +37,36 @@ const RestaurantMasterForm = ({ submitForm }) => {
             <Form>
               <fieldset className="grid grid-cols-2 gap-4">
                 <legend>
-                  <h4>General Restaurant data</h4>
+                  <h1 className="text-2xl mb-4">General Restaurant Data</h1>
                 </legend>
                 <div className="form-group mb-6">
                   <TextInput
                     label="Name"
                     name="name"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Restaurant Name"
                     type="text"
                   />
                   <TextInput
                     label="City"
                     name="city"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Restaurant City"
                     type="text"
                   />
                   <TextInput
                     label="Coords Longitude"
                     name="longitude"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 2.154007"
                     type="number"
                   />
                   <TextInput
                     label="Coords Latitude"
                     name="latitude"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 41.390205"
                     type="number"
                   />
                   <TextInput
                     label="3-Course Menu Cost"
                     name="price"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 35"
                     type="number"
                   />

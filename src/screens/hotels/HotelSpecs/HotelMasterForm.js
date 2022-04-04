@@ -54,126 +54,43 @@ const HotelMasterForm = ({ submitForm }) => {
             <Form>
               <fieldset className="grid grid-cols-3 gap-4">
                 <legend>
-                  <h4>General Hotel data</h4>
+                  <h1 className="text-2xl mb-4 indent-8">General Hotel Data</h1>
                 </legend>
+
                 <div className="form-group mb-6">
                   <TextInput
                     label="Name"
                     name="name"
-                    className="form-control
-                      block
-                      w-full
-                      px-3
-                      py-1.5
-                      text-base
-                      text-gray-700
-                      bg-white bg-clip-padding
-                      border border-solid border-gray-300
-                      rounded
-                      transition
-                      ease-in-out
-                      m-0
-                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="Hotel Excelsior - 4star Superior"
                     type="text"
                   />
                   <TextInput
                     label="City"
                     name="city"
-                    className="form-control
-                      block
-                      w-full
-                      px-3
-                      py-1.5
-                      text-base
-                      text-gray-700
-                      bg-white bg-clip-padding
-                      border border-solid border-gray-300
-                      rounded
-                      transition
-                      ease-in-out
-                      m-0
-                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="City"
                     type="text"
                   />
                   <TextInput
                     label="Address"
                     name="address"
-                    className="form-control
-                      block
-                      w-full
-                      px-3
-                      py-1.5
-                      text-base
-                      text-gray-700
-                      bg-white bg-clip-padding
-                      border border-solid border-gray-300
-                      rounded
-                      transition
-                      ease-in-out
-                      m-0
-                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : c/Pina 57"
                     type="text"
                   />
                   <TextInput
                     label="Category"
                     name="numberStars"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 4"
                     type="number"
                   />
                   <TextInput
                     label="Total Number Of Rooms"
                     name="numberRooms"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 100 rooms"
                     type="number"
                   />
                   <TextInput
                     label="Check-in and Check-out"
                     name="checkin_out"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 12noon/3pm"
                     type="text"
                   />
@@ -182,120 +99,36 @@ const HotelMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Nr Of Meeting Rooms"
                     name="meetingRooms"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 4"
                     type="number"
                   />
                   <TextInput
                     label="Wi-Fi Speed"
                     name="wifiSpeed"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : Available all rooms/common areas"
                     type="text"
                   />
                   <TextInput
                     label="Swimming Pool"
                     name="swimmingPool"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 1x Outdoor/ 1x Indoor"
                     type="text"
                   />
                   <TextInput
                     label="Restaurants"
                     name="restaurants"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 1x Restaurant/ 1x Bar"
                     type="text"
                   />
                   <TextInput
                     label="Coords Longitude"
                     name="longitude"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 2.154007"
                     type="number"
                   />
                   <TextInput
                     label="Coords Latitude"
                     name="latitude"
-                    className="form-control
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    m-0
-                    focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
                     placeholder="ex : 41.390205"
                     type="number"
                   />
