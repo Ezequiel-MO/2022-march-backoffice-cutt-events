@@ -24,94 +24,133 @@ const AddScheduleToProject = () => {
 
   const renderSchedule = currentProject.schedule.map((day, index) => (
     <li key={day.date}>
-      {day.date}
-      <ul>
-        <li
-          onClick={() =>
-            navigate(`/event/list`, {
-              state: {
-                timeOfEvent: "morningEvents",
-                dayOfEvent: index,
-              },
-            })
-          }
-        >
-          Add morning events to {day.date}
-        </li>
-        <li
-          onClick={() =>
-            navigate(`/restaurant/list`, {
-              state: {
-                timeOfEvent: "lunch",
-                dayOfEvent: index,
-              },
-            })
-          }
-        >
-          Add lunch venues ...
-        </li>
-        <li
-          onClick={() =>
-            navigate(`/event/list`, {
-              state: {
-                timeOfEvent: "afternoonEvents",
-                dayOfEvent: index,
-              },
-            })
-          }
-        >
-          Add any afternoon events
-        </li>
-        <li
-          onClick={() =>
-            navigate(`/restaurant/list`, {
-              state: {
-                timeOfEvent: "dinner",
-                dayOfEvent: index,
-              },
-            })
-          }
-        >
-          Add dinner venues ...
-        </li>
-        {day.date === "Arrival Day" ? (
-          <li
-            onClick={() =>
-              navigate(`/project/schedule/transfers_in_out`, {
-                state: {
-                  timeOfEvent: "transfer_in",
-                  dayOfEvent: index,
-                },
-              })
-            }
+      <div class="md:flex flex-start">
+        <div class="bg-white-50 w-10 h-10 flex items-center justify-center rounded-full -ml-5">
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            data-prefix="fas"
+            className="text-white w-5 h-5"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 448 512"
           >
-            Add transfer in
-          </li>
-        ) : day.date === "Departure Day" ? (
-          <li
-            onClick={() =>
-              navigate(`/project/schedule/transfers_in_out`, {
-                state: {
-                  timeOfEvent: "transfer_out",
-                  dayOfEvent: index,
-                },
-              })
-            }
-          >
-            Add transfer out
-          </li>
-        ) : null}
-      </ul>
+            <path
+              fill="currentColor"
+              d="M0 464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V192H0v272zm64-192c0-8.8 7.2-16 16-16h288c8.8 0 16 7.2 16 16v64c0 8.8-7.2 16-16 16H80c-8.8 0-16-7.2-16-16v-64zM400 64h-48V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H160V16c0-8.8-7.2-16-16-16h-32c-8.8 0-16 7.2-16 16v48H48C21.5 64 0 85.5 0 112v48h448v-48c0-26.5-21.5-48-48-48z"
+            ></path>
+          </svg>
+        </div>
+        <div class="block p-6 rounded-lg shadow-lg bg-gray-100 max-w-md ml-6 mb-10">
+          <div class="flex justify-between mb-4">
+            <a
+              href="#!"
+              class="font-medium text-orange-50 hover:text-purple-700 focus:text-purple-800 duration-300 transition ease-in-out text-lg"
+            >
+              {day.date}
+            </a>
+          </div>
+
+          <ol>
+            <li
+              className="text-black-50 hover:text-orange-50 cursor-pointer"
+              onClick={() =>
+                navigate(`/event/list`, {
+                  state: {
+                    timeOfEvent: "morningEvents",
+                    dayOfEvent: index,
+                  },
+                })
+              }
+            >
+              Add morning events
+            </li>
+            <li
+              className="text-black-50 hover:text-orange-50 cursor-pointer"
+              onClick={() =>
+                navigate(`/restaurant/list`, {
+                  state: {
+                    timeOfEvent: "lunch",
+                    dayOfEvent: index,
+                  },
+                })
+              }
+            >
+              Add lunch venues ...
+            </li>
+            <li
+              className="text-black-50 hover:text-orange-50 cursor-pointer"
+              onClick={() =>
+                navigate(`/event/list`, {
+                  state: {
+                    timeOfEvent: "afternoonEvents",
+                    dayOfEvent: index,
+                  },
+                })
+              }
+            >
+              Add any afternoon events
+            </li>
+            <li
+              className="text-black-50 hover:text-orange-50 cursor-pointer"
+              onClick={() =>
+                navigate(`/restaurant/list`, {
+                  state: {
+                    timeOfEvent: "dinner",
+                    dayOfEvent: index,
+                  },
+                })
+              }
+            >
+              Add dinner venues ...
+            </li>
+            {day.date === "Arrival Day" ? (
+              <li
+                className="text-black-50 hover:text-orange-50 cursor-pointer"
+                onClick={() =>
+                  navigate(`/project/schedule/transfers_in_out`, {
+                    state: {
+                      timeOfEvent: "transfer_in",
+                      dayOfEvent: index,
+                    },
+                  })
+                }
+              >
+                Add transfer in
+              </li>
+            ) : day.date === "Departure Day" ? (
+              <li
+                className="text-black-50 hover:text-orange-50 cursor-pointer"
+                onClick={() =>
+                  navigate(`/project/schedule/transfers_in_out`, {
+                    state: {
+                      timeOfEvent: "transfer_out",
+                      dayOfEvent: index,
+                    },
+                  })
+                }
+              >
+                Add transfer out
+              </li>
+            ) : null}
+          </ol>
+        </div>
+      </div>
     </li>
   ));
 
   return (
-    <>
-      <ul>{renderSchedule}</ul>
-      <button onClick={handlePatchProject}>
-        I'm ready to save my final project
-      </button>
-    </>
+    <div className="container p-10">
+      <ol className="border-l-2 border-camel-50">{renderSchedule}</ol>
+      <div className="flex space-x-2 justify-center">
+        <button
+          className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+          type="submit"
+        >
+          Save Final Project
+        </button>
+      </div>
+    </div>
   );
 };
 

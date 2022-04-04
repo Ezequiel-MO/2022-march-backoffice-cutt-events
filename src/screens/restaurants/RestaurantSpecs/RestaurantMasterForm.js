@@ -13,11 +13,10 @@ const RestaurantMasterForm = ({ submitForm }) => {
         initialValues={{
           name: "",
           city: "",
-          textContent: "",
-          price: "",
           longitude: "",
           latitude: "",
-          introduction: "",
+          price: "",
+          textContent: "",
         }}
         onSubmit={(values) => {
           submitForm(values, fileInput.current.files, "restaurants");
@@ -29,7 +28,6 @@ const RestaurantMasterForm = ({ submitForm }) => {
           latitude: Yup.number().required("Required"),
           price: Yup.number().required("Required"),
           textContent: Yup.string().required("Required"),
-          introduction: Yup.string(),
         })}
       >
         {(formik) => (

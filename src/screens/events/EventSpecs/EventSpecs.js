@@ -3,21 +3,14 @@ import { toast, ToastContainer } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
 import EventMasterForm from "./EventMasterForm";
 import { useNavigate } from "react-router-dom";
+import { toastOptions } from "../../../dev-data/toast";
 
 const EventSpecs = () => {
   const navigate = useNavigate();
   const postToEndpoint = async (data, endPoint) => {
     try {
       await baseAPI.post(`v1/${endPoint}`, data);
-      toast("Event created", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.success("Event created", toastOptions);
       setTimeout(() => {
         navigate("/");
       }, 2500);

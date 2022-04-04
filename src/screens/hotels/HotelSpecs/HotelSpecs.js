@@ -1,11 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
+import { toastOptions } from "../../../dev-data/toast";
 import HotelMasterForm from "./HotelMasterForm";
 
 const HotelSpecs = () => {
+  const navigate = useNavigate();
   const postToEndpoint = async (data, endPoint) => {
     try {
       await baseAPI.post(`v1/${endPoint}`, data);
+      toast.success("Hotel created", toastOptions);
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
     } catch (error) {
       console.log(error);
     }
@@ -23,8 +31,7 @@ const HotelSpecs = () => {
     formData.append("wifiSpeed", values.wifiSpeed);
     formData.append("swimmingPool", values.swimmingPool);
     formData.append("restaurants", values.restaurants);
-    formData.append("textContent", values.textContent);
-    formData.append("introduction", values.introduction);
+    formData.append("textContent", JSON.stringify(values.textContent));
     formData.append("location[coordinates][0]", values.latitude);
     formData.append("location[coordinates][1]", values.longitude);
 
@@ -34,22 +41,24 @@ const HotelSpecs = () => {
     return formData;
   };
 
-  const transformValues = (valuesObj) => {
-    const transformedValues = { ...valuesObj };
-    transformedValues.textContent = JSON.stringify(valuesObj.textContent);
-    transformedValues.introduction = JSON.stringify(valuesObj.introduction);
-
-    return transformedValues;
-  };
-
   const submitForm = (values, files, endpoint) => {
-    const transformedValues = transformValues(values);
-    const dataToPost = fillFormData(transformedValues, files);
+    const dataToPost = fillFormData(values, files);
     postToEndpoint(dataToPost, endpoint);
   };
 
   return (
     <div>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <HotelMasterForm submitForm={submitForm} />
     </div>
   );

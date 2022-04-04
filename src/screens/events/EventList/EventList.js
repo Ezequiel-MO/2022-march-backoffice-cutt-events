@@ -37,7 +37,7 @@ const EventList = () => {
     if (city && price) {
       getEventList();
     }
-  }, [city, price, events]);
+  }, [city, price]);
 
   const handleDeleteEvent = async (eventId) => {
     try {
@@ -50,6 +50,9 @@ const EventList = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+      });
+      setTimeout(() => {
+        navigate("/event", 2500);
       });
     } catch (error) {
       console.log(error);
