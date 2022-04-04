@@ -50,7 +50,7 @@ const HotelMasterForm = ({ submitForm }) => {
         })}
       >
         {(formik) => (
-          <div className="block p-6 rounded-lg shadow-lg bg-white w-2/3">
+          <div className="block p-6 rounded-lg shadow-lg bg-white w-3/4">
             <Form>
               <fieldset className="grid grid-cols-3 gap-4">
                 <legend>
@@ -304,7 +304,7 @@ const HotelMasterForm = ({ submitForm }) => {
                   <TextAreaInput
                     className="
                     form-control
-                    h-60
+                    h-52
                     block
                     w-full
                     px-3
