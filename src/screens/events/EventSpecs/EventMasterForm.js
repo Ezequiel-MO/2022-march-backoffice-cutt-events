@@ -33,10 +33,10 @@ const EventMasterForm = ({ submitForm }) => {
         })}
       >
         {(formik) => (
-          <div className="block p-6 rounded-lg shadow-lg bg-white w-1/2">
+          <div className="block p-6 rounded-lg shadow-lg bg-white w-3/4">
             <Form>
-              <fieldset>
-                <legend className="grid grid-cols-2 gap-4">
+              <fieldset className="grid grid-cols-2 gap-4">
+                <legend>
                   <h4>General Event data</h4>
                 </legend>
                 <div className="form-group mb-6">
@@ -123,9 +123,9 @@ const EventMasterForm = ({ submitForm }) => {
                   <TextInput
                     label="Tour cost"
                     name="price"
-                    className="form-control      
-                    w-full
+                    className="form-control
                     block
+                    w-full
                     px-3
                     py-1.5
                     text-base
@@ -143,32 +143,31 @@ const EventMasterForm = ({ submitForm }) => {
                 </div>
                 <div className="form-group mb-6">
                   <TextAreaInput
-                    name="introduction"
+                    name="description"
                     className="
-                    form-control
-                    h-96
-                    block
-                    w-full
-                    px-3
-                    py-1.5
-                    text-base
-                    font-normal
-                    text-gray-700
-                    bg-white bg-clip-padding
-                    border border-solid border-gray-300
-                    rounded
-                    transition
-                    ease-in-out
-                    my-7
-                    focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
-                  "
-                    placeholder="Write an intro"
+                     form-control
+                     h-52
+                     block
+                     w-full
+                     px-3
+                     py-1.5
+                     text-base
+                     font-normal
+                     text-gray-700
+                     bg-white bg-clip-padding
+                     border border-solid border-gray-300
+                     rounded
+                     transition
+                     ease-in-out
+                     my-7
+                     focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
+                   "
+                    placeholder="Write a description of the event"
                     type="text"
                   />
-                  <div>
+                  <div className="flex align-center justify-start">
                     <label htmlFor="file-upload" className="custom-file-upload">
                       <Icon icon="akar-icons:cloud-upload" width="40" />
-                      <span>Upload Images</span>
                     </label>
                     <input
                       id="file-upload"
