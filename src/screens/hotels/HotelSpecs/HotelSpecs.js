@@ -49,9 +49,9 @@ const HotelSpecs = () => {
   };
 
   return (
-    <>
+    <div>
       <HotelMasterForm submitForm={submitForm} />
-    </>
+    </div>
   );
 };
 

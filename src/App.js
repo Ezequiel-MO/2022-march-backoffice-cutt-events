@@ -33,7 +33,7 @@ import AddTransfersINOUTToSchedule from "./screens/projects/AddTransfersINOUTToS
 
 function App() {
   return (
-    <div className="bg-black-50 text-lg text-orange-50 p-2 h-screen">
+    <div className="bg-black-50 text-lg text-orange-50 p-2 min-h-screen">
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />

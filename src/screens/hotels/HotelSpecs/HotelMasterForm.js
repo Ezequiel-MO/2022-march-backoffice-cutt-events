@@ -61,7 +61,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     label="Name"
                     name="name"
                     className="form-control
-                      
+                      block
                       w-full
                       px-3
                       py-1.5
@@ -342,7 +342,7 @@ const HotelMasterForm = ({ submitForm }) => {
                 </div>
                 <div className="flex space-x-2 justify-center">
                   <button
-                    className="inline-block px-6 py-2 border-2 border-red-600 text-red-600 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
                     type="submit"
                   >
                     Save In DataBase
