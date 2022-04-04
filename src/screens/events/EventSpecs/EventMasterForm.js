@@ -13,11 +13,10 @@ const EventMasterForm = ({ submitForm }) => {
         initialValues={{
           name: "",
           city: "",
-          textContent: "",
-          price: "",
           longitude: "",
           latitude: "",
-          introduction: "",
+          price: "",
+          textContent: "",
         }}
         onSubmit={(values) => {
           submitForm(values, fileInput.current.files, "events");
@@ -29,7 +28,6 @@ const EventMasterForm = ({ submitForm }) => {
           latitude: Yup.number().required("Required"),
           price: Yup.number().required("Required"),
           textContent: Yup.string().required("Required"),
-          introduction: Yup.string(),
         })}
       >
         {(formik) => (
@@ -73,7 +71,7 @@ const EventMasterForm = ({ submitForm }) => {
                 </div>
                 <div className="form-group mb-6">
                   <TextAreaInput
-                    name="description"
+                    name="textContent"
                     className="
                      form-control
                      h-52
@@ -108,15 +106,15 @@ const EventMasterForm = ({ submitForm }) => {
                     />
                   </div>
                 </div>
-                <div className="flex space-x-2 justify-center">
-                  <button
-                    className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                    type="submit"
-                  >
-                    Save and submit
-                  </button>
-                </div>
               </fieldset>
+              <div className="flex space-x-2 justify-center">
+                <button
+                  className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                  type="submit"
+                >
+                  Save and submit
+                </button>
+              </div>
             </Form>
           </div>
         )}

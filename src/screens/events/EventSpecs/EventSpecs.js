@@ -1,11 +1,26 @@
 import React from "react";
+import { toast, ToastContainer } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
 import EventMasterForm from "./EventMasterForm";
+import { useNavigate } from "react-router-dom";
 
 const EventSpecs = () => {
+  const navigate = useNavigate();
   const postToEndpoint = async (data, endPoint) => {
     try {
       await baseAPI.post(`v1/${endPoint}`, data);
+      toast("Event created", {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2500);
     } catch (error) {
       console.log(error);
     }
@@ -15,34 +30,34 @@ const EventSpecs = () => {
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("city", values.city);
-    formData.append("textContent", values.textContent);
+    formData.append("textContent", JSON.stringify(values.textContent));
     formData.append("price", values.price);
     formData.append("location[coordinates][0]", values.latitude);
     formData.append("location[coordinates][1]", values.longitude);
-    formData.append("introduction", values.introduction);
-
     for (let i = 0; i < files.length; i++) {
       formData.append("imageContentUrl", files[i]);
     }
     return formData;
   };
 
-  const transformValues = (valuesObj) => {
-    const transformedValues = { ...valuesObj };
-    transformedValues.textContent = JSON.stringify(valuesObj.textContent);
-    transformedValues.introduction = JSON.stringify(valuesObj.introduction);
-
-    return transformedValues;
-  };
-
   const submitForm = (values, files, endpoint) => {
-    const transformedValues = transformValues(values);
-    const dataToPost = fillFormData(transformedValues, files);
+    const dataToPost = fillFormData(values, files);
     postToEndpoint(dataToPost, endpoint);
   };
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <EventMasterForm submitForm={submitForm} />
     </>
   );
