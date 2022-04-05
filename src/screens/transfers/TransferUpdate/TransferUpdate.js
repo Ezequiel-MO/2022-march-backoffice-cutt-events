@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
+import { toastOptions } from "../../../dev-data/toast";
 
 const TransferUpdate = () => {
   let params = useParams();
@@ -90,6 +92,7 @@ const TransferUpdate = () => {
         updatedTransfer
       );
       setUpdatedTransfer(updated.data.data.data);
+      toast.success("Transfer service Updated", toastOptions);
     } catch (error) {
       console.log(error);
     }
@@ -98,10 +101,13 @@ const TransferUpdate = () => {
   const renderOriginalTransfer = (
     <>
       {Object.keys(originalTransfer).map((field) => (
-        <div key={`${field}`}>
+        <li
+          key={`${field}`}
+          className="relative px-6 py-2 border-b border-gray-200 w-full rounded-t-lg cursor-pointer"
+        >
           {isInput[field] ? (
-            <div style={{ display: "flex" }}>
-              <p>{field} :</p>
+            <div>
+              <p className="font-bold">{field} :</p>
               {field === "textContent" || field === "introduction" ? (
                 <textarea
                   placeholder={`New ${field}  ...`}
@@ -119,37 +125,40 @@ const TransferUpdate = () => {
                   name={`${field}`}
                   value={updatedTransfer[`${field}`]}
                   onChange={handleUpdateTransfer}
+                  className="absolute right-3.5 bottom-2 w-2/3"
                   autoFocus
                 />
               )}
             </div>
           ) : (
-            <li onClick={() => setEditFieldStatus(`${field}`, true)}>
+            <div onClick={() => setEditFieldStatus(`${field}`, true)}>
               {updatedTransfer[`${field}`]
                 ? `${field} : ${updatedTransfer[field]}`
                 : `${field} : ${originalTransfer[field]}`}
-            </li>
+            </div>
           )}
-        </div>
+        </li>
       ))}
     </>
   );
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <h3>Original Transfer</h3>
+      <h1 className="text-2xl mb-4 indent-8">Original Transfer</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="flex align-center justify-around w-3/4 mx-auto"
+      >
+        <ul className="bg-white rounded-lg border border-gray-200 w-1/2 text-white-50">
           {renderOriginalTransfer}
-        </div>
-        <hr />
-        <button type="submit">Update and Save</button>
+        </ul>
+        <button
+          className="h-12 px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+          type="submit"
+        >
+          Update and Save
+        </button>
       </form>
-      <hr />
-      <div>
-        <h3>Updated Transfer</h3>
-        {JSON.stringify(updatedTransfer)}
-      </div>
     </>
   );
 };

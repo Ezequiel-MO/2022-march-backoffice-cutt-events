@@ -20,19 +20,19 @@ const MasterProject = () => {
         <ul className="indent-6 text-white-100">
           <li
             onClick={() => navigate("/hotel/list")}
-            className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
+            className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Add a Hotel to current project
           </li>
           <li
             onClick={() => navigate("/project/schedule")}
-            className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
+            className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Configure schedule for current project
           </li>
           <li
             onClick={handleClearProject}
-            className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
+            className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             CLEAR EXISTING PROJECT
           </li>
@@ -41,13 +41,13 @@ const MasterProject = () => {
         <ul className="indent-6 text-white-100">
           <li
             onClick={() => navigate("/project/list")}
-            className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
+            className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Get a List of All Projects in the Data Base
           </li>
           <li
             onClick={() => navigate("/project/specs")}
-            className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
+            className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Create a New Project and Save in the Data Base
           </li>

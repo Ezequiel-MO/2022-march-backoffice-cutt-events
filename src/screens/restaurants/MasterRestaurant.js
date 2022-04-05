@@ -8,13 +8,13 @@ const MasterRestaurant = () => {
       <ul className="indent-6 text-white-100">
         <li
           onClick={() => navigate("/restaurant/list")}
-          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
+          className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Get a List of All Restaurants in the Data Base
         </li>
         <li
           onClick={() => navigate("/restaurant/specs")}
-          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
+          className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Create a New Restaurant and Save in the Data Base
         </li>

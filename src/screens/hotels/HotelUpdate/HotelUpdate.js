@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
+import { toastOptions } from "../../../dev-data/toast";
 
 const HotelUpdate = () => {
   let params = useParams();
@@ -41,7 +43,9 @@ const HotelUpdate = () => {
         item !== "updatedAt" &&
         item !== "location" &&
         item !== "imageContentUrl" &&
-        item !== "price"
+        item !== "price" &&
+        item !== "introduction" &&
+        item !== "coordinates"
       ) {
         filteredOutObj[item] = obj[item];
       }
@@ -82,13 +86,13 @@ const HotelUpdate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(updatedHotel);
     try {
       const updated = await baseAPI.patch(
         `v1/hotels/${params.hotelId}`,
         updatedHotel
       );
       setUpdatedHotel(updated.data.data.data);
+      toast.success("Hotel Updated", toastOptions);
     } catch (error) {
       console.log(error);
     }
@@ -97,10 +101,13 @@ const HotelUpdate = () => {
   const renderOriginalHotel = (
     <>
       {Object.keys(originalHotel).map((field) => (
-        <li key={`${field}`}>
+        <li
+          key={`${field}`}
+          className="relative px-6 py-2 border-b border-gray-200 w-full rounded-t-lg cursor-pointer"
+        >
           {isInput[field] ? (
-            <div style={{ display: "flex" }}>
-              <p>{field} :</p>
+            <div>
+              <p className="font-bold">{field} :</p>
               {field === "textContent" || field === "introduction" ? (
                 <textarea
                   placeholder={`New ${field}  ...`}
@@ -109,7 +116,6 @@ const HotelUpdate = () => {
                   value={updatedHotel[`${field}`]}
                   onChange={handleUpdateHotel}
                   autoFocus
-                  className="w-3/4"
                 />
               ) : (
                 <input
@@ -119,87 +125,41 @@ const HotelUpdate = () => {
                   name={`${field}`}
                   value={updatedHotel[`${field}`]}
                   onChange={handleUpdateHotel}
+                  className="absolute right-3.5 bottom-2 w-2/3"
                   autoFocus
                 />
               )}
             </div>
           ) : (
-            <li
-              className="px-6 py-2 border-b border-gray-200 w-full rounded-t-lg"
-              onClick={() => setEditFieldStatus(`${field}`, true)}
-            >
+            <div onClick={() => setEditFieldStatus(`${field}`, true)}>
               {updatedHotel[`${field}`]
                 ? `${field} : ${updatedHotel[field]}`
                 : `${field} : ${originalHotel[field]}`}
-            </li>
+            </div>
           )}
         </li>
       ))}
     </>
   );
 
-  const renderUpdatedHotel = (
-    <table className="min-w-full">
-      <thead className="bg-white border-b">
-        <tr>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Name
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            City
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Number of Stars
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Number of Rooms
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Check In/Out
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Meeting Rooms
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Wifi Speed
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Swimming Pool
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Restaurants
-          </th>
-          <th className="text-sm font-medium text-white-50 px-6 py-4 text-left">
-            Description
-          </th>
-        </tr>
-      </thead>
-    </table>
-  );
-
   return (
-    <div className="flex align-center justify-center">
-      <form onSubmit={handleSubmit}>
-        <div>
-          <h1 className="text-2xl mb-4 indent-8">Original Hotel</h1>
-          <ul className="bg-white rounded-lg border border-gray-200 w-1/2 text-white-50">
-            {renderOriginalHotel}
-          </ul>
-        </div>
-
+    <>
+      <h1 className="text-2xl mb-4 indent-8">Original Hotel</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="flex align-center justify-around w-3/4 mx-auto"
+      >
+        <ul className="bg-white rounded-lg border border-gray-200 w-1/2 text-white-50">
+          {renderOriginalHotel}
+        </ul>
         <button
-          className="mt-4 inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+          className="h-12 px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           type="submit"
         >
           Update and Save
         </button>
       </form>
-
-      <div>
-        <h3>Updated Hotel</h3>
-        {renderUpdatedHotel}
-      </div>
-    </div>
+    </>
   );
 };
 
