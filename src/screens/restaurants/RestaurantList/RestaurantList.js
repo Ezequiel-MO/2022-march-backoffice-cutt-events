@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../../dev-data/toast";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
@@ -40,7 +42,10 @@ const RestaurantList = () => {
   const handleDeleteRestaurant = async (restaurantId) => {
     try {
       await baseAPI.delete(`v1/restaurants/${restaurantId}`);
-      alert("Restaurant Deleted");
+      toast.success("Restaurant Deleted", toastOptions);
+      setTimeout(() => {
+        navigate("/restaurant", 2500);
+      });
     } catch (error) {
       console.log(error);
     }

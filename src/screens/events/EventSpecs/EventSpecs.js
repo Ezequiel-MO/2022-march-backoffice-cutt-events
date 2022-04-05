@@ -1,5 +1,5 @@
 import React from "react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
 import EventMasterForm from "./EventMasterForm";
 import { useNavigate } from "react-router-dom";
@@ -40,17 +40,6 @@ const EventSpecs = () => {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <EventMasterForm submitForm={submitForm} />
     </>
   );

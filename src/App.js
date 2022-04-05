@@ -30,10 +30,22 @@ import TransferList from "./screens/transfers/TransferList/TransferList";
 import TransferUpdate from "./screens/transfers/TransferUpdate/TransferUpdate";
 import AddEventToSchedule from "./screens/projects/AddEventToSchedule/AddEventToSchedule";
 import AddTransfersINOUTToSchedule from "./screens/projects/AddTransfersINOUTToSchedule/AddTransfersINOUTToSchedule";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <div className="bg-black-50 text-lg text-orange-50 p-2 min-h-screen">
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={true}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <Router>
         <Routes>
           <Route path="/" element={<Dashboard />} />

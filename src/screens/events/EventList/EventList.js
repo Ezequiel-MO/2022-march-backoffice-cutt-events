@@ -4,8 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { toastOptions } from "../../../dev-data/toast";
 
 const EventList = () => {
   const navigate = useNavigate();
@@ -42,15 +43,7 @@ const EventList = () => {
   const handleDeleteEvent = async (eventId) => {
     try {
       await baseAPI.delete(`v1/events/${eventId}`);
-      toast("Event Deleted", {
-        position: "top-right",
-        autoClose: 2000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast("Event Deleted", toastOptions);
       setTimeout(() => {
         navigate("/event", 2500);
       });
@@ -103,17 +96,6 @@ const EventList = () => {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       <h1 className="text-2xl mb-4 indent-8">Event List</h1>
       <hr />
       <div className="container grid grid-cols-4 gap-4 my-4">

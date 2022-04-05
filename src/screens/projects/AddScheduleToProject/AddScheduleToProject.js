@@ -24,13 +24,13 @@ const AddScheduleToProject = () => {
 
   const renderSchedule = currentProject.schedule.map((day, index) => (
     <li key={day.date}>
-      <div class="md:flex flex-start">
-        <div class="bg-white-50 w-10 h-10 flex items-center justify-center rounded-full -ml-5">
+      <div className="md:flex flex-start">
+        <div className="bg-white-50 w-10 h-10 flex items-center justify-center rounded-full -ml-5">
           <svg
             aria-hidden="true"
             focusable="false"
             data-prefix="fas"
-            className="text-white w-5 h-5"
+            classNameName="text-white w-5 h-5"
             role="img"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 448 512"
@@ -41,11 +41,11 @@ const AddScheduleToProject = () => {
             ></path>
           </svg>
         </div>
-        <div class="block p-6 rounded-lg shadow-lg bg-gray-100 max-w-md ml-6 mb-10">
-          <div class="flex justify-between mb-4">
+        <div className="block p-6 rounded-lg shadow-lg bg-gray-100 max-w-md ml-6 mb-10">
+          <div className="flex justify-between mb-4">
             <a
               href="#!"
-              class="font-medium text-orange-50 hover:text-purple-700 focus:text-purple-800 duration-300 transition ease-in-out text-lg"
+              className="font-medium text-orange-50 hover:text-purple-700 focus:text-purple-800 duration-300 transition ease-in-out text-lg"
             >
               {day.date}
             </a>

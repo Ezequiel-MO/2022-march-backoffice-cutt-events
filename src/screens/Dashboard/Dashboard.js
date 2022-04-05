@@ -8,31 +8,31 @@ const Dashboard = () => {
       <ul className="indent-6 text-white-100">
         <li
           onClick={() => navigate("/project")}
-          className="hover:text-orange-50 cursor-pointer"
+          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
         >
           Projects
         </li>
         <li
           onClick={() => navigate("/hotel")}
-          className="hover:text-orange-50 cursor-pointer"
+          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
         >
           Hotels
         </li>
         <li
           onClick={() => navigate("/restaurant")}
-          className="hover:text-orange-50 cursor-pointer"
+          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50  cursor-pointer"
         >
           Restaurants
         </li>
         <li
           onClick={() => navigate("/event")}
-          className="hover:text-orange-50 cursor-pointer"
+          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50  cursor-pointer"
         >
           Events
         </li>
         <li
           onClick={() => navigate("/transfer")}
-          className="hover:text-orange-50 cursor-pointer"
+          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50  cursor-pointer"
         >
           Transfers
         </li>

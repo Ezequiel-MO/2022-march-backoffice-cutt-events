@@ -4,7 +4,7 @@ import baseAPI from "../../../axios/axiosConfig";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
 
 const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
@@ -85,17 +85,6 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        hideProgressBar={true}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
       {addEventToSchedule && currentProjectIsLive ? (
         <h1 className="text-2xl mb-4 indent-8">Add Transfer to an Event ? </h1>
       ) : (

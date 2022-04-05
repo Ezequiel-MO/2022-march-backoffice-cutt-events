@@ -8,14 +8,14 @@ const MasterTransfer = () => {
       <ul className="indent-6 text-white-100">
         <li
           onClick={() => navigate("/transfer/list")}
-          className="hover:text-orange-50 cursor-pointer"
+          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
         >
           Get a List of All Transfers in the Data Base
         </li>
 
         <li
           onClick={() => navigate("/transfer/specs")}
-          className="hover:text-orange-50 cursor-pointer"
+          className="hover:text-orange-50 hover:border-l-4 hover:border-white-50 cursor-pointer"
         >
           Create a New Transfer service and Save in the Data Base
         </li>
