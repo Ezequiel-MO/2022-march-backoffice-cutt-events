@@ -7,7 +7,7 @@ import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlic
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
 
-const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
+const TransferList = () => {
   const navigate = useNavigate();
   const [transfers, setTransfers] = useState([]);
   const [city, setCity] = useState("Barcelona");
@@ -53,14 +53,7 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
       <td>{transfer.city}</td>
       <td>{transfer.vehicleType}</td>
       <td>{transfer.vehicleCapacity}</td>
-      {addEventToSchedule && currentProjectIsLive ? (
-        <td
-          className="hover:cursor-pointer"
-          onClick={() => handleAddTransfer(transfer)}
-        >
-          <Icon icon="ic:twotone-add-circle" color="#ea5933" width="25" />
-        </td>
-      ) : (
+      {currentProjectIsLive && (
         <>
           <td
             className="hover:cursor-pointer"
@@ -85,11 +78,7 @@ const TransferList = ({ addEventToSchedule, handleAddTransfer }) => {
 
   return (
     <>
-      {addEventToSchedule && currentProjectIsLive ? (
-        <h1 className="text-2xl mb-4 indent-8">Add Transfer to an Event ? </h1>
-      ) : (
-        <h1 className="text-2xl mb-4 indent-8">Transfer List</h1>
-      )}
+      <h1 className="text-2xl mb-4 indent-8">Transfer List</h1>
       <hr />
       <div className="container grid grid-cols-4 gap-4 my-4">
         <form className="text-orange-50">
