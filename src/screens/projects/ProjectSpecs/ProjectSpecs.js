@@ -7,6 +7,8 @@ import {
   computeTotalDays,
   whichDay,
 } from "../../../helperFunctions/helperFunctions";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../../dev-data/toast";
 
 const ProjectSpecs = () => {
   const navigate = useNavigate();
@@ -40,7 +42,7 @@ const ProjectSpecs = () => {
         JSON.stringify(res.data.data.data)
       );
       dispatch(SET_CURRENT_PROJECT(res.data.data.data));
-      alert("Base Project Created");
+      toast.success("Base Project Created", toastOptions);
       navigate("/hotel-list");
     } catch (error) {
       console.log(error);

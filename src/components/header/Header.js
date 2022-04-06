@@ -45,7 +45,7 @@ const Header = () => {
           src={header_image}
         />
       </div>
-      <div className="absolute top-1 right-2 z-50">
+      <div className="absolute top-1 right-1 z-50">
         <img
           className="w-16 h-16 rounded-full"
           src={Leo}

@@ -7,6 +7,7 @@ import { toastOptions } from "../../../dev-data/toast";
 
 const EventSpecs = () => {
   const navigate = useNavigate();
+
   const postToEndpoint = async (data, endPoint) => {
     try {
       await baseAPI.post(`v1/${endPoint}`, data);

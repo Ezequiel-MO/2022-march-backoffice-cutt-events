@@ -1,26 +1,11 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
-import baseAPI from "../../../axios/axiosConfig";
+import RenderSchedule from "../RenderSchedule/RenderSchedule";
 
 const AddScheduleToProject = () => {
   const navigate = useNavigate();
   const currentProject = useSelector(selectCurrentProject);
-
-  const handlePatchProject = async () => {
-    try {
-      const response = await baseAPI.patch(
-        `/v1/projects/${currentProject._id}`,
-        {
-          schedule: currentProject.schedule,
-          hotels: currentProject.hotels,
-        }
-      );
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const renderSchedule = currentProject.schedule.map((day, index) => (
     <li key={day.date}>
@@ -140,16 +125,9 @@ const AddScheduleToProject = () => {
   ));
 
   return (
-    <div className="container p-10">
+    <div className="container p-10 flex justify-around">
       <ol className="border-l-2 border-camel-50">{renderSchedule}</ol>
-      <div className="flex space-x-2 justify-center">
-        <button
-          className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-          onClick={handlePatchProject}
-        >
-          Save Final Project
-        </button>
-      </div>
+      <RenderSchedule />
     </div>
   );
 };

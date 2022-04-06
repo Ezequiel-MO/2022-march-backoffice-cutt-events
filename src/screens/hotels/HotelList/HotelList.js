@@ -4,6 +4,8 @@ import baseAPI from "../../../axios/axiosConfig";
 import { useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../../dev-data/toast";
 
 const HotelList = () => {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const HotelList = () => {
   const handleDeleteHotel = async (hotelId) => {
     try {
       await baseAPI.delete(`v1/hotels/${hotelId}`);
-      alert("Hotel Deleted");
+      toast.success("Hotel Deleted", toastOptions);
     } catch (error) {
       console.log(error);
     }

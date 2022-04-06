@@ -5,6 +5,8 @@ import TextInput from "../../../UI/inputs/TextInput";
 import baseAPI from "../../../axios/axiosConfig";
 import { ADD_HOTEL_TO_PROJECT } from "../../../redux/features/CurrentProjectSlice";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../../dev-data/toast";
 
 const AddHotelToProject = () => {
   const dispatch = useDispatch();
@@ -20,12 +22,12 @@ const AddHotelToProject = () => {
         price: [values],
       };
       dispatch(ADD_HOTEL_TO_PROJECT(hotelWithPrices));
-      alert("Hotel Added");
+      toast.success("Hotel Added", toastOptions);
       let moreHotels = prompt("Would you like to add more hotels ?", "yes/no");
       if (moreHotels === "yes") {
         navigate("/hotel/list");
       } else {
-        navigate("/project/specs");
+        navigate("/project");
       }
     } catch (err) {
       console.log(err);
