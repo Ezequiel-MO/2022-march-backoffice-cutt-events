@@ -31,6 +31,7 @@ import TransferUpdate from "./screens/transfers/TransferUpdate/TransferUpdate";
 import AddEventToSchedule from "./screens/projects/AddEventToSchedule/AddEventToSchedule";
 import AddTransfersINOUTToSchedule from "./screens/projects/AddTransfersINOUTToSchedule/AddTransfersINOUTToSchedule";
 import { ToastContainer } from "react-toastify";
+import Header from "./components/header/Header";
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         pauseOnHover
       />
       <Router>
+        <Header />
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/project" element={<MasterProject />} />
