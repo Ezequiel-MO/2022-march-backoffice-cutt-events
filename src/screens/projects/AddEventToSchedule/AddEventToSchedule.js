@@ -5,21 +5,30 @@ import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
 import { ADD_EVENT_TO_SCHEDULE } from "../../../redux/features/CurrentProjectSlice";
 import DetailedTransferList from "../../transfers/TransferList/DetailedTransferList";
+import AddIntroToEvent from "../AddIntroToEvent/AddIntroToEvent";
 
 const AddEventToSchedule = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [eventWithTransfer, setEventWithTransfer] = useState(
+  const [eventWithTransferAndIntro, setEventWithTransferAndIntro] = useState(
     location.state.event
   );
 
   const handleAddTransfer = (transferService, selectedService) => {
-    setEventWithTransfer((prevState) => ({
+    setEventWithTransferAndIntro((prevState) => ({
       ...prevState,
-      transfer: [{ ...transferService, service: selectedService }],
+      transfer: [{ ...transferService, selectedService }],
     }));
     toast.success("Transfer added", toastOptions);
+  };
+
+  const handleAddIntro = (intro) => {
+    setEventWithTransferAndIntro((prevState) => ({
+      ...prevState,
+      introduction: [intro],
+    }));
+    toast.success("Intro added", toastOptions);
   };
 
   const handleAddEvent = () => {
@@ -27,15 +36,17 @@ const AddEventToSchedule = () => {
       ADD_EVENT_TO_SCHEDULE({
         dayOfEvent: location.state.dayOfEvent,
         timeOfEvent: location.state.timeOfEvent,
-        event: eventWithTransfer,
+        event: eventWithTransferAndIntro,
       })
     );
     toast.success("Event Added to Schedule", toastOptions);
     navigate("/project/schedule");
   };
+
   return (
     <>
       <DetailedTransferList handleAddTransfer={handleAddTransfer} />
+      <AddIntroToEvent submitForm={handleAddIntro} />
       <hr />
       <button
         onClick={handleAddEvent}

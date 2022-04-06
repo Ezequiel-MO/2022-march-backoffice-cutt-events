@@ -1,14 +1,10 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
-import { toastOptions } from "../../../dev-data/toast";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
 const DetailedTransferList = ({ handleAddTransfer }) => {
-  const navigate = useNavigate();
   const [city, setCity] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState(null);
   const [transfers, setTransfers] = useState([]);
