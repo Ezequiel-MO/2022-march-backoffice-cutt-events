@@ -69,7 +69,7 @@ const AddHotelToProject = () => {
             </h1>
             <Form>
               <fieldset className="flex items-center justify-between">
-                <div className="w-1/2">
+                <div className="w-1/3">
                   <div>
                     <TextInput
                       label="Number of DUIs"

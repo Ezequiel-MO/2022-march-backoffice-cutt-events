@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../../dev-data/toast";
 
 const ProjectList = () => {
   const navigate = useNavigate();
@@ -33,12 +35,14 @@ const ProjectList = () => {
       }
     };
     getProjectList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [city, accountManager]);
 
   const handleDeleteProject = async (projectId) => {
     try {
       await baseAPI.delete(`v1/projects/${projectId}`);
-      alert("Project Deleted");
+      toast.success("Project Deleted", toastOptions);
+      setProjects(projects.filter((project) => project._id !== projectId));
     } catch (error) {
       console.log(error);
     }
