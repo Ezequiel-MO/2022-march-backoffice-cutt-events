@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
+import { toastOptions } from "../../../dev-data/toast";
 
 const ProjectUpdate = () => {
   const [originalProject, setOriginalProject] = useState({});
@@ -91,19 +93,23 @@ const ProjectUpdate = () => {
         `v1/projects/${location.state.projectId}`,
         updatedProject
       );
+      toast.success("Project Updated", toastOptions);
       setUpdatedProject(updated.data.data.data);
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, toastOptions);
     }
   };
 
   const renderOriginalProject = (
     <>
       {Object.keys(originalProject).map((field) => (
-        <div key={`${field}`}>
+        <div
+          key={`${field}`}
+          className="relative px-6 py-2 border-b border-gray-200 w-full rounded-t-lg cursor-pointer"
+        >
           {isInput[field] ? (
-            <div style={{ display: "flex" }}>
-              <p>{field} :</p>
+            <div>
+              <p className="font-bold">{field} :</p>
               <input
                 type="text"
                 placeholder={`New ${field}  ...`}
@@ -111,15 +117,16 @@ const ProjectUpdate = () => {
                 name={`${field}`}
                 value={updatedProject[`${field}`]}
                 onChange={handleUpdateProject}
+                className="absolute right-3.5 bottom-2 w-2/3"
                 autoFocus
               />
             </div>
           ) : (
-            <li onClick={() => setEditFieldStatus(`${field}`, true)}>
+            <div onClick={() => setEditFieldStatus(`${field}`, true)}>
               {updatedProject[`${field}`]
                 ? `${field} : ${updatedProject[field]}`
                 : `${field} : ${originalProject[field]}`}
-            </li>
+            </div>
           )}
         </div>
       ))}
@@ -128,19 +135,21 @@ const ProjectUpdate = () => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <h3>Original Project</h3>
+      <h1 className="text-2xl mb-4 indent-8">Original Project</h1>
+      <form
+        onSubmit={handleSubmit}
+        className="flex align-center justify-around w-3/4 mx-auto"
+      >
+        <div className="bg-white rounded-lg border border-gray-200 w-1/2 text-white-50">
           {renderOriginalProject}
         </div>
-        <hr />
-        <button type="submit">Update and Save</button>
+        <button
+          className="h-12 px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+          type="submit"
+        >
+          Update and Save
+        </button>
       </form>
-      <hr />
-      <div>
-        <h3>Updated Project</h3>
-        {JSON.stringify(updatedProject)}
-      </div>
     </>
   );
 };

@@ -101,7 +101,7 @@ const HotelUpdate = () => {
   const renderOriginalHotel = (
     <>
       {Object.keys(originalHotel).map((field) => (
-        <li
+        <div
           key={`${field}`}
           className="relative px-6 py-2 border-b border-gray-200 w-full rounded-t-lg cursor-pointer"
         >
@@ -137,7 +137,7 @@ const HotelUpdate = () => {
                 : `${field} : ${originalHotel[field]}`}
             </div>
           )}
-        </li>
+        </div>
       ))}
     </>
   );
@@ -149,9 +149,9 @@ const HotelUpdate = () => {
         onSubmit={handleSubmit}
         className="flex align-center justify-around w-3/4 mx-auto"
       >
-        <ul className="bg-white rounded-lg border border-gray-200 w-1/2 text-white-50">
+        <div className="bg-white rounded-lg border border-gray-200 w-1/2 text-white-50">
           {renderOriginalHotel}
-        </ul>
+        </div>
         <button
           className="h-12 px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
           type="submit"
