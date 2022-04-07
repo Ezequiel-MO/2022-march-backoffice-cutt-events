@@ -1,21 +1,24 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
+import { toastOptions } from "../../../dev-data/toast";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 
 const RenderSchedule = () => {
+  const navigate = useNavigate();
   const currentProject = useSelector(selectCurrentProject);
   const [project] = useState(currentProject);
 
   const handlePatchProject = async () => {
-    console.log("SCHEDULE", project["schedule"]);
-    console.log("HOTELS", project["hotels"]);
     try {
-      const response = await baseAPI.patch(`/v1/projects/${project._id}`, {
+      await baseAPI.patch(`/v1/projects/${project._id}`, {
         schedule: project["schedule"],
         hotels: project["hotels"],
       });
-      console.log("super response ====> ", response);
+      toast.success("Project Completed, congratulations !!", toastOptions);
+      navigate("/");
     } catch (error) {
       console.log(error);
     }

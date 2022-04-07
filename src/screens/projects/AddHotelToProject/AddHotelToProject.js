@@ -3,14 +3,14 @@ import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import TextInput from "../../../UI/inputs/TextInput";
 import baseAPI from "../../../axios/axiosConfig";
-import { ADD_HOTEL_TO_PROJECT } from "../../../redux/features/CurrentProjectSlice";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
+import { useDispatch } from "react-redux";
+import { ADD_HOTEL_TO_PROJECT } from "../../../redux/features/CurrentProjectSlice";
 
 const AddHotelToProject = () => {
-  const dispatch = useDispatch();
   let params = useParams();
+  const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -22,6 +22,10 @@ const AddHotelToProject = () => {
         price: [values],
       };
       dispatch(ADD_HOTEL_TO_PROJECT(hotelWithPrices));
+      await baseAPI.patch(`/v1/hotels/${params.hotelId}`, {
+        price: [values],
+      });
+
       toast.success("Hotel Added", toastOptions);
       let moreHotels = prompt("Would you like to add more hotels ?", "yes/no");
       if (moreHotels === "yes") {

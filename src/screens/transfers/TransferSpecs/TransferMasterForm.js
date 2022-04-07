@@ -20,6 +20,7 @@ const TransferMasterForm = ({ submitForm }) => {
           dispo_6h_night: "",
           vehicleType: "",
           vehicleCapacity: "",
+          selectedService: "",
         }}
         onSubmit={(values) => {
           submitForm(values, "transfers");

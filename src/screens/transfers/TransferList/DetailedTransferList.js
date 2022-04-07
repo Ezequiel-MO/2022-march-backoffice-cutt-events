@@ -15,13 +15,6 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
   useEffect(() => {
-    if (currentProjectIsLive) {
-      const { groupLocation } = currentProject;
-      setCity(groupLocation);
-    }
-  }, [currentProject, currentProjectIsLive]);
-
-  useEffect(() => {
     const getCompanies = async () => {
       try {
         const response = await baseAPI.get(`/v1/transfers?city=${city}`);
@@ -37,6 +30,13 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
 
     getCompanies();
   }, [city]);
+
+  useEffect(() => {
+    if (currentProjectIsLive) {
+      const { groupLocation } = currentProject;
+      setCity(groupLocation);
+    }
+  }, [currentProject, currentProjectIsLive]);
 
   useEffect(() => {
     const getTransferList = async () => {

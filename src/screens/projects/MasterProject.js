@@ -1,5 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../dev-data/toast";
 import { selectCurrentProject } from "../../redux/features/CurrentProjectSlice";
 
 const MasterProject = () => {
@@ -9,7 +11,7 @@ const MasterProject = () => {
 
   const handleClearProject = () => {
     localStorage.removeItem("currentProject");
-    alert("Project cleared");
+    toast.success("Project cleared", toastOptions);
     navigate("/");
   };
 

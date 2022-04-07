@@ -12,21 +12,29 @@ const AddEventToSchedule = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [eventWithTransferAndIntro, setEventWithTransferAndIntro] = useState(
-    location.state.event
-  );
+  const [event] = useState(location.state.event);
 
-  const handleAddTransfer = (transferService, selectedService) => {
-    setEventWithTransferAndIntro((prevState) => ({
-      ...prevState,
-      transfer: [{ ...transferService, selectedService }],
-    }));
-    toast.success("Transfer added", toastOptions);
+  const handleAddTransfer = async (transferService, selectedService) => {
+    const endpoint =
+      location.state.timeOfEvent === "lunch" ||
+      location.state.timeOfEvent === "dinner"
+        ? "restaurants"
+        : "events";
+    const transferData = { ...transferService, selectedService };
+    try {
+      await baseAPI.patch(`v1/${endpoint}/${location.state.event._id}`, {
+        transfer: [JSON.stringify(transferData)],
+      });
+      toast.success("Transfer added", toastOptions);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleAddIntro = async (intro) => {
     const endpoint =
-      location.state.timeOfEvent === "lunch" || "dinner"
+      location.state.timeOfEvent === "lunch" ||
+      location.state.timeOfEvent === "dinner"
         ? "restaurants"
         : "events";
     try {
@@ -44,7 +52,7 @@ const AddEventToSchedule = () => {
       ADD_EVENT_TO_SCHEDULE({
         dayOfEvent: location.state.dayOfEvent,
         timeOfEvent: location.state.timeOfEvent,
-        event: eventWithTransferAndIntro,
+        event,
       })
     );
     toast.success("Event Added to Schedule", toastOptions);
