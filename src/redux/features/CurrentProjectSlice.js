@@ -38,6 +38,9 @@ export const currentProjectSlice = createSlice({
         },
       };
     },
+    CLEAR_PROJECT: (state) => {
+      state.project = {};
+    },
   },
 });
 
@@ -45,6 +48,7 @@ export const {
   SET_CURRENT_PROJECT,
   ADD_HOTEL_TO_PROJECT,
   ADD_EVENT_TO_SCHEDULE,
+  CLEAR_PROJECT,
 } = currentProjectSlice.actions;
 
 export const selectCurrentProject = (state) => state.currentProject.project;

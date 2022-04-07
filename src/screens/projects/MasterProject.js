@@ -1,16 +1,21 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../dev-data/toast";
-import { selectCurrentProject } from "../../redux/features/CurrentProjectSlice";
+import {
+  CLEAR_PROJECT,
+  selectCurrentProject,
+} from "../../redux/features/CurrentProjectSlice";
 
 const MasterProject = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const currentProject = useSelector(selectCurrentProject);
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
   const handleClearProject = () => {
     localStorage.removeItem("currentProject");
+    dispatch(CLEAR_PROJECT());
     toast.success("Project cleared", toastOptions);
     navigate("/");
   };
