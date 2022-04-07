@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import baseAPI from "../../../axios/axiosConfig";
 import { toastOptions } from "../../../dev-data/toast";
 import { ADD_EVENT_TO_SCHEDULE } from "../../../redux/features/CurrentProjectSlice";
 import DetailedTransferList from "../../transfers/TransferList/DetailedTransferList";
@@ -23,12 +24,19 @@ const AddEventToSchedule = () => {
     toast.success("Transfer added", toastOptions);
   };
 
-  const handleAddIntro = (intro) => {
-    setEventWithTransferAndIntro((prevState) => ({
-      ...prevState,
-      introduction: [intro],
-    }));
-    toast.success("Intro added", toastOptions);
+  const handleAddIntro = async (intro) => {
+    const endpoint =
+      location.state.timeOfEvent === "lunch" || "dinner"
+        ? "restaurants"
+        : "events";
+    try {
+      await baseAPI.patch(`v1/${endpoint}/${location.state.event._id}`, {
+        introduction: [JSON.stringify(intro)],
+      });
+      toast.success("Intro added", toastOptions);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const handleAddEvent = () => {
