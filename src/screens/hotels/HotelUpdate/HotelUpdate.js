@@ -64,7 +64,7 @@ const HotelUpdate = () => {
         const filteredOutHotelObj = filterOutHotel(recovered.data.data.data);
         setOriginalHotel(filteredOutHotelObj);
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message, toastOptions);
       }
     };
     getHotel();

@@ -54,7 +54,7 @@ const EventUpdate = () => {
         const filteredOutEventObj = filterOutEvent(recovered.data.data.data);
         setOriginalEvent(filteredOutEventObj);
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message, toastOptions);
       }
     };
     getEvent();

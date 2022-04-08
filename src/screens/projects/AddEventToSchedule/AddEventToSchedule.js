@@ -26,8 +26,8 @@ const AddEventToSchedule = () => {
         transfer: [JSON.stringify(transferData)],
       });
       toast.success("Transfer added", toastOptions);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      toast.error("Transfer not added", toastOptions);
     }
   };
 
@@ -42,8 +42,8 @@ const AddEventToSchedule = () => {
         introduction: [JSON.stringify(intro)],
       });
       toast.success("Intro added", toastOptions);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      toast.error(error.message.data.message, toastOptions);
     }
   };
 

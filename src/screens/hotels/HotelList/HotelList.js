@@ -29,7 +29,7 @@ const HotelList = () => {
         );
         setHotels(response.data.data.data);
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message, toastOptions);
       }
     };
     getHotelList();
@@ -41,7 +41,7 @@ const HotelList = () => {
       toast.success("Hotel Deleted", toastOptions);
       setHotels(hotels.filter((hotel) => hotel._id !== hotelId));
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, toastOptions);
     }
   };
 

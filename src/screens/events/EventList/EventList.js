@@ -32,7 +32,7 @@ const EventList = () => {
         );
         setEvents(response.data.data.data);
       } catch (error) {
-        console.log(error);
+        toast.error(error.response.data.message, toastOptions);
       }
     };
     if (city && price) {
@@ -46,7 +46,7 @@ const EventList = () => {
       toast("Event Deleted", toastOptions);
       setEvents(events.filter((event) => event._id !== eventId));
     } catch (error) {
-      console.log(error);
+      toast.error(error.response.data.message, toastOptions);
     }
   };
 
