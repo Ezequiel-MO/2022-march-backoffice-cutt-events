@@ -42,6 +42,7 @@ const TransferList = () => {
     try {
       await baseAPI.delete(`v1/transfers/${transferId}`);
       toast.success("Transfer deleted", toastOptions);
+      setTransfers(transfers.filter((transfer) => transfer._id !== transferId));
     } catch (error) {
       console.log(error);
     }
@@ -53,26 +54,24 @@ const TransferList = () => {
       <td>{transfer.city}</td>
       <td>{transfer.vehicleType}</td>
       <td>{transfer.vehicleCapacity}</td>
-      {currentProjectIsLive && (
-        <>
-          <td
-            className="hover:cursor-pointer"
-            onClick={() => navigate(`/transfer/${transfer._id}/update`)}
-          >
-            <Icon
-              icon="arcticons:huawei-system-update"
-              color="#ea5933"
-              width="30"
-            />
-          </td>
-          <td
-            className="hover:cursor-pointer"
-            onClick={() => handleDeleteTransfer(transfer._id)}
-          >
-            <Icon icon="ei:trash" color="#ea5933" width="30" />
-          </td>
-        </>
-      )}
+      <>
+        <td
+          className="hover:cursor-pointer"
+          onClick={() => navigate(`/transfer/${transfer._id}/update`)}
+        >
+          <Icon
+            icon="arcticons:huawei-system-update"
+            color="#ea5933"
+            width="30"
+          />
+        </td>
+        <td
+          className="hover:cursor-pointer"
+          onClick={() => handleDeleteTransfer(transfer._id)}
+        >
+          <Icon icon="ei:trash" color="#ea5933" width="30" />
+        </td>
+      </>
     </tr>
   ));
 

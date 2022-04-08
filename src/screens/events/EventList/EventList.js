@@ -44,9 +44,7 @@ const EventList = () => {
     try {
       await baseAPI.delete(`v1/events/${eventId}`);
       toast("Event Deleted", toastOptions);
-      setTimeout(() => {
-        navigate("/event", 2500);
-      });
+      setEvents(events.filter((event) => event._id !== eventId));
     } catch (error) {
       console.log(error);
     }

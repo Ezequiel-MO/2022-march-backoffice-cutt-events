@@ -39,6 +39,7 @@ const HotelList = () => {
     try {
       await baseAPI.delete(`v1/hotels/${hotelId}`);
       toast.success("Hotel Deleted", toastOptions);
+      setHotels(hotels.filter((hotel) => hotel._id !== hotelId));
     } catch (error) {
       console.log(error);
     }

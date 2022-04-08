@@ -43,9 +43,9 @@ const RestaurantList = () => {
     try {
       await baseAPI.delete(`v1/restaurants/${restaurantId}`);
       toast.success("Restaurant Deleted", toastOptions);
-      setTimeout(() => {
-        navigate("/restaurant", 2500);
-      });
+      setRestaurants(
+        restaurants.filter((restaurant) => restaurant._id !== restaurantId)
+      );
     } catch (error) {
       console.log(error);
     }
