@@ -29,7 +29,7 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
     };
 
     getCompanies();
-  }, [city]);
+  }, [city, transfers]);
 
   useEffect(() => {
     if (currentProjectIsLive) {
