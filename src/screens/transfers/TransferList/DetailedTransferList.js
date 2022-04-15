@@ -8,7 +8,9 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
   const [city, setCity] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState(null);
   const [transfers, setTransfers] = useState([]);
-  const [companies, setCompanies] = useState([]);
+  const [companies, setCompanies] = useState(
+    JSON.parse(localStorage.getItem("uniqueCompanies"))
+  );
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const currentProject = useSelector(selectCurrentProject);
@@ -22,6 +24,10 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
           (transfer) => transfer.company
         );
         const uniqueCompanies = [...new Set(companiesArr)];
+        localStorage.setItem(
+          "uniqueCompanies",
+          JSON.stringify(uniqueCompanies)
+        );
         setCompanies(uniqueCompanies);
       } catch (error) {
         console.log(error);
@@ -29,7 +35,7 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
     };
 
     getCompanies();
-  }, [city, transfers]);
+  }, [city]);
 
   useEffect(() => {
     if (currentProjectIsLive) {
@@ -83,7 +89,7 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
               onChange={(e) => setSelectedCompany(e.target.value)}
             >
               <option value="">Select Preferred vendor</option>
-              {companies.map((company) => (
+              {companies?.map((company) => (
                 <option key={company} value={company}>
                   {company}
                 </option>
