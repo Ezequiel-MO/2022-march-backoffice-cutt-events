@@ -1,20 +1,24 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import {
+  selectTransferCompanies,
+  SET_TRANSFER_COMPANIES,
+} from "../../../redux/features/TransferCompaniesSlice";
 
 const DetailedTransferList = ({ handleAddTransfer }) => {
+  const dispatch = useDispatch();
   const [city, setCity] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState(null);
   const [transfers, setTransfers] = useState([]);
-  const [companies, setCompanies] = useState(
-    JSON.parse(localStorage.getItem("uniqueCompanies"))
-  );
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const currentProject = useSelector(selectCurrentProject);
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
+
+  const companies = useSelector(selectTransferCompanies);
 
   useEffect(() => {
     const getCompanies = async () => {
@@ -28,14 +32,14 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
           "uniqueCompanies",
           JSON.stringify(uniqueCompanies)
         );
-        setCompanies(uniqueCompanies);
+        dispatch(SET_TRANSFER_COMPANIES(uniqueCompanies));
       } catch (error) {
         console.log(error);
       }
     };
 
     getCompanies();
-  }, [city]);
+  }, [city, dispatch]);
 
   useEffect(() => {
     if (currentProjectIsLive) {
