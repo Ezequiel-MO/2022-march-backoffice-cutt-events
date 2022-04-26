@@ -8,7 +8,7 @@ import {
   selectCurrentProject,
 } from "../../../redux/features/CurrentProjectSlice";
 import DetailedTransferList from "../../transfers/TransferList/DetailedTransferList";
-import AddIntroToEvent from "../AddIntroToEvent/AddIntroToEvent";
+import AddIntroToEvent from "../AddIntro/AddIntroToEvent";
 
 const AddEventToSchedule = () => {
   const location = useLocation();
