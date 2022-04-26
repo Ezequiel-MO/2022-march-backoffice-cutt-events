@@ -5,36 +5,38 @@ import TextInput from "../../../UI/inputs/TextInput";
 import baseAPI from "../../../axios/axiosConfig";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
-import { useDispatch } from "react-redux";
-import { ADD_HOTEL_TO_PROJECT } from "../../../redux/features/CurrentProjectSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  ADD_HOTEL_TO_PROJECT,
+  selectCurrentProject,
+} from "../../../redux/features/CurrentProjectSlice";
 
 const AddHotelToProject = () => {
   let params = useParams();
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const { hotels } = useSelector(selectCurrentProject);
 
   const addHotelWithPricesToProject = async (values) => {
-    try {
-      const hotel = await baseAPI.get(`/v1/hotels/${params.hotelId}`);
-      const hotelWithPrices = {
-        ...hotel.data.data.data,
-        price: [values],
-      };
-      dispatch(ADD_HOTEL_TO_PROJECT(hotelWithPrices));
-      await baseAPI.patch(`/v1/hotels/${params.hotelId}`, {
-        price: [values],
-      });
-
-      toast.success("Hotel Added", toastOptions);
-      let moreHotels = prompt("Would you like to add more hotels ?", "yes/no");
-      if (moreHotels === "yes") {
-        navigate("/hotel/list");
-      } else {
+    const { hotelId } = params;
+    //if hotel is already in project, don't add it again
+    if (hotels.find((hotel) => hotel._id === hotelId)) {
+      toast.error("Hotel already in project", toastOptions);
+      setTimeout(() => {
         navigate("/project");
-      }
-    } catch (err) {
-      console.log(err);
+      }, 1000);
+      return;
+    }
+    try {
+      const res = await baseAPI.get(`v1/hotels/${hotelId}`);
+      const hotel = res.data.data.data;
+      hotel.price = [values];
+      dispatch(ADD_HOTEL_TO_PROJECT(hotel));
+      toast.success("Hotel added to project", toastOptions);
+      navigate("/project");
+    } catch (error) {
+      console.log(error);
     }
   };
 
