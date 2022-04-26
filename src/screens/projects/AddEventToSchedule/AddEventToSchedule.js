@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import baseAPI from "../../../axios/axiosConfig";
 import { toastOptions } from "../../../dev-data/toast";
 import { ADD_EVENT_TO_SCHEDULE } from "../../../redux/features/CurrentProjectSlice";
 import DetailedTransferList from "../../transfers/TransferList/DetailedTransferList";
@@ -14,37 +13,15 @@ const AddEventToSchedule = () => {
   const navigate = useNavigate();
   const [event] = useState(location.state.event);
 
-  const handleAddTransfer = async (transferService, selectedService) => {
-    const endpoint =
-      location.state.timeOfEvent === "lunch" ||
-      location.state.timeOfEvent === "dinner"
-        ? "restaurants"
-        : "events";
+  const handleAddTransfer = (transferService, selectedService) => {
     const transferData = { ...transferService, selectedService };
-    try {
-      await baseAPI.patch(`v1/${endpoint}/${location.state.event._id}`, {
-        transfer: [JSON.stringify(transferData)],
-      });
-      toast.success("Transfer added", toastOptions);
-    } catch (error) {
-      toast.error("Transfer not added", toastOptions);
-    }
+    event.transfer = [transferData];
+    toast.success("Transfer added", toastOptions);
   };
 
-  const handleAddIntro = async (intro) => {
-    const endpoint =
-      location.state.timeOfEvent === "lunch" ||
-      location.state.timeOfEvent === "dinner"
-        ? "restaurants"
-        : "events";
-    try {
-      await baseAPI.patch(`v1/${endpoint}/${location.state.event._id}`, {
-        introduction: [JSON.stringify(intro)],
-      });
-      toast.success("Intro added", toastOptions);
-    } catch (error) {
-      toast.error(error.message.data.message, toastOptions);
-    }
+  const handleAddIntro = (intro) => {
+    event.introduction = [intro];
+    toast.success("Introduction added", toastOptions);
   };
 
   const handleAddEvent = () => {
