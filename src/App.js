@@ -87,7 +87,16 @@ function App() {
             path="/transfer/:transferId/update"
             element={<TransferUpdate />}
           />
-          <Route path="/*" element={<Navigate to="/" />} />
+          <Route
+            path="*"
+            element={
+              <main className="indent-10">
+                <h1 className="text-xl">
+                  Page not found! Pls click on the logo
+                </h1>
+              </main>
+            }
+          />
         </Routes>
       </Router>
     </div>

@@ -1,9 +1,12 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
-import { ADD_EVENT_TO_SCHEDULE } from "../../../redux/features/CurrentProjectSlice";
+import {
+  ADD_EVENT_TO_SCHEDULE,
+  selectCurrentProject,
+} from "../../../redux/features/CurrentProjectSlice";
 import DetailedTransferList from "../../transfers/TransferList/DetailedTransferList";
 import AddIntroToEvent from "../AddIntroToEvent/AddIntroToEvent";
 
@@ -12,6 +15,19 @@ const AddEventToSchedule = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [event] = useState(location.state.event);
+  const [eventArrayIsEmpty, setEventArrayIsEmpty] = useState(false);
+  const { schedule } = useSelector(selectCurrentProject);
+
+  useEffect(() => {
+    if (location) {
+      if (
+        schedule[location.state.dayOfEvent][location.state.timeOfEvent]
+          .length !== 0
+      ) {
+        setEventArrayIsEmpty(false);
+      } else setEventArrayIsEmpty(true);
+    }
+  }, [schedule, location]);
 
   const handleAddTransfer = (transferService, selectedService, nrVehicles) => {
     const transferData = { ...transferService, selectedService };
@@ -41,7 +57,7 @@ const AddEventToSchedule = () => {
   return (
     <>
       <DetailedTransferList handleAddTransfer={handleAddTransfer} />
-      <AddIntroToEvent submitForm={handleAddIntro} />
+      {eventArrayIsEmpty && <AddIntroToEvent submitForm={handleAddIntro} />}
       <hr />
       <button
         onClick={handleAddEvent}
