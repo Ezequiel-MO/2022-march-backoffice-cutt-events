@@ -127,7 +127,7 @@ const AddScheduleToProject = () => {
   return (
     <div className="container p-10 flex justify-around">
       <ol className="border-l-2 border-camel-50">
-        {schedule ? renderSchedule : <h1></h1>Click on the logo to continue</h1>}
+        {schedule ? renderSchedule : <h1>Click on the logo to continue</h1>}
       </ol>
       {schedule ? <RenderSchedule /> : null}
     </div>
