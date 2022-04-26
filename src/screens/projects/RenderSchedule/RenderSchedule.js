@@ -10,12 +10,14 @@ import {
   REMOVE_HOTEL_FROM_PROJECT,
   selectCurrentProject,
 } from "../../../redux/features/CurrentProjectSlice";
+import AddIntroToProject from "../AddIntro/AddIntroToProject";
 
 const RenderSchedule = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentProject = useSelector(selectCurrentProject);
   const [project, setProject] = useState(currentProject);
+  const [projectIntro, setProjectIntro] = useState([]);
 
   useEffect(() => {
     setProject(currentProject);
@@ -36,12 +38,18 @@ const RenderSchedule = () => {
       await baseAPI.patch(`/v1/projects/${project._id}`, {
         schedule: project["schedule"],
         hotels: project["hotels"],
+        projectIntro,
       });
       toast.success("Project Completed, congratulations !!", toastOptions);
-      setTimeout(() => navigate("/"), 1000);
+      setTimeout(() => navigate("/project/schedule"), 1000);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const submitIntro = (intro) => {
+    setProjectIntro([intro]);
+    toast.success("Introduction added to project", toastOptions);
   };
   return (
     <div className="container w-3/4 flex flex-col">
@@ -159,6 +167,7 @@ const RenderSchedule = () => {
           ))}
         </tbody>
       </table>
+      <AddIntroToProject submitForm={submitIntro} />
       <button
         className="h-12 mt-4 inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
         onClick={handlePatchProject}
