@@ -1,8 +1,12 @@
 import { Form, Formik } from "formik";
 import React from "react";
+import { useSelector } from "react-redux";
+import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 import TextAreaInput from "../../../UI/inputs/TextAreaInput";
 
 const AddIntroToProject = ({ submitForm }) => {
+  const { projectIntro } = useSelector(selectCurrentProject);
+
   return (
     <>
       <Formik
@@ -36,7 +40,11 @@ const AddIntroToProject = ({ submitForm }) => {
                      my-7
                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none
                    "
-                placeholder="Write here an introduction for the whole project - that will be displayed in the top of the project page"
+                placeholder={`${
+                  projectIntro
+                    ? projectIntro
+                    : "Write here an introduction for the whole project - that will be displayed in the top of the project page"
+                } `}
                 type="text"
               />
               <div className="flex space-x-2 justify-center">

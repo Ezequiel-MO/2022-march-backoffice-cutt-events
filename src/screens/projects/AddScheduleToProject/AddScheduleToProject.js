@@ -5,9 +5,9 @@ import RenderSchedule from "../RenderSchedule/RenderSchedule";
 
 const AddScheduleToProject = () => {
   const navigate = useNavigate();
-  const currentProject = useSelector(selectCurrentProject);
+  const { schedule } = useSelector(selectCurrentProject);
 
-  const renderSchedule = currentProject.schedule.map((day, index) => (
+  const renderSchedule = schedule?.map((day, index) => (
     <li key={day.date}>
       <div className="md:flex flex-start">
         <div className="bg-white-50 w-10 h-10 flex items-center justify-center rounded-full -ml-5">
@@ -126,8 +126,10 @@ const AddScheduleToProject = () => {
 
   return (
     <div className="container p-10 flex justify-around">
-      <ol className="border-l-2 border-camel-50">{renderSchedule}</ol>
-      <RenderSchedule />
+      <ol className="border-l-2 border-camel-50">
+        {schedule ? renderSchedule : <h1></h1>Click on the logo to continue</h1>}
+      </ol>
+      {schedule ? <RenderSchedule /> : null}
     </div>
   );
 };
