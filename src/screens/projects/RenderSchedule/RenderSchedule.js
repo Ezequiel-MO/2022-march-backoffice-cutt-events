@@ -27,7 +27,6 @@ const RenderSchedule = () => {
   };
 
   const handleDeleteEvent = (dayOfEvent, timeOfEvent, eventId) => {
-    console.log(dayOfEvent, timeOfEvent, eventId);
     dispatch(REMOVE_EVENT_FROM_SCHEDULE({ dayOfEvent, timeOfEvent, eventId }));
     toast.success("Event Removed", toastOptions);
   };

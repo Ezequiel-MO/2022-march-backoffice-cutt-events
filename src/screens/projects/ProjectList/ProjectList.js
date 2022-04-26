@@ -2,13 +2,17 @@ import React, { useEffect, useState } from "react";
 import baseAPI from "../../../axios/axiosConfig";
 import { useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { useSelector } from "react-redux";
-import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectCurrentProject,
+  SET_CURRENT_PROJECT,
+} from "../../../redux/features/CurrentProjectSlice";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
 
 const ProjectList = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [projects, setProjects] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [accountManager, setAccountManager] = useState("Montse Miranda");
@@ -48,6 +52,16 @@ const ProjectList = () => {
     }
   };
 
+  const handleRecycleProject = async (projectId) => {
+    try {
+      const res = await baseAPI.get(`v1/projects/${projectId}`);
+      dispatch(SET_CURRENT_PROJECT(res.data.data.data));
+      navigate("/project/schedule");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const projectList = projects.slice(0, 15).map((project) => (
     <tr key={project._id}>
       <td>{project.code}</td>
@@ -76,6 +90,12 @@ const ProjectList = () => {
         onClick={() => handleDeleteProject(project._id)}
       >
         <Icon icon="ei:trash" color="#ea5933" width="30" />
+      </td>
+      <td
+        className="hover:cursor-pointer"
+        onClick={() => handleRecycleProject(project._id)}
+      >
+        <Icon icon="fa6-solid:recycle" color="#ea5933" />
       </td>
     </tr>
   ));
@@ -125,6 +145,7 @@ const ProjectList = () => {
               <th>Client Company</th>
               <th>Update</th>
               <th>Delete</th>
+              <th>Recycle</th>
             </tr>
           </thead>
           <tbody className="text-white-50">{projectList}</tbody>
