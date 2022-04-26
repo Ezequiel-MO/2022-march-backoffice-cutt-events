@@ -1,6 +1,7 @@
 import { Icon } from "@iconify/react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import accounting from "accounting";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 import {
@@ -13,6 +14,7 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
   const [city, setCity] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState(null);
   const [transfers, setTransfers] = useState([]);
+  const [nrVehicles, setNrVehicles] = useState(0);
   const [selectedCompany, setSelectedCompany] = useState("");
   const [selectedService, setSelectedService] = useState("");
   const currentProject = useSelector(selectCurrentProject);
@@ -67,18 +69,27 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
 
   const transferList = transfers.map((transfer) => (
     <tr key={transfer._id}>
-      <td className="px-4">{transfer.company}</td>
+      <td>{transfer.company}</td>
       <td>{transfer.vehicleType}</td>
       <td>{transfer.vehicleCapacity}</td>
-      <td>{transfer[selectedService]}</td>
+      <td>{accounting.formatMoney(transfer[selectedService], "€")}</td>
+      <td>
+        <input
+          type="number"
+          className="w-10 mr-2 px-2"
+          placeholder="1"
+          value={nrVehicles}
+          onChange={(e) => setNrVehicles(e.target.value)}
+        />
+      </td>
       <td
-        className="hover:cursor-pointer"
-        onClick={() => handleAddTransfer(transfer, selectedService)}
+        onClick={() => handleAddTransfer(transfer, selectedService, nrVehicles)}
       >
         <Icon icon="ic:twotone-add-circle" color="#ea5933" width="25" />
       </td>
     </tr>
   ));
+
   return (
     <>
       <h1 className="text-2xl mb-4 indent-8">Add Transfer to an Event ? </h1>
@@ -144,7 +155,7 @@ const DetailedTransferList = ({ handleAddTransfer }) => {
         <table className="table-auto col-span-3">
           <thead className="bg-gray-50 border-b text-left">
             <tr>
-              <th className="px-4">Company</th>
+              <th>Company</th>
               <th>Vehicle Type</th>
               <th>Vehicle Capacity</th>
               <th>Cost of service</th>
