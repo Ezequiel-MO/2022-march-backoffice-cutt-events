@@ -20,7 +20,7 @@ const AddHotelToProject = () => {
 
   const addHotelWithPricesToProject = async (values) => {
     const { hotelId } = params;
-    //if hotel is already in project, don't add it again
+
     if (hotels.find((hotel) => hotel._id === hotelId)) {
       toast.error("Hotel already in project", toastOptions);
       setTimeout(() => {

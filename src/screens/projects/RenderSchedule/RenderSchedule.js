@@ -1,15 +1,36 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Icon } from "@iconify/react";
 import baseAPI from "../../../axios/axiosConfig";
 import { toastOptions } from "../../../dev-data/toast";
-import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
+import {
+  REMOVE_EVENT_FROM_SCHEDULE,
+  REMOVE_HOTEL_FROM_PROJECT,
+  selectCurrentProject,
+} from "../../../redux/features/CurrentProjectSlice";
 
 const RenderSchedule = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const currentProject = useSelector(selectCurrentProject);
-  const [project] = useState(currentProject);
+  const [project, setProject] = useState(currentProject);
+
+  useEffect(() => {
+    setProject(currentProject);
+  }, [currentProject]);
+
+  const handleDeleteHotel = (hotelId) => {
+    dispatch(REMOVE_HOTEL_FROM_PROJECT(hotelId));
+    toast.success("Hotel Removed", toastOptions);
+  };
+
+  const handleDeleteEvent = (dayOfEvent, timeOfEvent, eventId) => {
+    console.log(dayOfEvent, timeOfEvent, eventId);
+    dispatch(REMOVE_EVENT_FROM_SCHEDULE({ dayOfEvent, timeOfEvent, eventId }));
+    toast.success("Event Removed", toastOptions);
+  };
 
   const handlePatchProject = async () => {
     try {
@@ -18,7 +39,7 @@ const RenderSchedule = () => {
         hotels: project["hotels"],
       });
       toast.success("Project Completed, congratulations !!", toastOptions);
-      navigate("/");
+      setTimeout(() => navigate("/"), 1000);
     } catch (error) {
       console.log(error);
     }
@@ -61,30 +82,78 @@ const RenderSchedule = () => {
         <tbody>
           {project["hotels"]?.map((hotel) => (
             <tr key={hotel._id}>
-              <td>{hotel.name}</td>
+              <td className="flex flex-row items-center">
+                {hotel.name}
+                <span
+                  className="ml-2 cursor-pointer"
+                  onClick={() => handleDeleteHotel(hotel._id)}
+                >
+                  <Icon icon="lucide:delete" color="#ea5933" />
+                </span>
+              </td>
             </tr>
           ))}
-          {project["schedule"]?.map((day) => (
-            <tr key={day._id} className="border border-white-50">
+          {project["schedule"]?.map((day, index) => (
+            <tr key={day._id} className="border border-white-100">
               <td>{day.date}</td>
               <td>
                 {day["morningEvents"].map((event) => (
-                  <p key={event._id}>{event.name}</p>
+                  <div key={event._id} className="flex flex-row items-center">
+                    <p>{event.name}</p>
+                    <span
+                      className="ml-2 cursor-pointer"
+                      onClick={() =>
+                        handleDeleteEvent(index, "morningEvents", event._id)
+                      }
+                    >
+                      <Icon icon="lucide:delete" color="#ea5933" />
+                    </span>
+                  </div>
                 ))}
               </td>
               <td>
                 {day["lunch"].map((event) => (
-                  <p key={event._id}>{event.name}</p>
+                  <div key={event._id} className="flex flex-row items-center">
+                    <p>{event.name}</p>
+                    <span
+                      className="ml-2 cursor-pointer"
+                      onClick={() =>
+                        handleDeleteEvent(index, "lunch", event._id)
+                      }
+                    >
+                      <Icon icon="lucide:delete" color="#ea5933" />
+                    </span>
+                  </div>
                 ))}
               </td>
               <td>
                 {day["afternoonEvents"].map((event) => (
-                  <p key={event._id}>{event.name}</p>
+                  <div key={event._id} className="flex flex-row items-center">
+                    <p>{event.name}</p>
+                    <span
+                      className="ml-2 cursor-pointer"
+                      onClick={() =>
+                        handleDeleteEvent(index, "afternoonEvents", event._id)
+                      }
+                    >
+                      <Icon icon="lucide:delete" color="#ea5933" />
+                    </span>
+                  </div>
                 ))}
               </td>
               <td>
                 {day["dinner"].map((event) => (
-                  <p key={event._id}>{event.name}</p>
+                  <div key={event._id} className="flex flex-row items-center">
+                    <p>{event.name}</p>
+                    <span
+                      className="ml-2 cursor-pointer"
+                      onClick={() =>
+                        handleDeleteEvent(index, "dinner", event._id)
+                      }
+                    >
+                      <Icon icon="lucide:delete" color="#ea5933" />
+                    </span>
+                  </div>
                 ))}
               </td>
             </tr>
