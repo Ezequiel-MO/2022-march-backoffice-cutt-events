@@ -31,9 +31,11 @@ const AddEventToSchedule = () => {
 
   const handleAddTransfer = (transferService, selectedService, nrVehicles) => {
     const transferData = { ...transferService, selectedService };
+    event.transfer = [];
     for (let i = 0; i < nrVehicles; i++) {
-      event.transfer.push(transferData);
+      event.transfer = [...event.transfer, transferData];
     }
+
     toast.success("Transfer added", toastOptions);
   };
 
