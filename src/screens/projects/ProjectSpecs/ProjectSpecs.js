@@ -16,6 +16,7 @@ const ProjectSpecs = () => {
 
   const transformData = (data, diffDays) => {
     let transformedData = { ...data };
+    transformedData.clientAccManager = [data.clientAccountManager.toString()];
     transformedData.schedule = [];
     for (let i = 1; i <= diffDays; i++) {
       transformedData.schedule.push({
@@ -34,7 +35,8 @@ const ProjectSpecs = () => {
 
   const postToEndpoint = async (data, endPoint) => {
     const diffDays = computeTotalDays(data.arrivalDay, data.departureDay);
-    const transformedData = transformData(data, diffDays);
+    let transformedData = transformData(data, diffDays);
+
     try {
       const res = await baseAPI.post(`v1/${endPoint}`, transformedData);
       localStorage.setItem(
@@ -43,7 +45,7 @@ const ProjectSpecs = () => {
       );
       dispatch(SET_CURRENT_PROJECT(res.data.data.data));
       toast.success("Base Project Created", toastOptions);
-      navigate("/hotel-list");
+      navigate("/hotel/list");
     } catch (error) {
       toast.error(
         `Error Creating Base Project, ${error.message}`,

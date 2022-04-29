@@ -8,14 +8,8 @@ import baseAPI from "../../../axios/axiosConfig";
 
 const HotelMasterForm = ({ submitForm }) => {
   const [accManagers, setAccManagers] = useState([]);
-  const clients = [
-    { name: "Mette Insgtrup", value: 1, company: "Better Travel" },
-    { name: "Helen Lindgren", value: 2, company: "Ciceron" },
-    { name: "Claudia Vasilescu", value: 3, company: "Business Travel" },
-  ];
 
   useEffect(() => {
-    // fetch accManagers from db
     const getClients = async () => {
       const response = await baseAPI.get("v1/clients");
       const transformedResponse = response.data.data.data.map((client) => {
@@ -25,7 +19,7 @@ const HotelMasterForm = ({ submitForm }) => {
           company: client.clientCompany,
         };
       });
-      console.log(transformedResponse);
+      setAccManagers(transformedResponse);
     };
     getClients();
   }, []);
@@ -44,8 +38,7 @@ const HotelMasterForm = ({ submitForm }) => {
           nrPax: "",
         }}
         onSubmit={(values) => {
-          /*  submitForm(values, "projects");  */
-          console.log("values", values);
+          submitForm(values, "projects");
         }}
         validationSchema={Yup.object({
           code: Yup.string().required("Required"),
