@@ -25,8 +25,12 @@ import TransferList from "./screens/transfers/TransferList/TransferList";
 import TransferUpdate from "./screens/transfers/TransferUpdate/TransferUpdate";
 import AddEventToSchedule from "./screens/projects/AddEventToSchedule/AddEventToSchedule";
 import AddTransfersINOUTToSchedule from "./screens/projects/AddTransfersINOUTToSchedule/AddTransfersINOUTToSchedule";
+import ClientSpecs from "./screens/clients/ClientSpecs/ClientSpecs";
+import ClientList from "./screens/clients/ClientList/ClientList";
 import { ToastContainer } from "react-toastify";
 import Header from "./components/header/Header";
+import MasterClient from "./screens/clients/MasterClient";
+import ClientUpdate from "./screens/clients/ClientUpdate/ClientUpdate";
 
 function App() {
   return (
@@ -82,6 +86,10 @@ function App() {
             path="/transfer/:transferId/update"
             element={<TransferUpdate />}
           />
+          <Route path="/client/:clientId/update" element={<ClientUpdate />} />
+          <Route path="/client/specs" element={<ClientSpecs />} />
+          <Route path="/client/list" element={<ClientList />} />
+          <Route path="/client" element={<MasterClient />} />
           <Route
             path="*"
             element={

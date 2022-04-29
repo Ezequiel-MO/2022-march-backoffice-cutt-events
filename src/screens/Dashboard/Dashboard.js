@@ -36,6 +36,12 @@ const Dashboard = () => {
         >
           Transfers
         </li>
+        <li
+          onClick={() => navigate("/client")}
+          className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
+        >
+          Clients
+        </li>
       </ul>
     </div>
   );
