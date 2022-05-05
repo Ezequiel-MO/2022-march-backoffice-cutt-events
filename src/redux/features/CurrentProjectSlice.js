@@ -69,6 +69,55 @@ export const currentProjectSlice = createSlice({
         },
       };
     },
+    EXPAND_TRANSFERS_TO_OPTIONS: (state) => {
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          schedule: state.project.schedule.map((day) => {
+            return {
+              ...day,
+              morningEvents: day.morningEvents.map((event) => {
+                if (event.transfer) {
+                  return {
+                    ...event,
+                    transfer: day.morningEvents[0].transfer,
+                  };
+                }
+                return event;
+              }),
+              lunch: day.lunch.map((event) => {
+                if (event.transfer) {
+                  return {
+                    ...event,
+                    transfer: day.lunch[0].transfer,
+                  };
+                }
+                return event;
+              }),
+              afternoonEvents: day.afternoonEvents.map((event) => {
+                if (event.transfer) {
+                  return {
+                    ...event,
+                    transfer: day.afternoonEvents[0].transfer,
+                  };
+                }
+                return event;
+              }),
+              dinner: day.dinner.map((event) => {
+                if (event.transfer) {
+                  return {
+                    ...event,
+                    transfer: day.dinner[0].transfer,
+                  };
+                }
+                return event;
+              }),
+            };
+          }),
+        },
+      };
+    },
     CLEAR_PROJECT: (state) => {
       state.project = {};
     },
@@ -81,6 +130,7 @@ export const {
   ADD_EVENT_TO_SCHEDULE,
   REMOVE_HOTEL_FROM_PROJECT,
   REMOVE_EVENT_FROM_SCHEDULE,
+  EXPAND_TRANSFERS_TO_OPTIONS,
   CLEAR_PROJECT,
 } = currentProjectSlice.actions;
 
