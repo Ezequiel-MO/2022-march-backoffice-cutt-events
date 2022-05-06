@@ -1,36 +1,39 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "./App.css";
-import Dashboard from "./screens/Dashboard/Dashboard";
-import EventList from "./screens/events/EventList/EventList";
-import EventSpecs from "./screens/events/EventSpecs/EventSpecs";
-import EventUpdate from "./screens/events/EventUpdate/EventUpdate";
-import MasterEvent from "./screens/events/MasterEvent";
-import AddHotelToProject from "./screens/projects/AddHotelToProject/AddHotelToProject";
-import HotelList from "./screens/hotels/HotelList/HotelList";
-import HotelSpecs from "./screens/hotels/HotelSpecs/HotelSpecs";
-import HotelUpdate from "./screens/hotels/HotelUpdate/HotelUpdate";
-import MasterHotel from "./screens/hotels/MasterHotel";
-import MasterProject from "./screens/projects/MasterProject";
-import ProjectList from "./screens/projects/ProjectList/ProjectList";
-import ProjectSpecs from "./screens/projects/ProjectSpecs/ProjectSpecs";
-import ProjectUpdate from "./screens/projects/ProjectUpdate/ProjectUpdate";
-import MasterRestaurant from "./screens/restaurants/MasterRestaurant";
-import RestaurantList from "./screens/restaurants/RestaurantList/RestaurantList";
-import RestaurantSpecs from "./screens/restaurants/RestaurantSpecs/RestaurantSpecs";
-import RestaurantUpdate from "./screens/restaurants/RestaurantUpdate/RestaurantUpdate";
-import AddScheduleToProject from "./screens/projects/AddScheduleToProject/AddScheduleToProject";
-import MasterTransfer from "./screens/transfers/MasterTransfer";
-import TransferSpecs from "./screens/transfers/TransferSpecs/TransferSpecs";
-import TransferList from "./screens/transfers/TransferList/TransferList";
-import TransferUpdate from "./screens/transfers/TransferUpdate/TransferUpdate";
-import AddEventToSchedule from "./screens/projects/AddEventToSchedule/AddEventToSchedule";
-import AddTransfersINOUTToSchedule from "./screens/projects/AddTransfersINOUTToSchedule/AddTransfersINOUTToSchedule";
-import ClientSpecs from "./screens/clients/ClientSpecs/ClientSpecs";
-import ClientList from "./screens/clients/ClientList/ClientList";
 import { ToastContainer } from "react-toastify";
+import "./App.css";
+
 import Header from "./components/header/Header";
-import MasterClient from "./screens/clients/MasterClient";
-import ClientUpdate from "./screens/clients/ClientUpdate/ClientUpdate";
+import {
+  AddEventToSchedule,
+  AddHotelToProject,
+  AddScheduleToProject,
+  AddTransfersINOUTToSchedule,
+  ClientList,
+  ClientSpecs,
+  ClientUpdate,
+  Dashboard,
+  EventList,
+  EventSpecs,
+  EventUpdate,
+  HotelList,
+  HotelSpecs,
+  HotelUpdate,
+  MasterClient,
+  MasterEvent,
+  MasterHotel,
+  MasterProject,
+  MasterRestaurant,
+  MasterTransfer,
+  ProjectList,
+  ProjectSpecs,
+  ProjectUpdate,
+  RestaurantList,
+  RestaurantSpecs,
+  RestaurantUpdate,
+  TransferList,
+  TransferSpecs,
+  TransferUpdate,
+} from "./screens";
 
 function App() {
   return (
@@ -86,10 +89,11 @@ function App() {
             path="/transfer/:transferId/update"
             element={<TransferUpdate />}
           />
+          <Route path="/client" element={<MasterClient />} />
           <Route path="/client/:clientId/update" element={<ClientUpdate />} />
           <Route path="/client/specs" element={<ClientSpecs />} />
           <Route path="/client/list" element={<ClientList />} />
-          <Route path="/client" element={<MasterClient />} />
+
           <Route
             path="*"
             element={
