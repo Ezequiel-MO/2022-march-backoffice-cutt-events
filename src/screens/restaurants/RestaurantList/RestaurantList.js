@@ -6,6 +6,7 @@ import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
+import SearchBar from "../../../components/SearchBar";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
@@ -95,12 +96,16 @@ const RestaurantList = () => {
 
   return (
     <>
-      <h1 className="text-2xl mb-4 indent-8">Restaurant List</h1>
+      <div className="flex flex-col sm:flex-row sm:items-end items-start sm:space-x-6 mb-4 mr-8 ml-8">
+        <h1 className="text-2xl">Restaurant List</h1>
+        <SearchBar />
+      </div>
+
       <hr />
       <div className="container grid grid-cols-4 gap-4 my-4">
         <form className="text-orange-50">
           {!currentProjectIsLive ? (
-            <div className="block relative w-64">
+            <div className="hidden lg:block relative w-64">
               <label htmlFor="cities">Filter by city:</label>
               <select
                 name="cities"
@@ -114,7 +119,7 @@ const RestaurantList = () => {
               </select>
             </div>
           ) : null}
-          <div className="block relative w-64">
+          <div className="hidden lg:block relative w-64">
             <label htmlFor="price">Filter by Price:</label>
             <select
               name="price"
