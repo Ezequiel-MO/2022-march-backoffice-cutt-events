@@ -1,96 +1,16 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import baseAPI from "../../../axios/axiosConfig";
-import { toastOptions } from "../../../dev-data/toast";
+import UpdateLogic from "./UpdateLogic";
 
 const RestaurantUpdate = () => {
   let params = useParams();
-  const [originalRestaurant, setOriginalRestaurant] = useState({});
-  const [isInput, setIsInput] = useState({
-    name: false,
-    city: false,
-    textContent: false,
-    /*  location: false, */
-    price: false,
-    introduction: false,
-  });
-
-  const [updatedRestaurant, setUpdatedRestaurant] = useState({
-    name: "",
-    city: "",
-    textContent: "",
-    /*  location: '', */
-    price: "",
-    introduction: "",
-  });
-
-  const filterOutRestaurant = (obj) => {
-    let filteredOutObj = {};
-    Object.keys(obj).forEach((item) => {
-      if (
-        item !== "_id" &&
-        item !== "__v" &&
-        item !== "updatedAt" &&
-        item !== "location" &&
-        item !== "imageContentUrl" &&
-        item !== "transfer" &&
-        item !== "introduction"
-      ) {
-        filteredOutObj[item] = obj[item];
-      }
-    });
-    return filteredOutObj;
-  };
-
-  useEffect(() => {
-    setUpdatedRestaurant(originalRestaurant);
-  }, [originalRestaurant]);
-
-  useEffect(() => {
-    const getRestaurant = async () => {
-      try {
-        const recovered = await baseAPI.get(
-          `v1/restaurants/${params.restaurantId}`
-        );
-        const filteredOutRestaurantObj = filterOutRestaurant(
-          recovered.data.data.data
-        );
-        setOriginalRestaurant(filteredOutRestaurantObj);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getRestaurant();
-  }, [params.restaurantId]);
-
-  const setEditFieldStatus = (key, bool) => {
-    setIsInput({
-      ...isInput,
-      [key]: bool,
-    });
-  };
-
-  const handleUpdateRestaurant = (e) => {
-    setUpdatedRestaurant({
-      ...updatedRestaurant,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const updated = await baseAPI.patch(
-        `v1/restaurants/${params.restaurantId}`,
-        updatedRestaurant
-      );
-      toast.success("Restaurant Updated", toastOptions);
-      setUpdatedRestaurant(updated.data.data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    handleSubmit,
+    originalRestaurant,
+    updatedRestaurant,
+    isInput,
+    handleUpdateRestaurant,
+    setEditFieldStatus,
+  } = UpdateLogic(params);
 
   const renderOriginalRestaurant = (
     <>

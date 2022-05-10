@@ -110,16 +110,30 @@ const ProjectUpdate = () => {
           {isInput[field] ? (
             <div>
               <p className="font-bold">{field} :</p>
-              <input
-                type="text"
-                placeholder={`New ${field}  ...`}
-                onBlur={() => setEditFieldStatus(`${field}`, false)}
-                name={`${field}`}
-                value={updatedProject[`${field}`]}
-                onChange={handleUpdateProject}
-                className="absolute right-3.5 bottom-2 w-2/3"
-                autoFocus
-              />
+              {field === "textContent" ||
+              field === "introduction" ||
+              field === "projectIntro" ? (
+                <textarea
+                  className="w-full h-32 mt-2"
+                  placeholder={`New ${field}  ...`}
+                  onBlur={() => setEditFieldStatus(`${field}`, false)}
+                  name={`${field}`}
+                  value={updatedProject[`${field}`]}
+                  onChange={handleUpdateProject}
+                  autoFocus
+                />
+              ) : (
+                <input
+                  type="text"
+                  placeholder={`New ${field}  ...`}
+                  onBlur={() => setEditFieldStatus(`${field}`, false)}
+                  name={`${field}`}
+                  value={updatedProject[`${field}`]}
+                  onChange={handleUpdateProject}
+                  className="absolute right-3.5 bottom-2 w-2/3"
+                  autoFocus
+                />
+              )}
             </div>
           ) : (
             <div onClick={() => setEditFieldStatus(`${field}`, true)}>
