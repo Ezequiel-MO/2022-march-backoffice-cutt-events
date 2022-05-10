@@ -110,7 +110,7 @@ const RestaurantUpdate = () => {
                   value={updatedRestaurant[`${field}`]}
                   onChange={handleUpdateRestaurant}
                   autoFocus
-                  className="w-3/4"
+                  className="w-full h-32 mt-2"
                 />
               ) : (
                 <input

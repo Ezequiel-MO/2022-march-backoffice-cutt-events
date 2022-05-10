@@ -106,6 +106,7 @@ const EventUpdate = () => {
                   value={updatedEvent[`${field}`]}
                   onChange={handleUpdateEvent}
                   autoFocus
+                  className="w-full h-32 mt-2"
                 />
               ) : (
                 <input

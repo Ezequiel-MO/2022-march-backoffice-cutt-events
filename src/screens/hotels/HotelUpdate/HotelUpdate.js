@@ -110,6 +110,7 @@ const HotelUpdate = () => {
               <p className="font-bold">{field} :</p>
               {field === "textContent" || field === "introduction" ? (
                 <textarea
+                  className="w-full h-32 mt-2"
                   placeholder={`New ${field}  ...`}
                   onBlur={() => setEditFieldStatus(`${field}`, false)}
                   name={`${field}`}
