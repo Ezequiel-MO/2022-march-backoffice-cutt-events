@@ -1,92 +1,16 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
-import baseAPI from "../../../axios/axiosConfig";
-import { toastOptions } from "../../../dev-data/toast";
+import UpdateLogic from "./UpdateLogic";
 
 const EventUpdate = () => {
   let params = useParams();
-  const [originalEvent, setOriginalEvent] = useState({});
-  const [isInput, setIsInput] = useState({
-    name: false,
-    city: false,
-    textContent: false,
-    /*  location: false, */
-    price: false,
-    introduction: false,
-  });
-
-  const [updatedEvent, setUpdatedEvent] = useState({
-    name: "",
-    city: "",
-    textContent: "",
-    /*  location: '', */
-    price: "",
-    introduction: "",
-  });
-
-  const filterOutEvent = (obj) => {
-    let filteredOutObj = {};
-    Object.keys(obj).forEach((item) => {
-      if (
-        item !== "_id" &&
-        item !== "__v" &&
-        item !== "updatedAt" &&
-        item !== "location" &&
-        item !== "imageContentUrl" &&
-        item !== "transfer" &&
-        item !== "introduction"
-      ) {
-        filteredOutObj[item] = obj[item];
-      }
-    });
-    return filteredOutObj;
-  };
-
-  useEffect(() => {
-    setUpdatedEvent(originalEvent);
-  }, [originalEvent]);
-
-  useEffect(() => {
-    const getEvent = async () => {
-      try {
-        const recovered = await baseAPI.get(`v1/events/${params.eventId}`);
-        const filteredOutEventObj = filterOutEvent(recovered.data.data.data);
-        setOriginalEvent(filteredOutEventObj);
-      } catch (error) {
-        toast.error(error.response.data.message, toastOptions);
-      }
-    };
-    getEvent();
-  }, [params.eventId]);
-
-  const setEditFieldStatus = (key, bool) => {
-    setIsInput({
-      ...isInput,
-      [key]: bool,
-    });
-  };
-
-  const handleUpdateEvent = (e) => {
-    setUpdatedEvent({
-      ...updatedEvent,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const updated = await baseAPI.patch(
-        `v1/events/${params.eventId}`,
-        updatedEvent
-      );
-      setUpdatedEvent(updated.data.data.data);
-      toast.success("Hotel Updated", toastOptions);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    handleSubmit,
+    originalEvent,
+    updatedEvent,
+    isInput,
+    handleUpdateEvent,
+    setEditFieldStatus,
+  } = UpdateLogic(params);
 
   const renderOriginalEvent = (
     <>
