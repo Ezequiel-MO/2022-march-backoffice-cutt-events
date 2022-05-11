@@ -150,7 +150,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     rounded
                     transition
                     ease-in-out
-                    my-7
+                    mt-7
                     focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none
                   "
                     name="textContent"

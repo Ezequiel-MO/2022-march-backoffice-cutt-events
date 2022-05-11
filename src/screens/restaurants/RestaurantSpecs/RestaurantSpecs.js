@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
 import { toastOptions } from "../../../dev-data/toast";
@@ -7,6 +7,10 @@ import RestaurantMasterForm from "./RestaurantMasterForm";
 
 const RestaurantSpecs = () => {
   const navigate = useNavigate();
+  const {
+    state: { restaurant },
+  } = useLocation();
+
   const postToEndpoint = async (data, endPoint) => {
     try {
       await baseAPI.post(`v1/${endPoint}`, data);
@@ -41,7 +45,7 @@ const RestaurantSpecs = () => {
 
   return (
     <>
-      <RestaurantMasterForm submitForm={submitForm} />
+      <RestaurantMasterForm submitForm={submitForm} restaurant={restaurant} />
     </>
   );
 };

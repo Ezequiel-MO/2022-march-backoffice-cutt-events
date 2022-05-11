@@ -6,11 +6,13 @@ export const TextAreaInput = ({ className, ...props }) => {
   return (
     <>
       <textarea className={className} {...field} {...props} />
-      <ErrorMessage
-        name={props.name}
-        component='span'
-        className='error-message'
-      />
+      <div className="bg-red-500 font-bold text-white-50 mb-2">
+        <ErrorMessage
+          name={props.name}
+          component="span"
+          className="error-message"
+        />
+      </div>
     </>
   );
 };

@@ -23,11 +23,13 @@ export const TextInput = ({ label, ...props }) => {
         {...field}
         {...props}
       />
-      <ErrorMessage
-        name={props.name}
-        component="span"
-        className="error-message"
-      />
+      <div className="bg-red-500 font-bold text-white-50">
+        <ErrorMessage
+          name={props.name}
+          component="span"
+          className="error-message"
+        />
+      </div>
     </>
   );
 };

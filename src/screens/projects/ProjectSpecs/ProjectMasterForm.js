@@ -100,7 +100,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     ease-in-out
                     m-0
                     focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none"
-                      type="text"
+                      type="number"
                     />
                   </div>
                   <div className="flex items-center justify-between mt-4 mb-4">

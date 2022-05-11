@@ -44,12 +44,7 @@ const RestaurantMasterForm = ({ submitForm }) => {
                     placeholder="Restaurant Name"
                     type="text"
                   />
-                  <TextInput
-                    label="City"
-                    name="city"
-                    placeholder="Restaurant City"
-                    type="text"
-                  />
+
                   <TextInput
                     label="Coords Longitude"
                     name="longitude"
@@ -68,8 +63,20 @@ const RestaurantMasterForm = ({ submitForm }) => {
                     placeholder="ex : 35"
                     type="number"
                   />
+                  <button
+                    className="mt-5 block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                    type="submit"
+                  >
+                    Save and submit
+                  </button>
                 </div>
                 <div className="form-group mb-6">
+                  <TextInput
+                    label="City"
+                    name="city"
+                    placeholder="Restaurant City"
+                    type="text"
+                  />
                   <TextAreaInput
                     className="
                      form-control
@@ -86,7 +93,8 @@ const RestaurantMasterForm = ({ submitForm }) => {
                      rounded
                      transition
                      ease-in-out
-                     my-7
+                     mt-4
+                     
                      focus:text-gray-700 focus:bg-white focus:border-orange-50 focus:outline-none
                    "
                     name="textContent"
@@ -106,14 +114,6 @@ const RestaurantMasterForm = ({ submitForm }) => {
                       multiple
                     />
                   </div>
-                </div>
-                <div className="flex space-x-2 justify-center">
-                  <button
-                    className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                    type="submit"
-                  >
-                    Save and submit
-                  </button>
                 </div>
               </fieldset>
             </Form>
