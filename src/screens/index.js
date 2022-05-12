@@ -15,7 +15,6 @@ export { default as ProjectUpdate } from "./projects/ProjectUpdate/ProjectUpdate
 export { default as MasterRestaurant } from "./restaurants/MasterRestaurant";
 export { default as RestaurantList } from "./restaurants/RestaurantList/RestaurantList";
 export { default as RestaurantSpecs } from "./restaurants/RestaurantSpecs/RestaurantSpecs";
-export { default as RestaurantUpdate } from "./restaurants/RestaurantUpdate/RestaurantUpdate";
 export { default as AddScheduleToProject } from "./projects/AddScheduleToProject/AddScheduleToProject";
 export { default as MasterTransfer } from "./transfers/MasterTransfer";
 export { default as TransferSpecs } from "./transfers/TransferSpecs/TransferSpecs";

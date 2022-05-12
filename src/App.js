@@ -29,7 +29,6 @@ import {
   ProjectUpdate,
   RestaurantList,
   RestaurantSpecs,
-  RestaurantUpdate,
   TransferList,
   TransferSpecs,
   TransferUpdate,
@@ -73,10 +72,6 @@ function App() {
           <Route path="/hotel/list" element={<HotelList />} />
           <Route path="/restaurant" element={<MasterRestaurant />} />
           <Route path="/restaurant/specs" element={<RestaurantSpecs />} />
-          <Route
-            path="/restaurant/:restaurantId/update"
-            element={<RestaurantUpdate />}
-          />
           <Route path="/restaurant/list" element={<RestaurantList />} />
           <Route path="/event" element={<MasterEvent />} />
           <Route path="/event/specs" element={<EventSpecs />} />
