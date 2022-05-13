@@ -11,10 +11,10 @@ const RestaurantSpecs = () => {
     state: { restaurant },
   } = useLocation();
 
-  const postToEndpoint = async (data, endPoint, update, id) => {
+  const postToEndpoint = async (data, endPoint, update) => {
     try {
       if (update === true) {
-        await baseAPI.patch(`v1/${endPoint}/${id}`, data);
+        await baseAPI.patch(`v1/${endPoint}/${restaurant._id}`, data);
         toast.success("Restaurant updated", toastOptions);
       } else {
         await baseAPI.post(`v1/${endPoint}`, data);
@@ -49,7 +49,7 @@ const RestaurantSpecs = () => {
     let jsonData = {};
     jsonData.name = values.name;
     jsonData.city = values.city;
-    jsonData.textContent = values.textContent;
+    jsonData.textContent = JSON.stringify(values.textContent);
     jsonData.price = values.price;
     jsonData.location = {
       type: "Point",

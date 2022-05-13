@@ -6,7 +6,14 @@ import { TextAreaInput } from "../../../UI/inputs/TextAreaInput";
 import { Icon } from "@iconify/react";
 
 const EventMasterForm = ({ submitForm, event }) => {
-  const [loadedValues, setLoadedValues] = useState({});
+  const [loadedValues, setLoadedValues] = useState({
+    name: "",
+    city: "",
+    longitude: "",
+    latitude: "",
+    price: "",
+    textContent: "",
+  });
   const fileInput = useRef();
 
   useEffect(() => {
@@ -130,9 +137,7 @@ const EventMasterForm = ({ submitForm, event }) => {
                 <input
                   type="submit"
                   className="cursor-pointer py-2 px-10 hover:bg-gray-600 bg-green-50 text-black-50 hover:text-white-50 fonrt-bold uppercase rounded-lg"
-                  value={
-                    update ? "Edit Restaurant Form" : "Save new Restaurant"
-                  }
+                  value={update ? "Edit Event Form" : "Save new Event"}
                 />
               </fieldset>
             </Form>
