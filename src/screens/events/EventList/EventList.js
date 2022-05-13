@@ -67,7 +67,11 @@ const EventList = () => {
       <td>{event.price}</td>
       <td
         className="hover:cursor-pointer"
-        onClick={() => navigate(`/event/${event._id}/update`)}
+        onClick={() =>
+          navigate(`/event/specs`, {
+            state: { event },
+          })
+        }
       >
         <Icon
           icon="arcticons:huawei-system-update"

@@ -1,26 +1,46 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
 import { TextAreaInput } from "../../../UI/inputs/TextAreaInput";
 import { Icon } from "@iconify/react";
 
-const EventMasterForm = ({ submitForm }) => {
+const EventMasterForm = ({ submitForm, event }) => {
+  const [loadedValues, setLoadedValues] = useState({});
   const fileInput = useRef();
+
+  useEffect(() => {
+    if (Object.keys(event).length > 0) {
+      setLoadedValues({
+        name: event.name,
+        city: event.city,
+        longitude: event.location.coordinates[1],
+        latitude: event.location.coordinates[0],
+        price: event.price,
+        textContent: JSON.parse(event.textContent),
+      });
+    }
+  }, [event]);
+
+  const initialValues = {
+    name: "",
+    city: "",
+    longitude: "",
+    latitude: "",
+    price: "",
+    textContent: "",
+  };
+
+  const update = Object.keys(event).length > 0 ? true : false;
+
   return (
     <>
       <Formik
-        initialValues={{
-          name: "",
-          city: "",
-          longitude: "",
-          latitude: "",
-          price: "",
-          textContent: "",
-        }}
+        initialValues={loadedValues || initialValues}
         onSubmit={(values) => {
-          submitForm(values, fileInput.current.files, "events");
+          submitForm(values, fileInput.current.files ?? [], "events", update);
         }}
+        enableReinitialize
         validationSchema={Yup.object({
           name: Yup.string().required("Required"),
           city: Yup.string().required("Required"),
@@ -103,18 +123,18 @@ const EventMasterForm = ({ submitForm }) => {
                       ref={fileInput}
                       name="imageContentUrl"
                       multiple
+                      disabled={update ? true : false}
                     />
                   </div>
                 </div>
-              </fieldset>
-              <div className="flex space-x-2 justify-center">
-                <button
-                  className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
+                <input
                   type="submit"
-                >
-                  Save and submit
-                </button>
-              </div>
+                  className="cursor-pointer py-2 px-10 hover:bg-gray-600 bg-green-50 text-black-50 hover:text-white-50 fonrt-bold uppercase rounded-lg"
+                  value={
+                    update ? "Edit Restaurant Form" : "Save new Restaurant"
+                  }
+                />
+              </fieldset>
             </Form>
           </div>
         )}

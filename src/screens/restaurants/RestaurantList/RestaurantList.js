@@ -69,11 +69,10 @@ const RestaurantList = () => {
       <td>{restaurant.price}</td>
       <td
         className="hover:cursor-pointer"
-        onClick={
-          () =>
-            navigate(`/restaurant/specs`, {
-              state: { restaurant },
-            }) /* navigate(`/restaurant/${restaurant._id}/update`) */
+        onClick={() =>
+          navigate(`/restaurant/specs`, {
+            state: { restaurant },
+          })
         }
       >
         <Icon

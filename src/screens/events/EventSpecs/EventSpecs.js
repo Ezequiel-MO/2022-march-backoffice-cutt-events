@@ -2,16 +2,24 @@ import React from "react";
 import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
 import EventMasterForm from "./EventMasterForm";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { toastOptions } from "../../../dev-data/toast";
 
 const EventSpecs = () => {
   const navigate = useNavigate();
+  const {
+    state: { event },
+  } = useLocation();
 
-  const postToEndpoint = async (data, endPoint) => {
+  const postToEndpoint = async (data, endPoint, update) => {
     try {
-      await baseAPI.post(`v1/${endPoint}`, data);
-      toast.success("Event created", toastOptions);
+      if (update === true) {
+        await baseAPI.patch(`v1/${endPoint}/${event._id}`, data);
+        toast.success("Event updated", toastOptions);
+      } else {
+        await baseAPI.post(`v1/${endPoint}`, data);
+        toast.success("Event created", toastOptions);
+      }
       setTimeout(() => {
         navigate("/");
       }, 2500);
@@ -28,20 +36,41 @@ const EventSpecs = () => {
     formData.append("price", values.price);
     formData.append("location[coordinates][0]", values.latitude);
     formData.append("location[coordinates][1]", values.longitude);
-    for (let i = 0; i < files.length; i++) {
-      formData.append("imageContentUrl", files[i]);
+    if (files.length > 0) {
+      for (let i = 0; i < files.length; i++) {
+        formData.append("imageContentUrl", files[i]);
+      }
     }
     return formData;
   };
 
-  const submitForm = (values, files, endpoint) => {
-    const dataToPost = fillFormData(values, files);
-    postToEndpoint(dataToPost, endpoint);
+  const fillJSONData = (values) => {
+    let jsonData = {};
+    jsonData.name = values.name;
+    jsonData.city = values.city;
+    jsonData.textContent = JSON.stringify(values.textContent);
+    jsonData.price = values.price;
+    jsonData.location = {
+      type: "Point",
+      coordinates: [values.latitude, values.longitude],
+    };
+
+    return jsonData;
+  };
+
+  const submitForm = (values, files, endpoint, update) => {
+    let dataToPost;
+    if (update === false) {
+      dataToPost = fillFormData(values, files);
+    } else {
+      dataToPost = fillJSONData(values);
+    }
+    postToEndpoint(dataToPost, endpoint, update);
   };
 
   return (
     <>
-      <EventMasterForm submitForm={submitForm} />
+      <EventMasterForm submitForm={submitForm} event={event} />
     </>
   );
 };

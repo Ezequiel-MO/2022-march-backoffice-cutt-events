@@ -14,7 +14,6 @@ import {
   Dashboard,
   EventList,
   EventSpecs,
-  EventUpdate,
   HotelList,
   HotelSpecs,
   HotelUpdate,
@@ -75,7 +74,6 @@ function App() {
           <Route path="/restaurant/list" element={<RestaurantList />} />
           <Route path="/event" element={<MasterEvent />} />
           <Route path="/event/specs" element={<EventSpecs />} />
-          <Route path="/event/:eventId/update" element={<EventUpdate />} />
           <Route path="/event/list" element={<EventList />} />
           <Route path="/transfer" element={<MasterTransfer />} />
           <Route path="/transfer/specs" element={<TransferSpecs />} />
