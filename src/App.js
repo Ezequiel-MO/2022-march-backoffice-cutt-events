@@ -67,7 +67,6 @@ function App() {
           <Route path="/project/list" element={<ProjectList />} />
           <Route path="/hotel" element={<MasterHotel />} />
           <Route path="/hotel/specs" element={<HotelSpecs />} />
-          <Route path="/hotel/:hotelId/update" element={<HotelUpdate />} />
           <Route path="/hotel/list" element={<HotelList />} />
           <Route path="/restaurant" element={<MasterRestaurant />} />
           <Route path="/restaurant/specs" element={<RestaurantSpecs />} />

@@ -54,7 +54,11 @@ const HotelList = () => {
       <td>{hotel.restaurants}</td>
       <td
         className="hover:cursor-pointer"
-        onClick={() => navigate(`/hotel/${hotel._id}/update`)}
+        onClick={() =>
+          navigate(`/hotel/specs`, {
+            state: { hotel },
+          })
+        }
       >
         <Icon
           icon="arcticons:huawei-system-update"

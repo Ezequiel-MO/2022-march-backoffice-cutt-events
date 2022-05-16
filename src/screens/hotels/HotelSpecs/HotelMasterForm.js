@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
@@ -6,31 +6,76 @@ import { TextAreaInput } from "../../../UI/inputs/TextAreaInput";
 import { CheckboxInput } from "../../../UI/inputs/CheckboxInput";
 import { Icon } from "@iconify/react";
 
-const HotelMasterForm = ({ submitForm }) => {
+const HotelMasterForm = ({ submitForm, hotel }) => {
+  const [loadedValues, setLoadedValues] = useState({
+    name: "",
+    city: "",
+    address: "",
+    numberStars: "",
+    numberRooms: "",
+    checkin_out: "",
+    meetingRooms: "",
+    wheelChairAccessible: "",
+    wifiSpeed: "",
+    swimmingPool: "",
+    restaurants: "",
+    longitude: "",
+    latitude: "",
+    textContent: "",
+  });
   const fileInput = useRef();
+
+  useEffect(() => {
+    if (hotel) {
+      if (Object.keys(hotel).length > 0) {
+        setLoadedValues((prev) => ({
+          ...prev,
+          name: hotel.name,
+          city: hotel.city,
+          address: hotel.address,
+          numberStars: hotel.numberStars,
+          numberRooms: hotel.numberRooms,
+          checkin_out: hotel.checkin_out,
+          meetingRooms: hotel.meetingRooms,
+          wheelChairAccessible: hotel.wheelChairAccessible,
+          wifiSpeed: hotel.wifiSpeed,
+          swimmingPool: hotel.swimmingPool,
+          restaurants: hotel.restaurants,
+          longitude: hotel.longitude,
+          latitude: hotel.latitude,
+          textContent: hotel.textContent,
+        }));
+      }
+    }
+  }, [hotel]);
+
+  const initialValues = {
+    name: "",
+    city: "",
+    address: "",
+    numberStars: "",
+    numberRooms: "",
+    checkin_out: "",
+    meetingRooms: "",
+    wheelChairAccessible: "",
+    wifiSpeed: "",
+    swimmingPool: "",
+    restaurants: "",
+    longitude: "",
+    latitude: "",
+    textContent: "",
+  };
+
+  const update = Object.keys(hotel).length > 0 ? true : false;
+
   return (
     <>
       <Formik
-        initialValues={{
-          name: "",
-          city: "",
-          address: "",
-          numberStars: "",
-          numberRooms: "",
-          checkin_out: "",
-          meetingRooms: "",
-          wheelChairAccessible: "",
-          wifiSpeed: "",
-          swimmingPool: "",
-          restaurants: "",
-          longitude: "",
-          latitude: "",
-          textContent: "",
-          introduction: "",
-        }}
+        initialValues={loadedValues || initialValues}
         onSubmit={(values) => {
-          submitForm(values, fileInput.current.files, "hotels");
+          submitForm(values, fileInput.current.files, "hotels", update);
         }}
+        enableReinitialize
         validationSchema={Yup.object({
           name: Yup.string().required("Required"),
           city: Yup.string().required("Required"),
@@ -45,8 +90,6 @@ const HotelMasterForm = ({ submitForm }) => {
           restaurants: Yup.string().required("Required"),
           longitude: Yup.number().required("Required"),
           latitude: Yup.number().required("Required"),
-          introduction: Yup.string(),
-          textContent: Yup.string().required("Required"),
         })}
       >
         {(formik) => (
@@ -171,16 +214,14 @@ const HotelMasterForm = ({ submitForm }) => {
                     ref={fileInput}
                     name="imageContentUrl"
                     multiple
+                    disabled={update ? true : false}
                   />
                 </div>
-                <div className="flex space-x-2 justify-center">
-                  <button
-                    className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                    type="submit"
-                  >
-                    Save In DataBase
-                  </button>
-                </div>
+                <input
+                  type="submit"
+                  className="cursor-pointer py-2 px-10 hover:bg-gray-600 bg-green-50 text-black-50 hover:text-white-50 fonrt-bold uppercase rounded-lg"
+                  value={update ? "Edit Hotel Form" : "Save new Hotel"}
+                />
               </fieldset>
             </Form>
           </div>

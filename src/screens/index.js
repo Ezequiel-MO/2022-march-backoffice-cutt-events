@@ -4,7 +4,6 @@ export { default as EventSpecs } from "./events/EventSpecs/EventSpecs";
 export { default as MasterEvent } from "./events/MasterEvent";
 export { default as HotelList } from "./hotels/HotelList/HotelList";
 export { default as HotelSpecs } from "./hotels/HotelSpecs/HotelSpecs";
-export { default as HotelUpdate } from "./hotels/HotelUpdate/HotelUpdate";
 export { default as MasterHotel } from "./hotels/MasterHotel";
 export { default as AddHotelToProject } from "./projects/AddHotelToProject/AddHotelToProject";
 export { default as MasterProject } from "./projects/MasterProject";
