@@ -16,7 +16,6 @@ import {
   EventSpecs,
   HotelList,
   HotelSpecs,
-  HotelUpdate,
   MasterClient,
   MasterEvent,
   MasterHotel,
@@ -30,7 +29,6 @@ import {
   RestaurantSpecs,
   TransferList,
   TransferSpecs,
-  TransferUpdate,
 } from "./screens";
 
 function App() {
@@ -77,10 +75,6 @@ function App() {
           <Route path="/transfer" element={<MasterTransfer />} />
           <Route path="/transfer/specs" element={<TransferSpecs />} />
           <Route path="/transfer/list" element={<TransferList />} />
-          <Route
-            path="/transfer/:transferId/update"
-            element={<TransferUpdate />}
-          />
           <Route path="/client" element={<MasterClient />} />
           <Route path="/client/:clientId/update" element={<ClientUpdate />} />
           <Route path="/client/specs" element={<ClientSpecs />} />

@@ -57,7 +57,11 @@ const TransferList = () => {
       <>
         <td
           className="hover:cursor-pointer"
-          onClick={() => navigate(`/transfer/${transfer._id}/update`)}
+          onClick={() =>
+            navigate(`/transfer/specs`, {
+              state: { transfer },
+            })
+          }
         >
           <Icon
             icon="arcticons:huawei-system-update"

@@ -1,42 +1,89 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
+import { useEffect, useState } from "react";
 
-const TransferMasterForm = ({ submitForm }) => {
+const TransferMasterForm = ({ submitForm, transfer }) => {
+  const [loadedValues, setLoadedValues] = useState({
+    city: "",
+    company: "",
+    transfer_in_out: "",
+    dispo_4h: "",
+    hextra: "",
+    hextra_night: "",
+    dispo_5h_out: "",
+    dispo_4h_airport: "",
+    dispo_4h_night: "",
+    transfer_in_out_night: "",
+    dispo_6h_night: "",
+    vehicleType: "",
+    vehicleCapacity: "",
+    selectedService: "",
+  });
+
+  useEffect(() => {
+    if (transfer) {
+      if (Object.keys(transfer).length > 0) {
+        setLoadedValues((prev) => ({
+          ...prev,
+          city: transfer.city,
+          company: transfer.company,
+          transfer_in_out: transfer.transfer_in_out,
+          dispo_4h: transfer.dispo_4h,
+          hextra: transfer.hextra,
+          hextra_night: transfer.hextra_night,
+          dispo_5h_out: transfer.dispo_5h_out,
+          dispo_4h_airport: transfer.dispo_4h_airport,
+          dispo_4h_night: transfer.dispo_4h_night,
+          transfer_in_out_night: transfer.transfer_in_out_night,
+          dispo_6h_night: transfer.dispo_6h_night,
+          vehicleType: transfer.vehicleType,
+          vehicleCapacity: transfer.vehicleCapacity,
+          selectedService: transfer.selectedService,
+        }));
+      }
+    }
+  }, [transfer]);
+
+  const initialValues = {
+    city: "",
+    company: "",
+    transfer_in_out: "",
+    dispo_4h: "",
+    hextra: "",
+    hextra_night: "",
+    dispo_5h_out: "",
+    dispo_4h_airport: "",
+    dispo_4h_night: "",
+    transfer_in_out_night: "",
+    dispo_6h_night: "",
+    vehicleType: "",
+    vehicleCapacity: "",
+    selectedService: "",
+  };
+
+  const update = Object.keys(transfer).length > 0 ? true : false;
+
   return (
     <>
       <Formik
-        initialValues={{
-          city: "",
-          company: "",
-          transfer_in_out: "",
-          dispo_4h: "",
-          hextra: "",
-          hextra_night: "",
-          dispo_5h_out: "",
-          dispo_4h_airport: "",
-          dispo_4h_night: "",
-          transfer_in_out_night: "",
-          dispo_6h_night: "",
-          vehicleType: "",
-          vehicleCapacity: "",
-          selectedService: "",
-        }}
+        initialValues={loadedValues || initialValues}
         onSubmit={(values) => {
-          submitForm(values, "transfers");
+          submitForm(values, "transfers", update);
         }}
+        enableReinitialize
         validationSchema={Yup.object({
           city: Yup.string().required("Required"),
           company: Yup.string().required("Required"),
-          transfer_in_out: Yup.number().required("Required"),
-          dispo_4h: Yup.number().required("Required"),
-          hextra: Yup.number().required("Required"),
-          hextra_night: Yup.number().required("Required"),
-          dispo_5h_out: Yup.number().required("Required"),
-          dispo_4h_airport: Yup.number().required("Required"),
-          dispo_4h_night: Yup.number().required("Required"),
-          transfer_in_out_night: Yup.number().required("Required"),
-          dispo_6h_night: Yup.number().required("Required"),
+          transfer_in_out: Yup.number(),
+          dispo_4h: Yup.number(),
+          hextra: Yup.number(),
+          hextra_night: Yup.number(),
+          dispo_5h_out: Yup.number(),
+          dispo_4h_airport: Yup.number(),
+          dispo_4h_night: Yup.number(),
+          transfer_in_out_night: Yup.number(),
+          dispo_6h_night: Yup.number(),
           vehicleType: Yup.string().required("Required"),
           vehicleCapacity: Yup.number().required("Required"),
         })}
@@ -136,14 +183,13 @@ const TransferMasterForm = ({ submitForm }) => {
                     placeholder="ex : 30"
                     type="text"
                   />
-                  <div className="flex space-x-2 justify-center mt-7">
-                    <button
-                      className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                      type="submit"
-                    >
-                      Save and submit
-                    </button>
-                  </div>
+                  <input
+                    type="submit"
+                    className="cursor-pointer mt-6 py-2 px-10 hover:bg-gray-600 bg-green-50 text-black-50 hover:text-white-50 fonrt-bold uppercase rounded-lg"
+                    value={
+                      update ? "Edit Transfer Form" : "Create new Transfer"
+                    }
+                  />
                 </div>
               </fieldset>
             </Form>
