@@ -10,7 +10,6 @@ import {
   AddTransfersINOUTToSchedule,
   ClientList,
   ClientSpecs,
-  ClientUpdate,
   Dashboard,
   EventList,
   EventSpecs,
@@ -76,7 +75,6 @@ function App() {
           <Route path="/transfer/specs" element={<TransferSpecs />} />
           <Route path="/transfer/list" element={<TransferList />} />
           <Route path="/client" element={<MasterClient />} />
-          <Route path="/client/:clientId/update" element={<ClientUpdate />} />
           <Route path="/client/specs" element={<ClientSpecs />} />
           <Route path="/client/list" element={<ClientList />} />
 

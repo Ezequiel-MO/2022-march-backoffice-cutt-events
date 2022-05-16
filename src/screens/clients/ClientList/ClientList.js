@@ -41,7 +41,11 @@ const ClientList = () => {
 
       <td
         className="hover:cursor-pointer"
-        onClick={() => navigate(`/client/${client._id}/update`)}
+        onClick={() =>
+          navigate(`/client/specs`, {
+            state: { client },
+          })
+        }
       >
         <Icon
           icon="arcticons:huawei-system-update"

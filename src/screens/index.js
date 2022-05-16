@@ -21,5 +21,4 @@ export { default as AddTransfersINOUTToSchedule } from "./projects/AddTransfersI
 export { default as MasterClient } from "./clients/MasterClient";
 export { default as ClientSpecs } from "./clients/ClientSpecs/ClientSpecs";
 export { default as ClientList } from "./clients/ClientList/ClientList";
-export { default as ClientUpdate } from "./clients/ClientUpdate/ClientUpdate";
 export { default as AddEventToSchedule } from "./projects/AddEventToSchedule/AddEventToSchedule";

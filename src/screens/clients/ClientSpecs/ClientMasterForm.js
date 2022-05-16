@@ -1,23 +1,56 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
+import { useEffect, useState } from "react";
 
-const ClientMasterForm = ({ submitForm }) => {
+const ClientMasterForm = ({ submitForm, client }) => {
+  const [loadedValues, setLoadedValues] = useState({
+    firstName: "",
+    familyName: "",
+    email: "",
+    clientCompany: "",
+    phone: "",
+    quoteLanguage: "",
+    country: "",
+  });
+
+  useEffect(() => {
+    if (client) {
+      if (Object.keys(client).length > 0) {
+        setLoadedValues((prev) => ({
+          ...prev,
+          firstName: client.firstName,
+          familyName: client.familyName,
+          email: client.email,
+          clientCompany: client.clientCompany,
+          phone: client.phone,
+          quoteLanguage: client.quoteLanguage,
+          country: client.country,
+        }));
+      }
+    }
+  }, [client]);
+
+  const initialValues = {
+    firstName: "",
+    familyName: "",
+    email: "",
+    clientCompany: "",
+    phone: "",
+    quoteLanguage: "",
+    country: "",
+  };
+
+  const update = Object.keys(client).length > 0 ? true : false;
+
   return (
     <>
       <Formik
-        initialValues={{
-          firstName: "",
-          familyName: "",
-          email: "",
-          clientCompany: "",
-          phone: "",
-          quoteLanguage: "",
-          country: "",
-        }}
+        initialValues={loadedValues || initialValues}
         onSubmit={(values) => {
-          submitForm(values, "clients");
+          submitForm(values, "clients", update);
         }}
+        enableReinitialize
         validationSchema={Yup.object({
           firstName: Yup.string().required("Required"),
           familyName: Yup.string().required("Required"),
@@ -84,14 +117,11 @@ const ClientMasterForm = ({ submitForm }) => {
                   />
 
                   <div className="form-group mb-6">
-                    <div className="flex space-x-2 justify-center mt-4">
-                      <button
-                        className="inline-block px-6 py-2 border-2 border-orange-50 text-orange-50 font-medium text-sm leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out"
-                        type="submit"
-                      >
-                        Save and submit
-                      </button>
-                    </div>
+                    <input
+                      type="submit"
+                      className="cursor-pointer mt-6 py-2 px-10 hover:bg-gray-600 bg-green-50 text-black-50 hover:text-white-50 fonrt-bold uppercase rounded-lg"
+                      value={update ? "Edit Client Form" : "Create new Client"}
+                    />
                   </div>
                 </div>
               </fieldset>
