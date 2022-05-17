@@ -70,7 +70,7 @@ const ProjectList = () => {
       <td>{project.nrPax}</td>
       <td>{project.arrivalDay}</td>
       <td>{project.departureDay}</td>
-      <td>{project.clientCo}</td>
+      <td>{project.clientAccManager[0].clientCompany}</td>
       <td
         className="hover:cursor-pointer"
         onClick={() =>

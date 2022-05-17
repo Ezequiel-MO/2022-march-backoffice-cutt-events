@@ -17,6 +17,7 @@ const AddTransfersINOUTToSchedule = () => {
   const [vehicleCapacity, setVehicleCapacity] = useState(20);
   const [transfers, setTransfers] = useState([]);
   const [companies, setCompanies] = useState([]);
+  const [nrVehicles, setNrVehicles] = useState(0);
   const [selectedCompany, setSelectedCompany] = useState("");
 
   const currentProject = useSelector(selectCurrentProject);
@@ -63,14 +64,16 @@ const AddTransfersINOUTToSchedule = () => {
     getTransferList();
   }, [city, vehicleCapacity, selectedCompany]);
 
-  const handleAddTransfer = (transfer) => {
-    dispatch(
-      ADD_EVENT_TO_SCHEDULE({
-        dayOfEvent: location.state.dayOfEvent,
-        timeOfEvent: location.state.timeOfEvent,
-        event: transfer,
-      })
-    );
+  const handleAddTransfer = (transfer, nrVehicles) => {
+    for (let i = 0; i < nrVehicles; i++) {
+      dispatch(
+        ADD_EVENT_TO_SCHEDULE({
+          dayOfEvent: location.state.dayOfEvent,
+          timeOfEvent: location.state.timeOfEvent,
+          event: transfer,
+        })
+      );
+    }
     toast.success("Transfer added", toastOptions);
     navigate("/project/schedule");
   };
@@ -80,8 +83,18 @@ const AddTransfersINOUTToSchedule = () => {
       <td>{transfer.company}</td>
       <td>{transfer.vehicleType}</td>
       <td>{transfer.vehicleCapacity}</td>
+      <td>
+        <input
+          type="number"
+          className="w-10 mr-2 px-2"
+          placeholder="1"
+          value={nrVehicles}
+          onChange={(e) => setNrVehicles(e.target.value)}
+        />
+      </td>
+
       <td
-        onClick={() => handleAddTransfer(transfer)}
+        onClick={() => handleAddTransfer(transfer, nrVehicles)}
         className="cursor-pointer"
       >
         {location.state.timeOfEvent === "transfer_in" ? (
@@ -137,6 +150,7 @@ const AddTransfersINOUTToSchedule = () => {
               <th>Company</th>
               <th>Vehicle Type</th>
               <th>Vehicle Capacity</th>
+              <th>Number of Vehicles</th>
               <th>Add To Schedule</th>
             </tr>
           </thead>
