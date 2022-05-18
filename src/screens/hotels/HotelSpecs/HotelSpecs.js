@@ -32,7 +32,7 @@ const HotelSpecs = () => {
     let formData = new FormData();
     formData.append("name", values.name);
     formData.append("city", values.city);
-    formData.append("adress", values.address);
+    formData.append("address", values.address);
     formData.append("numberStars", values.numberStars);
     formData.append("numberRooms", values.numberRooms);
     formData.append("checkin_out", values.checkin_out);
@@ -41,6 +41,7 @@ const HotelSpecs = () => {
     formData.append("swimmingPool", values.swimmingPool);
     formData.append("restaurants", values.restaurants);
     formData.append("textContent", JSON.stringify(values.textContent));
+    formData.append("meetingRooms", values.meetingRooms);
     formData.append("location[coordinates][0]", values.latitude);
     formData.append("location[coordinates][1]", values.longitude);
 
@@ -52,21 +53,24 @@ const HotelSpecs = () => {
 
   const fillJSONData = (values) => {
     let jsonData = {};
+    let jsonDataLocation = {
+      type: "Point",
+      coordinates: [values.longitude, values.latitude],
+    };
+
     jsonData.name = values.name;
     jsonData.city = values.city;
-    jsonData.adress = values.address;
+    jsonData.address = values.address;
     jsonData.numberStars = values.numberStars;
     jsonData.numberRooms = values.numberRooms;
+    jsonData.meetingRooms = values.meetingRooms;
     jsonData.checkin_out = values.checkin_out;
     jsonData.wheelChairAccessible = values.wheelChairAccessible;
     jsonData.wifiSpeed = values.wifiSpeed;
     jsonData.swimmingPool = values.swimmingPool;
     jsonData.restaurants = values.restaurants;
-    jsonData.textContent = JSON.stringify(values.textContent);
-    jsonData.location = {
-      type: "Point",
-      coordinates: [values.latitude, values.longitude],
-    };
+    jsonData.textContent = values.textContent;
+    jsonData.location = jsonDataLocation;
 
     return jsonData;
   };
@@ -77,6 +81,7 @@ const HotelSpecs = () => {
       dataToPost = fillFormData(values, files);
     } else {
       dataToPost = fillJSONData(values);
+      console.log("data to port", dataToPost);
     }
     postToEndpoint(dataToPost, endpoint, update);
   };

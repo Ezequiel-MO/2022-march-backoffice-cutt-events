@@ -41,8 +41,8 @@ const HotelMasterForm = ({ submitForm, hotel }) => {
           wifiSpeed: hotel.wifiSpeed,
           swimmingPool: hotel.swimmingPool,
           restaurants: hotel.restaurants,
-          longitude: hotel.longitude,
-          latitude: hotel.latitude,
+          longitude: hotel.location.coordinates[1],
+          latitude: hotel.location.coordinates[0],
           textContent: hotel.textContent,
         }));
       }

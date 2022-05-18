@@ -6,6 +6,8 @@ import { Icon } from "@iconify/react";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
+import HotelListItem from "./HotelListItem";
+import SearchBar from "../../../components/SearchBar";
 
 const HotelList = () => {
   const navigate = useNavigate();
@@ -27,6 +29,7 @@ const HotelList = () => {
         const response = await baseAPI.get(
           `/v1/hotels?city=${city}&numberStars=${numberStars}`
         );
+        console.log("hey", response.data.data.data);
         setHotels(response.data.data.data);
       } catch (error) {
         toast.error(error.response.data.message, toastOptions);
@@ -45,56 +48,34 @@ const HotelList = () => {
     }
   };
 
-  const hotelList = hotels.slice(0, 15).map((hotel) => (
-    <tr key={hotel._id}>
-      <td>{hotel.name}</td>
-      <td>{hotel.city}</td>
-      <td>{hotel.numberRooms}</td>
-      <td>{hotel.meetingRooms}</td>
-      <td>{hotel.restaurants}</td>
-      <td
-        className="hover:cursor-pointer"
-        onClick={() =>
-          navigate(`/hotel/specs`, {
-            state: { hotel },
-          })
-        }
-      >
-        <Icon
-          icon="arcticons:huawei-system-update"
-          color="#ea5933"
-          width="30"
-        />
-      </td>
-      <td
-        className="hover:cursor-pointer"
-        onClick={() => handleDeleteHotel(hotel._id)}
-      >
-        <Icon icon="ei:trash" color="#ea5933" width="30" />
-      </td>
-      {currentProjectIsLive ? (
-        <td
-          className="hover:cursor-pointer"
-          onClick={() =>
-            navigate(`/hotel/${hotel._id}/add`, {
-              state: { hotelName: hotel.name },
-            })
-          }
-        >
-          <Icon icon="ic:twotone-add-circle" color="#ea5933" width="25" />
-        </td>
-      ) : null}
-    </tr>
-  ));
+  const hotelList = hotels
+    .slice(0, 15)
+    .map((hotel) => (
+      <HotelListItem
+        key={hotel._id}
+        hotel={hotel}
+        handleDeleteHotel={handleDeleteHotel}
+        canBeAddedToProject={currentProjectIsLive}
+      />
+    ));
 
   return (
     <>
-      <h1 className="text-2xl mb-4 indent-8">Hotel List</h1>
+      <div className="flex flex-col sm:flex-row sm:items-end items-start sm:space-x-6 mb-4 mr-8 ml-8">
+        <h1 className="text-2xl">Hotel List</h1>
+        <SearchBar />
+        <p className="flex flex-row items-center">
+          <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
+          <span className="ml-2">
+            Swipe restaurants right to update / left to remove restaurant
+          </span>
+        </p>
+      </div>
       <hr />
-      <div className="container grid grid-cols-4 gap-4 my-4">
+      <div className="flex flex-row">
         <form className="text-orange-50">
           {!currentProjectIsLive ? (
-            <div className="block relative w-64">
+            <div className="hidden lg:block relative w-64">
               <label htmlFor="cities">Filter by city:</label>
               <select
                 name="cities"
@@ -122,21 +103,7 @@ const HotelList = () => {
             </select>
           </div>
         </form>
-        <table className="table-auto col-span-3">
-          <thead className="bg-gray-50 border-b text-left">
-            <tr>
-              <th>Hotel Name</th>
-              <th>City</th>
-              <th>Nr of Rooms</th>
-              <th>Nr of Meeting Rooms</th>
-              <th>Restaurants</th>
-              <th>Update</th>
-              <th>Delete</th>
-              {currentProjectIsLive && <th>Add To Project</th>}
-            </tr>
-          </thead>
-          <tbody className="text-white-50">{hotelList}</tbody>
-        </table>
+        <div className="flex-1 m-4 flex-col">{hotelList}</div>
       </div>
     </>
   );
