@@ -11,10 +11,10 @@ import {
 import "react-swipeable-list/dist/styles.css";
 import { accounting } from "accounting";
 
-const RestaurantListItem = ({
-  restaurant,
-  handleDeleteRestaurant,
-  addRestaurantToProject,
+const EventListItem = ({
+  event,
+  handleDeleteEvent,
+  addEventToProject,
   canBeAddedToProject,
 }) => {
   const navigate = useNavigate();
@@ -24,8 +24,8 @@ const RestaurantListItem = ({
       <SwipeAction
         className="bg-green-500 text-lime-50 px-10 font-bold rounded uppercase"
         onClick={() =>
-          navigate(`/restaurant/specs`, {
-            state: { restaurant },
+          navigate(`/event/specs`, {
+            state: { event },
           })
         }
       >
@@ -38,7 +38,7 @@ const RestaurantListItem = ({
     <TrailingActions>
       <SwipeAction
         className="bg-red-500 text-lime-50 px-10 font-bold rounded uppercase"
-        onClick={() => handleDeleteRestaurant(restaurant._id)}
+        onClick={() => handleDeleteEvent(event._id)}
         destructive={true}
       >
         Remove
@@ -53,14 +53,14 @@ const RestaurantListItem = ({
           trailingActions={trailingActions()}
         >
           <div className="grid grid-cols-4 w-full">
-            <p>{restaurant.name}</p>
-            <p>{restaurant.city}</p>
-            <p>{accounting.formatMoney(restaurant.price, "€")}</p>
+            <p>{event.name}</p>
+            <p>{event.city}</p>
+            <p>{accounting.formatMoney(event.price, "€")}</p>
 
             {canBeAddedToProject && (
               <div
                 className="flex flex-row items-center"
-                onClick={() => addRestaurantToProject(restaurant)}
+                onClick={() => addEventToProject(event)}
               >
                 <Icon icon="gg:insert-after-o" color="#ea5933" width="35" />
                 <span>Add to Project</span>
@@ -73,4 +73,4 @@ const RestaurantListItem = ({
   );
 };
 
-export default RestaurantListItem;
+export default EventListItem;

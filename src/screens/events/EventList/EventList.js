@@ -7,13 +7,15 @@ import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlic
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastOptions } from "../../../dev-data/toast";
+import EventListItem from "./EventListItem";
+import SearchBar from "../../../components/SearchBar";
 
 const EventList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [events, setEvents] = useState([]);
   const [city, setCity] = useState("Barcelona");
-  const [price, setPrice] = useState(null);
+  const [price, setPrice] = useState(900);
   const currentProject = useSelector(selectCurrentProject);
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
 
@@ -50,7 +52,7 @@ const EventList = () => {
     }
   };
 
-  const AddEventToProject = (event) => {
+  const addEventToProject = (event) => {
     navigate(`/project/schedule/${event._id}/event`, {
       state: {
         event,
@@ -60,47 +62,32 @@ const EventList = () => {
     });
   };
 
-  const eventList = events.slice(0, 15).map((event) => (
-    <tr key={event._id}>
-      <td>{event.name}</td>
-      <td>{event.city}</td>
-      <td>{event.price}</td>
-      <td
-        className="hover:cursor-pointer"
-        onClick={() =>
-          navigate(`/event/specs`, {
-            state: { event },
-          })
-        }
-      >
-        <Icon
-          icon="arcticons:huawei-system-update"
-          color="#ea5933"
-          width="30"
-        />
-      </td>
-      <td
-        className="hover:cursor-pointer"
-        onClick={() => handleDeleteEvent(event._id)}
-      >
-        <Icon icon="ei:trash" color="#ea5933" width="30" />
-      </td>
-      {location.state ? (
-        <td
-          className="hover:cursor-pointer"
-          onClick={() => AddEventToProject(event)}
-        >
-          <Icon icon="ic:twotone-add-circle" color="#ea5933" width="25" />
-        </td>
-      ) : null}
-    </tr>
-  ));
+  const eventList = events
+    .slice(0, 15)
+    .map((event) => (
+      <EventListItem
+        key={event._id}
+        event={event}
+        handleDeleteEvent={handleDeleteEvent}
+        addEventToProject={addEventToProject}
+        canBeAddedToProject={location.state}
+      />
+    ));
 
   return (
     <>
-      <h1 className="text-2xl mb-4 indent-8">Event List</h1>
+      <div className="flex flex-col sm:flex-row sm:items-end items-start sm:space-x-6 mb-4 mr-8 ml-8">
+        <h1 className="text-2xl">Event List</h1>
+        <SearchBar />
+        <p className="flex flex-row items-center">
+          <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
+          <span className="ml-2">
+            Swipe restaurants right to update / left to remove restaurant
+          </span>
+        </p>
+      </div>
       <hr />
-      <div className="container grid grid-cols-4 gap-4 my-4">
+      <div className="flex flex-row">
         <form className="text-orange-50">
           {!currentProjectIsLive ? (
             <div className="block relative w-64">
@@ -125,26 +112,14 @@ const EventList = () => {
               className="block cursor-pointer w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
               onChange={(e) => setPrice(parseInt(e.target.value))}
             >
+              <option value={900}>All prices</option>
               <option value={25}>Less than €25</option>
               <option value={40}>Less than €40</option>
               <option value={60}>Less than €60</option>
-              <option value={900}>All prices</option>
             </select>
           </div>
         </form>
-        <table className="table-auto col-span-3">
-          <thead className="bg-gray-50 border-b text-left">
-            <tr>
-              <th>Event Title</th>
-              <th>City</th>
-              <th>Tour Price</th>
-              <th>Update</th>
-              <th>Delete</th>
-              {location.state && <th>Add To Project</th>}
-            </tr>
-          </thead>
-          <tbody className="text-white-50">{eventList}</tbody>
-        </table>
+        <div className="flex-1 m-4 flex-col">{eventList}</div>
       </div>
     </>
   );
