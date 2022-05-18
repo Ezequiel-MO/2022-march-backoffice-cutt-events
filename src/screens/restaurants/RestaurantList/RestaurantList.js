@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Icon } from "@iconify/react";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
-import { toast } from "react-toastify";
-import { toastOptions } from "../../../dev-data/toast";
 import SearchBar from "../../../components/SearchBar";
+import RestaurantListItem from "./RestaurantListItem";
+import { toast } from "react-toastify";
+import { toastOptions } from "../../../dev-data/toast.js";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
@@ -52,7 +52,7 @@ const RestaurantList = () => {
     }
   };
 
-  const AddRestaurantToProject = (restaurant) => {
+  const addRestaurantToProject = (restaurant) => {
     navigate(`/project/schedule/${restaurant._id}/event`, {
       state: {
         event: restaurant,
@@ -62,41 +62,17 @@ const RestaurantList = () => {
     });
   };
 
-  const restaurantList = restaurants.slice(0, 15).map((restaurant) => (
-    <tr key={restaurant._id}>
-      <td>{restaurant.name}</td>
-      <td>{restaurant.city}</td>
-      <td>{restaurant.price}</td>
-      <td
-        className="hover:cursor-pointer"
-        onClick={() =>
-          navigate(`/restaurant/specs`, {
-            state: { restaurant },
-          })
-        }
-      >
-        <Icon
-          icon="arcticons:huawei-system-update"
-          color="#ea5933"
-          width="30"
-        />
-      </td>
-      <td
-        className="hover:cursor-pointer"
-        onClick={() => handleDeleteRestaurant(restaurant._id)}
-      >
-        <Icon icon="ei:trash" color="#ea5933" width="30" />
-      </td>
-      {location.state ? (
-        <td
-          className="hover:cursor-pointer"
-          onClick={() => AddRestaurantToProject(restaurant)}
-        >
-          <Icon icon="ic:twotone-add-circle" color="#ea5933" width="25" />
-        </td>
-      ) : null}
-    </tr>
-  ));
+  const restaurantList = restaurants
+    .slice(0, 15)
+    .map((restaurant) => (
+      <RestaurantListItem
+        key={restaurant._id}
+        restaurant={restaurant}
+        handleDeleteRestaurant={handleDeleteRestaurant}
+        addRestaurantToProject={addRestaurantToProject}
+        canBeAddedToProject={location.state}
+      />
+    ));
 
   return (
     <>
@@ -106,7 +82,7 @@ const RestaurantList = () => {
       </div>
 
       <hr />
-      <div className="container grid grid-cols-4 gap-4 my-4">
+      <div className="flex flex-row">
         <form className="text-orange-50">
           {!currentProjectIsLive ? (
             <div className="hidden lg:block relative w-64">
@@ -138,19 +114,7 @@ const RestaurantList = () => {
             </select>
           </div>
         </form>
-        <table className="table-auto col-span-3">
-          <thead className="bg-gray-50 border-b text-left">
-            <tr>
-              <th>Rest Name</th>
-              <th>City</th>
-              <th>Menus from</th>
-              <th>Update</th>
-              <th>Delete</th>
-              {location.state && <th>Add To Project</th>}
-            </tr>
-          </thead>
-          <tbody className="text-white-50">{restaurantList}</tbody>
-        </table>
+        <div className="flex-1 m-4 flex-col">{restaurantList}</div>
       </div>
     </>
   );
