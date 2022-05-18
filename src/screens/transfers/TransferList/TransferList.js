@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
+import TransferListItem from "./TransferListItem";
+import SearchBar from "../../../components/SearchBar";
 
 const TransferList = () => {
   const navigate = useNavigate();
@@ -48,42 +50,30 @@ const TransferList = () => {
     }
   };
 
-  const transferList = transfers.map((transfer) => (
-    <tr key={transfer._id}>
-      <td>{transfer.company}</td>
-      <td>{transfer.city}</td>
-      <td>{transfer.vehicleType}</td>
-      <td>{transfer.vehicleCapacity}</td>
-      <>
-        <td
-          className="hover:cursor-pointer"
-          onClick={() =>
-            navigate(`/transfer/specs`, {
-              state: { transfer },
-            })
-          }
-        >
-          <Icon
-            icon="arcticons:huawei-system-update"
-            color="#ea5933"
-            width="30"
-          />
-        </td>
-        <td
-          className="hover:cursor-pointer"
-          onClick={() => handleDeleteTransfer(transfer._id)}
-        >
-          <Icon icon="ei:trash" color="#ea5933" width="30" />
-        </td>
-      </>
-    </tr>
-  ));
+  const transferList = transfers
+    .slice(0, 15)
+    .map((transfer) => (
+      <TransferListItem
+        key={transfer._id}
+        transfer={transfer}
+        handleDeleteTransfer={handleDeleteTransfer}
+      />
+    ));
 
   return (
     <>
-      <h1 className="text-2xl mb-4 indent-8">Transfer List</h1>
+      <div className="flex flex-col sm:flex-row sm:items-end items-start sm:space-x-6 mb-4 mr-8 ml-8">
+        <h1 className="text-2xl">Transfer List</h1>
+        <SearchBar />
+        <p className="flex flex-row items-center">
+          <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
+          <span className="ml-2">
+            Swipe restaurants right to update / left to remove restaurant
+          </span>
+        </p>
+      </div>
       <hr />
-      <div className="container grid grid-cols-4 gap-4 my-4">
+      <div className="flex flex-row">
         <form className="text-orange-50">
           {!currentProjectIsLive ? (
             <div className="block relative w-64">
@@ -117,19 +107,8 @@ const TransferList = () => {
             </select>
           </div>
         </form>
-        <table className="table-auto col-span-3">
-          <thead className="bg-gray-50 border-b text-left">
-            <tr>
-              <th>Company</th>
-              <th>City</th>
-              <th>Vehicle Type</th>
-              <th>Vehicle Capacity</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody className="text-white-50">{transferList}</tbody>
-        </table>
+
+        <div className="flex-1 m-4 flex-col">{transferList}</div>
       </div>
     </>
   );
