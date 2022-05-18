@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Icon } from "@iconify/react";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 import SearchBar from "../../../components/SearchBar";
@@ -79,6 +80,12 @@ const RestaurantList = () => {
       <div className="flex flex-col sm:flex-row sm:items-end items-start sm:space-x-6 mb-4 mr-8 ml-8">
         <h1 className="text-2xl">Restaurant List</h1>
         <SearchBar />
+        <p className="flex flex-row items-center">
+          <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
+          <span className="ml-2">
+            Swipe restaurants right to update / left to remove restaurant
+          </span>
+        </p>
       </div>
 
       <hr />
