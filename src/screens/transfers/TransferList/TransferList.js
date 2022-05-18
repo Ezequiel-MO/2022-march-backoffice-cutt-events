@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 import { Icon } from "@iconify/react";
 import { useSelector } from "react-redux";
@@ -10,7 +9,6 @@ import TransferListItem from "./TransferListItem";
 import SearchBar from "../../../components/SearchBar";
 
 const TransferList = () => {
-  const navigate = useNavigate();
   const [transfers, setTransfers] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [vehicleCapacity, setVehicleCapacity] = useState(20);
@@ -73,7 +71,7 @@ const TransferList = () => {
         </p>
       </div>
       <hr />
-      <div className="flex flex-row">
+      <div className="container grid grid-cols-4 gap-4 my-4">
         <form className="text-orange-50">
           {!currentProjectIsLive ? (
             <div className="block relative w-64">

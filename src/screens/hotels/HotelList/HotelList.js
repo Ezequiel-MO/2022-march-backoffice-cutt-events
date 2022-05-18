@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import baseAPI from "../../../axios/axiosConfig";
 import { useSelector } from "react-redux";
 import { Icon } from "@iconify/react";
@@ -10,7 +9,6 @@ import HotelListItem from "./HotelListItem";
 import SearchBar from "../../../components/SearchBar";
 
 const HotelList = () => {
-  const navigate = useNavigate();
   const [hotels, setHotels] = useState([]);
   const [city, setCity] = useState("Barcelona");
   const [numberStars, setNumberStars] = useState(3);

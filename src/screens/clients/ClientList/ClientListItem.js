@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Icon } from "@iconify/react";
 import {
   LeadingActions,
   SwipeableList,
