@@ -1,12 +1,12 @@
 import { Icon } from "@iconify/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
+import SearchBar from "../../../components/SearchBar";
 import { toastOptions } from "../../../dev-data/toast";
+import ClientListItem from "./ClientListItem";
 
 const ClientList = () => {
-  const navigate = useNavigate();
   const [clients, setClients] = useState([]);
 
   const handleDeleteClient = async (clientId) => {
@@ -31,56 +31,31 @@ const ClientList = () => {
     getClientList();
   }, []);
 
-  const clientList = clients?.slice(0, 15).map((client) => (
-    <tr key={client._id}>
-      <td>{client.firstName}</td>
-      <td>{client.familyName}</td>
-      <td>{client.email}</td>
-      <td>{client.clientCompany}</td>
-      <td>{client.country}</td>
-
-      <td
-        className="hover:cursor-pointer"
-        onClick={() =>
-          navigate(`/client/specs`, {
-            state: { client },
-          })
-        }
-      >
-        <Icon
-          icon="arcticons:huawei-system-update"
-          color="#ea5933"
-          width="30"
-        />
-      </td>
-      <td
-        className="hover:cursor-pointer"
-        onClick={() => handleDeleteClient(client._id)}
-      >
-        <Icon icon="ei:trash" color="#ea5933" width="30" />
-      </td>
-    </tr>
-  ));
+  const clientList = clients
+    ?.slice(0, 15)
+    .map((client) => (
+      <ClientListItem
+        key={client._id}
+        client={client}
+        handleDeleteClient={handleDeleteClient}
+      />
+    ));
 
   return (
     <>
-      <h1 className="text-2xl mb-4 indent-8">Client List</h1>
+      <div className="flex flex-col sm:flex-row sm:items-end items-start sm:space-x-6 mb-4 mr-8 ml-8">
+        <h1 className="text-2xl">Client List</h1>
+        <SearchBar />
+        <p className="flex flex-row items-center">
+          <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
+          <span className="ml-2">
+            Swipe restaurants right to update / left to remove restaurant
+          </span>
+        </p>
+      </div>
       <hr />
-      <div className="container grid grid-cols-4 gap-4 my-4">
-        <table className="table-auto col-span-3">
-          <thead className="bg-gray-50 border-b text-left">
-            <tr>
-              <th>First Name</th>
-              <th>Family Name</th>
-              <th>Email Address</th>
-              <th>Company</th>
-              <th>Country</th>
-              <th>Update</th>
-              <th>Delete</th>
-            </tr>
-          </thead>
-          <tbody className="text-white-50">{clientList}</tbody>
-        </table>
+      <div className="flex flex-row">
+        <div className="flex-1 m-4 flex-col">{clientList}</div>
       </div>
     </>
   );
