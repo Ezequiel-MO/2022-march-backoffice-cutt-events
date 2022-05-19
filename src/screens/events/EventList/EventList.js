@@ -8,13 +8,14 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toastOptions } from "../../../dev-data/toast";
 import EventListItem from "./EventListItem";
-import SearchBar from "../../../components/SearchBar";
+import CityFilter from "../../../UI/filters/CityFilter";
+import PriceFilter from "../../../UI/filters/PriceFilter";
 
 const EventList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [events, setEvents] = useState([]);
-  const [city, setCity] = useState("Barcelona");
+  const [city, setCity] = useState("");
   const [price, setPrice] = useState(900);
   const currentProject = useSelector(selectCurrentProject);
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
@@ -77,50 +78,24 @@ const EventList = () => {
   return (
     <>
       <div className="flex flex-col sm:flex-row sm:items-end items-start sm:space-x-6 mb-4 mr-8 ml-8">
-        <h1 className="text-2xl">Event List</h1>
-        <SearchBar />
-        <p className="flex flex-row items-center">
-          <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
-          <span className="ml-2">
-            Swipe restaurants right to update / left to remove restaurant
-          </span>
-        </p>
+        <div className="flex flex-col w-full">
+          <h1 className="text-2xl">Event List</h1>
+          <div className="flex flex-row">
+            <div className="flex-1">
+              {currentProjectIsLive ? null : <CityFilter setCity={setCity} />}
+              <PriceFilter setPrice={setPrice} />
+            </div>
+            <p className="flex flex-row items-center">
+              <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
+              <span className="ml-2">
+                Swipe restaurants right to update / left to remove restaurant
+              </span>
+            </p>
+          </div>
+        </div>
       </div>
       <hr />
-      <div className="flex flex-row">
-        <form className="text-orange-50">
-          {!currentProjectIsLive ? (
-            <div className="block relative w-64">
-              <label htmlFor="cities">Filter by city:</label>
-              <select
-                name="cities"
-                id="cities"
-                className="block cursor-pointer w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                onChange={(e) => setCity(e.target.value)}
-              >
-                <option value="Barcelona">Barcelona</option>
-                <option value="Valencia">Valencia</option>
-                <option value="Madrid">Madrid</option>
-              </select>
-            </div>
-          ) : null}
-          <div className="block relative w-64">
-            <label htmlFor="price">Filter by Price:</label>
-            <select
-              name="price"
-              id="price"
-              className="block cursor-pointer w-full bg-white-100 border border-gray-400 hover:border-gray-50 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-              onChange={(e) => setPrice(parseInt(e.target.value))}
-            >
-              <option value={900}>All prices</option>
-              <option value={25}>Less than €25</option>
-              <option value={40}>Less than €40</option>
-              <option value={60}>Less than €60</option>
-            </select>
-          </div>
-        </form>
-        <div className="flex-1 m-4 flex-col">{eventList}</div>
-      </div>
+      <div className="flex-1 m-4 flex-col">{eventList}</div>
     </>
   );
 };
