@@ -14,10 +14,10 @@ const CityFilter = ({ setCity }) => {
             onChange={(e) => setCity(e.target.value)}
           >
             <option value="none">--- Select a city ---</option>
-            <option value="Barcelona">Barcelona</option>
-            <option value="Valencia">Valencia</option>
-            <option value="Madrid">Madrid</option>
-            <option value="Mallorca">Palma Mallorca</option>
+            <option value="Barcelona">--- Barcelona ---</option>
+            <option value="Valencia">--- Valencia ---</option>
+            <option value="Madrid">--- Madrid ---</option>
+            <option value="Mallorca">--- Palma Mallorca ---</option>
           </select>
         </div>
       </form>
