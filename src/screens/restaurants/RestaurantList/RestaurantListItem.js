@@ -22,7 +22,7 @@ const RestaurantListItem = ({
   const leadingActions = () => (
     <LeadingActions>
       <SwipeAction
-        className="bg-green-500 text-lime-50 px-10 font-bold rounded uppercase"
+        className="bg-green-500 text-lime-50 px-10 mr-10 font-bold rounded uppercase"
         onClick={() =>
           navigate(`/restaurant/specs`, {
             state: { restaurant },
