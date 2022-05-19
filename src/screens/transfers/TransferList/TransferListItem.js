@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-
+import { accounting } from "accounting";
 import {
   LeadingActions,
   SwipeableList,
@@ -10,7 +10,7 @@ import {
 } from "react-swipeable-list";
 import "react-swipeable-list/dist/styles.css";
 
-const TransferListItem = ({ transfer, handleDeleteTransfer }) => {
+const TransferListItem = ({ transfer, handleDeleteTransfer, service }) => {
   const navigate = useNavigate();
 
   const leadingActions = () => (
@@ -46,11 +46,12 @@ const TransferListItem = ({ transfer, handleDeleteTransfer }) => {
           leadingActions={leadingActions()}
           trailingActions={trailingActions()}
         >
-          <div className="grid grid-cols-4 w-full">
+          <div className="grid grid-cols-5 w-full">
             <p>{transfer.company}</p>
             <p>{transfer.city}</p>
             <p>{transfer.vehicleType}</p>
             <p>{`${transfer.vehicleCapacity} seats`}</p>
+            <p>{accounting.formatMoney(transfer[`${service}`], "€")}</p>
           </div>
         </SwipeableListItem>
       </SwipeableList>

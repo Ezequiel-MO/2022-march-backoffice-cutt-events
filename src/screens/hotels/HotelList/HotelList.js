@@ -80,7 +80,7 @@ const HotelList = () => {
             <p className="flex flex-row items-center">
               <Icon icon="ic:baseline-swipe-left" color="#ea5933" width="40" />
               <span className="ml-2">
-                Swipe restaurants right to update / left to remove restaurant
+                Swipe list elements right to update / left to remove element
               </span>
             </p>
           </div>
