@@ -9,11 +9,13 @@ import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast.js";
 import PriceFilter from "../../../UI/filters/PriceFilter";
 import CityFilter from "../../../UI/filters/CityFilter";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const RestaurantList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [restaurants, setRestaurants] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("");
   const [price, setPrice] = useState(900);
   const currentProject = useSelector(selectCurrentProject);
@@ -29,10 +31,12 @@ const RestaurantList = () => {
   useEffect(() => {
     const getRestaurantList = async () => {
       try {
+        setIsLoading(true);
         const response = await baseAPI.get(
           `/v1/restaurants?city=${city}&price[lte]=${price}`
         );
         setRestaurants(response.data.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -98,7 +102,9 @@ const RestaurantList = () => {
 
       <hr />
 
-      <div className="flex-1 m-4 flex-col">{restaurantList}</div>
+      <div className="flex-1 m-4 flex-col">
+        {isLoading ? <Spinner /> : restaurantList}
+      </div>
     </>
   );
 };
