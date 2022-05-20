@@ -10,9 +10,11 @@ import VehicleSizeFilter from "../../../UI/filters/VehicleSizeFilter";
 import CityFilter from "../../../UI/filters/CityFilter";
 import TransferVendorFilter from "../../../UI/filters/TransferVendorFilter";
 import TransferServiceFilter from "../../../UI/filters/TransferServiceFilter";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const TransferList = () => {
   const [transfers, setTransfers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("");
   const [vehicleCapacity, setVehicleCapacity] = useState(20);
   const [company, setCompany] = useState("");
@@ -31,10 +33,12 @@ const TransferList = () => {
   useEffect(() => {
     const getTransferList = async () => {
       try {
+        setIsLoading(true);
         const response = await baseAPI.get(
           `/v1/transfers?city=${city}&vehicleCapacity=${vehicleCapacity}&company=${company}`
         );
         setTransfers(response.data.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -87,7 +91,9 @@ const TransferList = () => {
         </div>
       </div>
       <hr />
-      <div className="flex-1 m-4 flex-col">{transferList}</div>
+      <div className="flex-1 m-4 flex-col">
+        {isLoading ? <Spinner /> : transferList}
+      </div>
     </>
   );
 };

@@ -9,11 +9,13 @@ import {
 } from "../../../redux/features/CurrentProjectSlice";
 import { toast } from "react-toastify";
 import { toastOptions } from "../../../dev-data/toast";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const ProjectList = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [projects, setProjects] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("Barcelona");
   const [accountManager, setAccountManager] = useState("Montse Miranda");
   const currentProject = useSelector(selectCurrentProject);
@@ -30,10 +32,12 @@ const ProjectList = () => {
   useEffect(() => {
     const getProjectList = async () => {
       try {
+        setIsLoading(true);
         const response = await baseAPI.get(
           `/v1/projects?groupLocation=${city}&accountManager=${accountManager}`
         );
         setProjects(response.data.data.data);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
       }
@@ -148,7 +152,9 @@ const ProjectList = () => {
               <th>Recycle</th>
             </tr>
           </thead>
-          <tbody className="text-white-50">{projectList}</tbody>
+          <tbody className="text-white-50">
+            {isLoading ? <Spinner /> : projectList}
+          </tbody>
         </table>
       </div>
     </>

@@ -4,10 +4,12 @@ import { toast } from "react-toastify";
 import baseAPI from "../../../axios/axiosConfig";
 import { toastOptions } from "../../../dev-data/toast";
 import CountryFilter from "../../../UI/filters/CountryFilter";
+import Spinner from "../../../UI/spinner/Spinner";
 import ClientListItem from "./ClientListItem";
 
 const ClientList = () => {
   const [clients, setClients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [country, setCountry] = useState("");
 
   const handleDeleteClient = async (clientId) => {
@@ -24,14 +26,18 @@ const ClientList = () => {
     const getClientList = async () => {
       try {
         if (country) {
+          setIsLoading(true);
           const response = await baseAPI.get(`/v1/clients?country=${country}`);
           setClients(response.data.data.data);
+          setIsLoading(false);
         } else {
+          setIsLoading(true);
           const response = await baseAPI.get(`/v1/clients`);
           setClients(response.data.data.data);
+          setIsLoading(false);
         }
       } catch (error) {
-        toast.error(error.response.data.message, toastOptions);
+        toast.error(error, toastOptions);
       }
     };
 
@@ -68,7 +74,9 @@ const ClientList = () => {
       </div>
       <hr />
       <div className="flex flex-row">
-        <div className="flex-1 m-4 flex-col">{clientList}</div>
+        <div className="flex-1 m-4 flex-col">
+          {isLoading ? <Spinner /> : clientList}
+        </div>
       </div>
     </>
   );

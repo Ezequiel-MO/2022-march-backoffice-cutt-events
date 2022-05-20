@@ -9,9 +9,11 @@ import HotelListItem from "./HotelListItem";
 import CityFilter from "../../../UI/filters/CityFilter";
 import NrStarsFilter from "../../../UI/filters/NrStarsFilter";
 import NrHotelRoomsFilter from "../../../UI/filters/NrHotelRoomsFilter";
+import Spinner from "../../../UI/spinner/Spinner";
 
 const HotelList = () => {
   const [hotels, setHotels] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("");
   const [numberStars, setNumberStars] = useState(0);
   const [numberRooms, setNumberRooms] = useState(600);
@@ -27,15 +29,18 @@ const HotelList = () => {
   useEffect(() => {
     const getHotelList = async () => {
       try {
+        setIsLoading(true);
         if (city && numberStars && numberRooms) {
           const response = await baseAPI.get(
             `/v1/hotels?city=${city}&numberStars=${numberStars}&numberRooms[lt]=${numberRooms}`
           );
 
           setHotels(response.data.data.data);
+          setIsLoading(false);
         } else {
           const response = await baseAPI.get(`/v1/hotels`);
           setHotels(response.data.data.data);
+          setIsLoading(false);
         }
       } catch (error) {
         toast.error(error.response.data.message, toastOptions);
@@ -88,7 +93,9 @@ const HotelList = () => {
       </div>
       <hr />
 
-      <div className="flex-1 m-4 flex-col">{hotelList}</div>
+      <div className="flex-1 m-4 flex-col">
+        {isLoading ? <Spinner /> : hotelList}
+      </div>
     </>
   );
 };

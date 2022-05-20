@@ -5,16 +5,18 @@ import { Icon } from "@iconify/react";
 import baseAPI from "../../../axios/axiosConfig";
 import { selectCurrentProject } from "../../../redux/features/CurrentProjectSlice";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { toastOptions } from "../../../dev-data/toast";
 import EventListItem from "./EventListItem";
 import CityFilter from "../../../UI/filters/CityFilter";
 import PriceFilter from "../../../UI/filters/PriceFilter";
+import Spinner from "../../../UI/spinner/Spinner";
+import "react-toastify/dist/ReactToastify.css";
 
 const EventList = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [city, setCity] = useState("");
   const [price, setPrice] = useState(900);
   const currentProject = useSelector(selectCurrentProject);
@@ -30,12 +32,14 @@ const EventList = () => {
   useEffect(() => {
     const getEventList = async () => {
       try {
+        setIsLoading(true);
         const response = await baseAPI.get(
           `/v1/events?city=${city}&price[lte]=${price}`
         );
         setEvents(response.data.data.data);
+        setIsLoading(false);
       } catch (error) {
-        toast.error(error.response.data.message, toastOptions);
+        toast.error(error, toastOptions);
       }
     };
     if (city && price) {
@@ -95,7 +99,9 @@ const EventList = () => {
         </div>
       </div>
       <hr />
-      <div className="flex-1 m-4 flex-col">{eventList}</div>
+      <div className="flex-1 m-4 flex-col">
+        {isLoading ? <Spinner /> : eventList}
+      </div>
     </>
   );
 };
