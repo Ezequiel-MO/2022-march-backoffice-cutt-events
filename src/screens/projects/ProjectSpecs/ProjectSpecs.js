@@ -47,10 +47,7 @@ const ProjectSpecs = () => {
       toast.success("Base Project Created", toastOptions);
       navigate("/hotel/list");
     } catch (error) {
-      toast.error(
-        `Error Creating Base Project, ${error.message}`,
-        toastOptions
-      );
+      toast.error(`${error.response.data.message}`, toastOptions);
     }
   };
 
