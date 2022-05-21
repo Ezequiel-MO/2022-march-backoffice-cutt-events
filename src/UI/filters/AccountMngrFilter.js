@@ -14,11 +14,11 @@ const AccountMngrFilter = ({ setAccountManager }) => {
             onChange={(e) => setAccountManager(e.target.value)}
           >
             <option value="none">--- Select an Acc. Manager ---</option>
-            <option value="Montse">--- Montse Miranda ---</option>
-            <option value="Minerva">--- Minerva Martínez ---</option>
-            <option value="Merche">--- Merche Sánchez ---</option>
-            <option value="Alicia">--- Alicia Tercero ---</option>
-            <option value="Ezequiel">--- Ezequiel Martínez ---</option>
+            <option value="Montse Miranda">--- Montse Miranda ---</option>
+            <option value="Minerva Martinez">--- Minerva Martínez ---</option>
+            <option value="Merche Sanchez">--- Merche Sánchez ---</option>
+            <option value="Alicia Tercero">--- Alicia Tercero ---</option>
+            <option value="Ezequiel Martinez">--- Ezequiel Martínez ---</option>
           </select>
         </div>
       </form>
