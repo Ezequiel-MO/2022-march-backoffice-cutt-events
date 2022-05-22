@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
@@ -7,63 +7,23 @@ import { CheckboxInput } from "../../../UI/inputs/CheckboxInput";
 import { Icon } from "@iconify/react";
 
 const HotelMasterForm = ({ submitForm, hotel }) => {
-  const [loadedValues, setLoadedValues] = useState({
-    name: "",
-    city: "",
-    address: "",
-    numberStars: "",
-    numberRooms: "",
-    checkin_out: "",
-    meetingRooms: "",
-    wheelChairAccessible: "",
-    wifiSpeed: "",
-    swimmingPool: "",
-    restaurants: "",
-    longitude: "",
-    latitude: "",
-    textContent: "",
-  });
   const fileInput = useRef();
 
-  useEffect(() => {
-    if (hotel) {
-      if (Object.keys(hotel).length > 0) {
-        setLoadedValues((prev) => ({
-          ...prev,
-          name: hotel.name,
-          city: hotel.city,
-          address: hotel.address,
-          numberStars: hotel.numberStars,
-          numberRooms: hotel.numberRooms,
-          checkin_out: hotel.checkin_out,
-          meetingRooms: hotel.meetingRooms,
-          wheelChairAccessible: hotel.wheelChairAccessible,
-          wifiSpeed: hotel.wifiSpeed,
-          swimmingPool: hotel.swimmingPool,
-          restaurants: hotel.restaurants,
-          longitude: hotel.location.coordinates[1],
-          latitude: hotel.location.coordinates[0],
-          textContent: hotel.textContent,
-        }));
-      }
-    }
-  }, [hotel]);
-
   const initialValues = {
-    name: "",
-    city: "",
-    address: "",
-    numberStars: "",
-    numberRooms: "",
-    checkin_out: "",
-    meetingRooms: "",
-    wheelChairAccessible: "",
-    wifiSpeed: "",
-    swimmingPool: "",
-    restaurants: "",
-    longitude: "",
-    latitude: "",
-    textContent: "",
+    name: hotel?.name ?? "",
+    city: hotel?.city ?? "",
+    address: hotel?.address ?? "",
+    numberStars: hotel?.numberStars ?? "",
+    numberRooms: hotel?.numberRooms ?? "",
+    checkin_out: hotel?.checkin_out ?? "",
+    meetingRooms: hotel?.meetingRooms ?? "",
+    wheelChairAccessible: hotel?.wheelChairAccessible ?? "",
+    wifiSpeed: hotel?.wifiSpeed ?? "",
+    swimmingPool: hotel?.swimmingPool ?? "",
+    restaurants: hotel?.restaurants ?? "",
+    longitude: hotel?.location?.coordinates[1] ?? "",
+    latitude: hotel?.location?.coordinates[0] ?? "",
+    textContent: hotel?.textContent ?? "",
   };
 
   const update = Object.keys(hotel).length > 0 ? true : false;
@@ -71,7 +31,7 @@ const HotelMasterForm = ({ submitForm, hotel }) => {
   return (
     <>
       <Formik
-        initialValues={loadedValues || initialValues}
+        initialValues={initialValues}
         onSubmit={(values) => {
           submitForm(values, fileInput.current.files, "hotels", update);
         }}

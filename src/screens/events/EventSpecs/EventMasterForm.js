@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
@@ -6,36 +6,15 @@ import { TextAreaInput } from "../../../UI/inputs/TextAreaInput";
 import { Icon } from "@iconify/react";
 
 const EventMasterForm = ({ submitForm, event }) => {
-  const [loadedValues, setLoadedValues] = useState({
-    name: "",
-    city: "",
-    longitude: "",
-    latitude: "",
-    price: "",
-    textContent: "",
-  });
   const fileInput = useRef();
 
-  useEffect(() => {
-    if (Object.keys(event).length > 0) {
-      setLoadedValues({
-        name: event.name,
-        city: event.city,
-        longitude: event.location.coordinates[1],
-        latitude: event.location.coordinates[0],
-        price: event.price,
-        textContent: JSON.parse(event.textContent),
-      });
-    }
-  }, [event]);
-
   const initialValues = {
-    name: "",
-    city: "",
-    longitude: "",
-    latitude: "",
-    price: "",
-    textContent: "",
+    name: event?.name ?? "",
+    city: event?.city ?? "",
+    longitude: event?.location?.coordinates[1] ?? "",
+    latitude: event?.location?.coordinates[0] ?? "",
+    price: event?.price ?? "",
+    textContent: event?.textContent ?? "",
   };
 
   const update = Object.keys(event).length > 0 ? true : false;
@@ -43,7 +22,7 @@ const EventMasterForm = ({ submitForm, event }) => {
   return (
     <>
       <Formik
-        initialValues={loadedValues || initialValues}
+        initialValues={initialValues}
         onSubmit={(values) => {
           submitForm(values, fileInput.current.files ?? [], "events", update);
         }}

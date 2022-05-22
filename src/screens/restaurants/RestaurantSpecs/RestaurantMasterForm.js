@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
@@ -6,36 +6,15 @@ import { TextAreaInput } from "../../../UI/inputs/TextAreaInput";
 import { Icon } from "@iconify/react";
 
 const RestaurantMasterForm = ({ submitForm, restaurant }) => {
-  const [loadedValues, setLoadedValues] = useState({
-    name: "",
-    city: "",
-    longitude: "",
-    latitude: "",
-    price: "",
-    textContent: "",
-  });
   const fileInput = useRef();
 
-  useEffect(() => {
-    if (Object.keys(restaurant).length > 0) {
-      setLoadedValues({
-        name: restaurant.name,
-        city: restaurant.city,
-        longitude: restaurant.location.coordinates[1],
-        latitude: restaurant.location.coordinates[0],
-        price: restaurant.price,
-        textContent: restaurant.textContent,
-      });
-    }
-  }, [restaurant]);
-
   const initialValues = {
-    name: "",
-    city: "",
-    longitude: "",
-    latitude: "",
-    price: "",
-    textContent: "",
+    name: restaurant?.name ?? "",
+    city: restaurant?.city ?? "",
+    longitude: restaurant?.location?.coordinates[1] ?? "",
+    latitude: restaurant?.location?.coordinates[0] ?? "",
+    price: restaurant?.price ?? "",
+    textContent: restaurant?.textContent ?? "",
   };
 
   const update = Object.keys(restaurant).length > 0 ? true : false;
@@ -43,7 +22,7 @@ const RestaurantMasterForm = ({ submitForm, restaurant }) => {
   return (
     <>
       <Formik
-        initialValues={loadedValues || initialValues}
+        initialValues={initialValues}
         onSubmit={(values) => {
           submitForm(
             values,

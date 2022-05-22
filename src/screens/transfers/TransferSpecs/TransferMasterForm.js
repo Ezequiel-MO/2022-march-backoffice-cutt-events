@@ -1,65 +1,23 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
-import { useEffect, useState } from "react";
 
 const TransferMasterForm = ({ submitForm, transfer }) => {
-  const [loadedValues, setLoadedValues] = useState({
-    city: "",
-    company: "",
-    transfer_in_out: "",
-    dispo_4h: "",
-    hextra: "",
-    hextra_night: "",
-    dispo_5h_out: "",
-    dispo_4h_airport: "",
-    dispo_4h_night: "",
-    transfer_in_out_night: "",
-    dispo_6h_night: "",
-    vehicleType: "",
-    vehicleCapacity: "",
-    selectedService: "",
-  });
-
-  useEffect(() => {
-    if (transfer) {
-      if (Object.keys(transfer).length > 0) {
-        setLoadedValues((prev) => ({
-          ...prev,
-          city: transfer.city,
-          company: transfer.company,
-          transfer_in_out: transfer.transfer_in_out,
-          dispo_4h: transfer.dispo_4h,
-          hextra: transfer.hextra,
-          hextra_night: transfer.hextra_night,
-          dispo_5h_out: transfer.dispo_5h_out,
-          dispo_4h_airport: transfer.dispo_4h_airport,
-          dispo_4h_night: transfer.dispo_4h_night,
-          transfer_in_out_night: transfer.transfer_in_out_night,
-          dispo_6h_night: transfer.dispo_6h_night,
-          vehicleType: transfer.vehicleType,
-          vehicleCapacity: transfer.vehicleCapacity,
-          selectedService: transfer.selectedService,
-        }));
-      }
-    }
-  }, [transfer]);
-
   const initialValues = {
-    city: "",
-    company: "",
-    transfer_in_out: "",
-    dispo_4h: "",
-    hextra: "",
-    hextra_night: "",
-    dispo_5h_out: "",
-    dispo_4h_airport: "",
-    dispo_4h_night: "",
-    transfer_in_out_night: "",
-    dispo_6h_night: "",
-    vehicleType: "",
-    vehicleCapacity: "",
-    selectedService: "",
+    city: transfer?.city ?? "",
+    company: transfer?.company ?? "",
+    transfer_in_out: transfer?.transfer_in_out ?? "",
+    dispo_4h: transfer?.dispo_4h ?? "",
+    hextra: transfer?.hextra ?? "",
+    hextra_night: transfer?.hextra_night ?? "",
+    dispo_5h_out: transfer?.dispo_5h_out ?? "",
+    dispo_4h_airport: transfer?.dispo_4h_airport ?? "",
+    dispo_4h_night: transfer?.dispo_4h_night ?? "",
+    transfer_in_out_night: transfer?.transfer_in_out_night ?? "",
+    dispo_6h_night: transfer?.dispo_6h_night ?? "",
+    vehicleType: transfer?.vehicleType ?? "",
+    vehicleCapacity: transfer?.vehicleCapacity ?? "",
+    selectedService: transfer?.selectedService ?? "",
   };
 
   const update = Object.keys(transfer).length > 0 ? true : false;
@@ -67,7 +25,7 @@ const TransferMasterForm = ({ submitForm, transfer }) => {
   return (
     <>
       <Formik
-        initialValues={loadedValues || initialValues}
+        initialValues={initialValues}
         onSubmit={(values) => {
           submitForm(values, "transfers", update);
         }}

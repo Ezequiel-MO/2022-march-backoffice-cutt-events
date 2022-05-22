@@ -1,44 +1,16 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { TextInput } from "../../../UI/inputs/TextInput";
-import { useEffect, useState } from "react";
 
 const ClientMasterForm = ({ submitForm, client }) => {
-  const [loadedValues, setLoadedValues] = useState({
-    firstName: "",
-    familyName: "",
-    email: "",
-    clientCompany: "",
-    phone: "",
-    quoteLanguage: "",
-    country: "",
-  });
-
-  useEffect(() => {
-    if (client) {
-      if (Object.keys(client).length > 0) {
-        setLoadedValues((prev) => ({
-          ...prev,
-          firstName: client.firstName,
-          familyName: client.familyName,
-          email: client.email,
-          clientCompany: client.clientCompany,
-          phone: client.phone,
-          quoteLanguage: client.quoteLanguage,
-          country: client.country,
-        }));
-      }
-    }
-  }, [client]);
-
   const initialValues = {
-    firstName: "",
-    familyName: "",
-    email: "",
-    clientCompany: "",
-    phone: "",
-    quoteLanguage: "",
-    country: "",
+    firstName: client?.firstName ?? "",
+    familyName: client?.familyName ?? "",
+    email: client?.email ?? "",
+    clientCompany: client?.clientCompany ?? "",
+    phone: client?.phone ?? "",
+    quoteLanguage: client?.quoteLanguage ?? "",
+    country: client?.country ?? "",
   };
 
   const update = Object.keys(client).length > 0 ? true : false;
@@ -46,7 +18,7 @@ const ClientMasterForm = ({ submitForm, client }) => {
   return (
     <>
       <Formik
-        initialValues={loadedValues || initialValues}
+        initialValues={initialValues}
         onSubmit={(values) => {
           submitForm(values, "clients", update);
         }}

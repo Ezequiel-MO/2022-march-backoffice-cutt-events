@@ -41,7 +41,7 @@ const TransferListItem = ({ transfer, handleDeleteTransfer, service }) => {
   );
   return (
     <div className="mb-4 p-3 bg-green-50 hover:bg-green-100 cursor-pointer rounded-md">
-      <SwipeableList>
+      <SwipeableList threshold={0.25}>
         <SwipeableListItem
           leadingActions={leadingActions()}
           trailingActions={trailingActions()}
