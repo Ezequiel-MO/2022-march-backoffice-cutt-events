@@ -1,10 +1,10 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-import { TextField, Autocomplete } from "@mui/material";
-
+/* import { TextField, Autocomplete } from "@mui/material"; */
 import { TextInput } from "../../../UI/inputs/TextInput";
 import { useEffect, useState } from "react";
 import baseAPI from "../../../axios/axiosConfig";
+import SelectInput from "../../../UI/inputs/SelectInput";
 
 const HotelMasterForm = ({ submitForm }) => {
   const [accManagers, setAccManagers] = useState([]);
@@ -50,8 +50,8 @@ const HotelMasterForm = ({ submitForm }) => {
           nrPax: Yup.number().required("Required"),
         })}
       >
-        {({ handleChange, values, setFieldValue }) => (
-          <div className="grid grid-cols-2 gap-2 px-6 block rounded-lg shadow-lg bg-white">
+        {(formik) => (
+          <div className="grid grid-cols-2 gap-2 px-6 rounded-lg shadow-lg bg-white">
             <Form>
               <fieldset>
                 <legend>
@@ -153,50 +153,11 @@ const HotelMasterForm = ({ submitForm }) => {
                     type="text"
                   />
 
-                  <Autocomplete
-                    id="clientAccountManager"
+                  <SelectInput
+                    label="Client Account Manager"
                     name="clientAccountManager"
-                    isOptionEqualToValue={(option, value) =>
-                      option.value === value.value
-                    }
+                    placeholder="Client Account Manager ..."
                     options={accManagers}
-                    groupBy={(option) => option.company}
-                    getOptionLabel={(option) => option.name}
-                    onChange={(event, value) => {
-                      console.log("value", value);
-                      setFieldValue("clientAccountManager", value?.value || 1);
-                    }}
-                    renderInput={(params) => (
-                      <TextField
-                        placeholder="Client Account Manager"
-                        sx={{
-                          backgroundColor: "white",
-                          borderRadius: "0.3rem",
-                          border: "1px solid #ea5933",
-                          "& .MuiOutlinedInput-root:hover": {
-                            "& > fieldset": {
-                              borderColor: "#ea5933",
-                            },
-                          },
-                          "& .MuiOutlinedInput-root:focus": {
-                            "& > fieldset": {
-                              borderColor: "#ea5933",
-                            },
-                          },
-                          "& .MuiFormLabel-root:focus": {
-                            color: "#ea5933",
-                            fontSize: "1.5rem",
-                            marginBottom: "1.5rem",
-                          },
-                        }}
-                        {...params}
-                        onChange={handleChange}
-                        margin="normal"
-                        label=""
-                        fullWidth
-                        value={values?.clientAccountManager}
-                      />
-                    )}
                   />
 
                   <TextInput
