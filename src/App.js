@@ -23,7 +23,6 @@ import {
   MasterTransfer,
   ProjectList,
   ProjectSpecs,
-  ProjectUpdate,
   RestaurantList,
   RestaurantSpecs,
   TransferList,
@@ -60,7 +59,6 @@ function App() {
             element={<AddTransfersINOUTToSchedule />}
           />
           <Route path="/project/specs" element={<ProjectSpecs />} />
-          <Route path="/project/update" element={<ProjectUpdate />} />
           <Route path="/project/list" element={<ProjectList />} />
           <Route path="/hotel" element={<MasterHotel />} />
           <Route path="/hotel/specs" element={<HotelSpecs />} />

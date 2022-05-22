@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,6 +10,7 @@ import {
 
 const MasterProject = () => {
   const navigate = useNavigate();
+  const [project] = useState({});
   const dispatch = useDispatch();
   const currentProject = useSelector(selectCurrentProject);
   const currentProjectIsLive = Object.keys(currentProject).length !== 0;
@@ -53,7 +55,7 @@ const MasterProject = () => {
             Get a List of All Projects in the Data Base
           </li>
           <li
-            onClick={() => navigate("/project/specs")}
+            onClick={() => navigate("/project/specs", { state: { project } })}
             className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Create a New Project and Save in the Data Base

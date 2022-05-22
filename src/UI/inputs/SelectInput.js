@@ -1,7 +1,8 @@
 import { ErrorMessage, Field } from "formik";
 
 export const SelectInput = (props) => {
-  const { label, name, options, ...rest } = props;
+  const { label, name, options, value, ...rest } = props;
+  console.log("value", value);
 
   return (
     <div>
@@ -9,6 +10,7 @@ export const SelectInput = (props) => {
       <Field
         id={name}
         name={name}
+        value={value}
         as="select"
         {...rest}
         className="form-control     
@@ -27,7 +29,7 @@ export const SelectInput = (props) => {
       >
         <option value="">--- Select an option --- </option>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.value} value={option.name}>
             {`${option.name} at ${option.company}`}
           </option>
         ))}

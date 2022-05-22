@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import baseAPI from "../../../axios/axiosConfig";
 import { SET_CURRENT_PROJECT } from "../../../redux/features/CurrentProjectSlice";
 import ProjectMasterForm from "./ProjectMasterForm";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import {
   computeTotalDays,
   whichDay,
@@ -12,6 +12,10 @@ import { toastOptions } from "../../../dev-data/toast";
 
 const ProjectSpecs = () => {
   const navigate = useNavigate();
+  const {
+    state: { project },
+  } = useLocation();
+
   const dispatch = useDispatch();
 
   const transformData = (data, diffDays) => {
@@ -33,31 +37,48 @@ const ProjectSpecs = () => {
     return transformedData;
   };
 
-  const postToEndpoint = async (data, endPoint) => {
+  const postToEndpoint = async (data, endPoint, update) => {
     const diffDays = computeTotalDays(data.arrivalDay, data.departureDay);
     let transformedData = transformData(data, diffDays);
 
     try {
-      const res = await baseAPI.post(`v1/${endPoint}`, transformedData);
-      localStorage.setItem(
-        "currentProject",
-        JSON.stringify(res.data.data.data)
-      );
-      dispatch(SET_CURRENT_PROJECT(res.data.data.data));
-      toast.success("Base Project Created", toastOptions);
-      navigate("/hotel/list");
+      if (update === true) {
+        const updatedData = { ...data };
+        updatedData.clientAccManager = [data.clientAccountManager.toString()];
+        const res = await baseAPI.patch(
+          `v1/${endPoint}/${project._id}`,
+          updatedData
+        );
+        localStorage.setItem(
+          "currentProject",
+          JSON.stringify(res.data.data.data)
+        );
+        dispatch(SET_CURRENT_PROJECT(res.data.data.data));
+        toast.success("Project updated", toastOptions);
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      } else {
+        const res = await baseAPI.post(`v1/${endPoint}`, transformedData);
+        localStorage.setItem(
+          "currentProject",
+          JSON.stringify(res.data.data.data)
+        );
+        dispatch(SET_CURRENT_PROJECT(res.data.data.data));
+        toast.success("Base Project Created", toastOptions);
+      }
     } catch (error) {
       toast.error(`${error.response.data.message}`, toastOptions);
     }
   };
 
-  const submitForm = (values, endpoint) => {
-    postToEndpoint(values, endpoint);
+  const submitForm = (values, endpoint, update) => {
+    postToEndpoint(values, endpoint, update);
   };
 
   return (
     <>
-      <ProjectMasterForm submitForm={submitForm} />
+      <ProjectMasterForm submitForm={submitForm} project={project} />
     </>
   );
 };

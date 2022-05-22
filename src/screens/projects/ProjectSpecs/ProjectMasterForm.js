@@ -1,12 +1,11 @@
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
-/* import { TextField, Autocomplete } from "@mui/material"; */
 import { TextInput } from "../../../UI/inputs/TextInput";
 import { useEffect, useState } from "react";
 import baseAPI from "../../../axios/axiosConfig";
 import SelectInput from "../../../UI/inputs/SelectInput";
 
-const HotelMasterForm = ({ submitForm }) => {
+const ProjectMasterForm = ({ submitForm, project }) => {
   const [accManagers, setAccManagers] = useState([]);
 
   useEffect(() => {
@@ -24,22 +23,43 @@ const HotelMasterForm = ({ submitForm }) => {
     getClients();
   }, []);
 
+  const getClientAccManagerInitialValue = () => {
+    if (
+      project &&
+      project.clientAccManager &&
+      project.clientAccManager[0].firstName &&
+      project.clientAccManager[0].familyName
+    ) {
+      return `${project.clientAccManager[0].firstName} ${project.clientAccManager[0].familyName}`;
+    }
+    return "";
+  };
+
+  const initialValues = {
+    code: project?.code ?? "",
+    accountManager: project?.accountManager ?? "",
+    clientAccountManager: getClientAccManagerInitialValue(),
+    groupName: project?.groupName ?? "",
+    groupLocation: project?.groupLocation ?? "",
+    arrivalDay: project?.arrivalDay ?? "",
+    departureDay: project?.departureDay ?? "",
+    nrPax: project?.nrPax ?? "",
+  };
+
+  const update = Object.keys(project).length > 0 ? true : false;
+
   return (
     <>
       <Formik
-        initialValues={{
-          code: "",
-          accountManager: "",
-          clientAccountManager: 1,
-          groupName: "",
-          groupLocation: "",
-          arrivalDay: "",
-          departureDay: "",
-          nrPax: "",
-        }}
+        initialValues={initialValues}
         onSubmit={(values) => {
-          submitForm(values, "projects");
+          const clientAccManagerId = accManagers?.find(
+            (accManager) => accManager.name === values.clientAccountManager
+          ).value;
+          values.clientAccountManager = clientAccManagerId;
+          submitForm(values, "projects", update);
         }}
+        enableReinitialize={true}
         validationSchema={Yup.object({
           code: Yup.string().required("Required"),
           accountManager: Yup.string().required("Required"),
@@ -158,6 +178,7 @@ const HotelMasterForm = ({ submitForm }) => {
                     name="clientAccountManager"
                     placeholder="Client Account Manager ..."
                     options={accManagers}
+                    value={formik.values.clientAccountManager}
                   />
 
                   <TextInput
@@ -194,4 +215,4 @@ const HotelMasterForm = ({ submitForm }) => {
   );
 };
 
-export default HotelMasterForm;
+export default ProjectMasterForm;
