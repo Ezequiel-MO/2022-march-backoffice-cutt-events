@@ -13,12 +13,21 @@ const ClientList = () => {
   const [country, setCountry] = useState("");
 
   const handleDeleteClient = async (clientId) => {
-    try {
-      await baseAPI.delete(`v1/clients/${clientId}`);
-      toast("Client Deleted", toastOptions);
-      setClients(clients.filter((client) => client._id !== clientId));
-    } catch (error) {
-      toast.error(error.response.data.message, toastOptions);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this client?"
+    );
+
+    if (confirmDelete) {
+      try {
+        await baseAPI.delete(`v1/clients/${clientId}`);
+        toast("Client Deleted", toastOptions);
+        setClients(clients.filter((client) => client._id !== clientId));
+      } catch (error) {
+        toast.error(error.response.data.message, toastOptions);
+      }
+    } else {
+      toast.warn("Client not deleted", toastOptions);
+      setTimeout(() => window.location.reload(), 1500)();
     }
   };
 

@@ -52,12 +52,22 @@ const ProjectList = () => {
   }, [city, accountManager]);
 
   const handleDeleteProject = async (projectId) => {
-    try {
-      await baseAPI.delete(`v1/projects/${projectId}`);
-      toast.success("Project Deleted", toastOptions);
-      setProjects(projects.filter((project) => project._id !== projectId));
-    } catch (error) {
-      console.log(error);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this project?"
+    );
+
+    if (confirmDelete) {
+      try {
+        await baseAPI.delete(`v1/projects/${projectId}`);
+        toast.success("Project Deleted", toastOptions);
+        setProjects(projects.filter((project) => project._id !== projectId));
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.warn("Project not deleted", toastOptions);
+
+      setTimeout(() => window.location.reload(), 1500)();
     }
   };
 

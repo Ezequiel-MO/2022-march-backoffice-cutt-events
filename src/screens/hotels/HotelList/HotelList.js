@@ -51,12 +51,20 @@ const HotelList = () => {
   }, [city, numberStars, numberRooms]);
 
   const handleDeleteHotel = async (hotelId) => {
-    try {
-      await baseAPI.delete(`v1/hotels/${hotelId}`);
-      toast.success("Hotel Deleted", toastOptions);
-      setHotels(hotels.filter((hotel) => hotel._id !== hotelId));
-    } catch (error) {
-      toast.error(error.response.data.message, toastOptions);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this hotel?"
+    );
+    if (confirmDelete) {
+      try {
+        await baseAPI.delete(`v1/hotels/${hotelId}`);
+        toast.success("Hotel Deleted", toastOptions);
+        setHotels(hotels.filter((hotel) => hotel._id !== hotelId));
+      } catch (error) {
+        toast.error(error.response.data.message, toastOptions);
+      }
+    } else {
+      toast.warn("Hotel not deleted", toastOptions);
+      setTimeout(() => window.location.reload(), 1500)();
     }
   };
 

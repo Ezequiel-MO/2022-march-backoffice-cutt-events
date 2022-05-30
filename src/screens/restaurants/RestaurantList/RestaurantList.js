@@ -47,14 +47,22 @@ const RestaurantList = () => {
   }, [city, price]);
 
   const handleDeleteRestaurant = async (restaurantId) => {
-    try {
-      await baseAPI.delete(`v1/restaurants/${restaurantId}`);
-      toast.success("Restaurant Deleted", toastOptions);
-      setRestaurants(
-        restaurants.filter((restaurant) => restaurant._id !== restaurantId)
-      );
-    } catch (error) {
-      console.log(error);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this restaurant?"
+    );
+    if (confirmDelete) {
+      try {
+        await baseAPI.delete(`v1/restaurants/${restaurantId}`);
+        toast.success("Restaurant Deleted", toastOptions);
+        setRestaurants(
+          restaurants.filter((restaurant) => restaurant._id !== restaurantId)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.warn("Restaurant Not Deleted", toastOptions);
+      setTimeout(() => window.location.reload(), 1500)();
     }
   };
 

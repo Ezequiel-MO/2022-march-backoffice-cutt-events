@@ -49,12 +49,22 @@ const TransferList = () => {
   }, [city, vehicleCapacity, company, service]);
 
   const handleDeleteTransfer = async (transferId) => {
-    try {
-      await baseAPI.delete(`v1/transfers/${transferId}`);
-      toast.success("Transfer deleted", toastOptions);
-      setTransfers(transfers.filter((transfer) => transfer._id !== transferId));
-    } catch (error) {
-      console.log(error);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this transfer?"
+    );
+    if (confirmDelete) {
+      try {
+        await baseAPI.delete(`v1/transfers/${transferId}`);
+        toast.success("Transfer deleted", toastOptions);
+        setTransfers(
+          transfers.filter((transfer) => transfer._id !== transferId)
+        );
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      toast.warn("Transfer not deleted", toastOptions);
+      setTimeout(() => window.location.reload(), 1500)();
     }
   };
 

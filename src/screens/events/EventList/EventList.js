@@ -48,12 +48,21 @@ const EventList = () => {
   }, [city, price]);
 
   const handleDeleteEvent = async (eventId) => {
-    try {
-      await baseAPI.delete(`v1/events/${eventId}`);
-      toast("Event Deleted", toastOptions);
-      setEvents(events.filter((event) => event._id !== eventId));
-    } catch (error) {
-      toast.error(error.response.data.message, toastOptions);
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this event?"
+    );
+
+    if (confirmDelete) {
+      try {
+        await baseAPI.delete(`v1/events/${eventId}`);
+        toast("Event Deleted", toastOptions);
+        setEvents(events.filter((event) => event._id !== eventId));
+      } catch (error) {
+        toast.error(error.response.data.message, toastOptions);
+      }
+    } else {
+      toast.warn("Event not deleted", toastOptions);
+      setTimeout(() => window.location.reload(), 1500)();
     }
   };
 
