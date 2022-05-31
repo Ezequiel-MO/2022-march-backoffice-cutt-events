@@ -1,3 +1,5 @@
+export { default as Login } from "./users/Login";
+export { default as SignUp } from "./users/SignUp";
 export { default as Dashboard } from "./Dashboard/Dashboard";
 export { default as EventList } from "./events/EventList/EventList";
 export { default as EventSpecs } from "./events/EventSpecs/EventSpecs";

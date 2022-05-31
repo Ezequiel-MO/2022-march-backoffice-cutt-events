@@ -1,9 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "./App.css";
-
 import Header from "./components/header/Header";
+import AuthLayout from "./layouts/AuthLayout";
+import ConfirmAccount from "./screens/users/ConfirmAccount";
+import ForgotPassword from "./screens/users/ForgotPassword";
+import NewPassword from "./screens/users/NewPassword";
 import {
+  Login,
+  SignUp,
   AddEventToSchedule,
   AddHotelToProject,
   AddScheduleToProject,
@@ -46,7 +51,14 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<AuthLayout />}>
+            <Route index element={<Login />} />
+            <Route path="register" element={<SignUp />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route path="forgot-password/:token" element={<NewPassword />} />
+            <Route path="confirm/:id" element={<ConfirmAccount />} />
+          </Route>
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/project" element={<MasterProject />} />
           <Route path="/hotel/:hotelId/add" element={<AddHotelToProject />} />
           <Route path="/project/schedule" element={<AddScheduleToProject />} />
