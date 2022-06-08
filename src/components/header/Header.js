@@ -1,12 +1,17 @@
-import React from "react";
+import { useState } from "react";
 import header_image from "../../assets/header_image.jpg";
 import cutt_logo from "../../assets/CUTT_LOGO.png";
+import { Icon } from "@iconify/react";
 import Leo from "../../assets/leo.jpg";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Header = () => {
+  const [dropdownActive, setDropdownActive] = useState(false);
+  const { auth } = useAuth();
+
   return (
-    <div className="relative h-32 my-4 overflow-hidden bg-white-50 rounded-lg">
+    <div className="relative h-32 my-4 bg-white-50 rounded-lg">
       <div className="absolute z-30 flex w-full h-full">
         <div className="relative z-30 w-5/6 px-6 py-8 text-white md:py-10 md:w-1/2">
           <Link to="/">
@@ -47,10 +52,28 @@ const Header = () => {
       </div>
       <div className="absolute top-1 right-1 z-50">
         <img
-          className="w-16 h-16 rounded-full"
+          className="w-16 h-16 rounded-full cursor-pointer"
           src={Leo}
           alt="Rounded avatar"
+          onClick={() => setDropdownActive(!dropdownActive)}
         />
+      </div>
+      <div
+        className={`${
+          dropdownActive ? "block" : "hidden"
+        } absolute top-20 right-10 bg-white-100`}
+      >
+        <div className="border border-1 rounded p-5">
+          <div className=" font-bold text-black-50">
+            <p>
+              Hello, <span className="text-orange-500">{auth.name}</span>
+            </p>
+          </div>
+          <div className="font-bold text-black-50 cursor-pointer flex items-center">
+            <Icon icon="bx:log-out" />
+            <p className="ml-2">Sign Out</p>
+          </div>
+        </div>
       </div>
     </div>
   );

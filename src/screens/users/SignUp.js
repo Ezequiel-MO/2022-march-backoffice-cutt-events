@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import baseAPI from "../../axios/axiosConfig";
+import Alert from "../../UI/error/Alert";
 
 import { toastOptions } from "../../dev-data/toast";
 
@@ -10,49 +11,61 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [alert, setAlert] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if ([name, email, password, passwordConfirm].includes("")) {
-      toast.error("Please fill all the fields", toastOptions);
+      setAlert({
+        error: true,
+        msg: "Please fill in all fields",
+      });
       return;
     }
     if (password !== passwordConfirm) {
-      toast.error("Passwords do not match", toastOptions);
+      setAlert({
+        error: true,
+        msg: "Passwords are not the same",
+      });
       return;
     }
 
     if (password.length < 8 || passwordConfirm.length < 8) {
-      toast.error(
-        "Password must be between at least 8 characters",
-        toastOptions
-      );
+      setAlert({
+        error: true,
+        msg: "Passwords have to be at least 8 characters long",
+      });
       return;
     }
-
+    setAlert({});
     try {
-      const response = await baseAPI.post(`v1/users/signup`, {
+      await baseAPI.post(`v1/users/signup`, {
         name,
         email,
         password,
-        passwordConfirm,
       });
-      console.log("response", response);
-      toast.success("User created", toastOptions);
+
+      setAlert({
+        error: false,
+        msg: "Successfully signed up - check your email to verify",
+      });
       setName("");
       setEmail("");
       setPassword("");
       setPasswordConfirm("");
     } catch (error) {
-      toast.warn(error.data.message ?? "not able to sign up", toastOptions);
+      toast.warn("User could not be registered", toastOptions);
     }
   };
+
+  const { msg } = alert;
 
   return (
     <>
       <h1 className="font-black text-4xl capitalize">
         Create <span className="text-white-100">your Account</span>
       </h1>
+      {msg && <Alert alert={alert} />}
       <form
         className="my-10 bg-gray-50 rounded-lg px-10 py-5"
         onSubmit={handleSubmit}

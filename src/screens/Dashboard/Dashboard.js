@@ -7,37 +7,37 @@ const Dashboard = () => {
       <h1 className="text-2xl">Master Resources</h1>
       <ul className="indent-6 text-white-100">
         <li
-          onClick={() => navigate("/project")}
+          onClick={() => navigate("/app/project")}
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Projects
         </li>
         <li
-          onClick={() => navigate("/hotel")}
+          onClick={() => navigate("/app/hotel")}
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Hotels
         </li>
         <li
-          onClick={() => navigate("/restaurant")}
+          onClick={() => navigate("/app/restaurant")}
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Restaurants
         </li>
         <li
-          onClick={() => navigate("/event")}
+          onClick={() => navigate("/app/event")}
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Events
         </li>
         <li
-          onClick={() => navigate("/transfer")}
+          onClick={() => navigate("/app/transfer")}
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Transfers
         </li>
         <li
-          onClick={() => navigate("/client")}
+          onClick={() => navigate("/app/client")}
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Clients

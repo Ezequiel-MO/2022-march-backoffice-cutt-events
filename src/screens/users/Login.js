@@ -1,12 +1,52 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import baseAPI from "../../axios/axiosConfig";
+import Alert from "../../UI/error/Alert";
+import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [alert, setAlert] = useState({});
+
+  const { setAuth } = useAuth();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if ([email, password].includes("")) {
+      setAlert({
+        error: true,
+        msg: "Please fill in all fields",
+      });
+      return;
+    }
+    try {
+      const { data } = await baseAPI.post(`v1/users/login`, {
+        email,
+        password,
+      });
+      setAlert({});
+      localStorage.setItem("token", data.token);
+      setAuth(data);
+    } catch (error) {
+      setAlert({
+        error: true,
+        msg: "Invalid email or password",
+      });
+    }
+  };
+
+  const { msg } = alert;
   return (
     <>
       <h1 className="font-black text-4xl capitalize">
         Login <span className="text-white-100">to APP</span>
       </h1>
-      <form className="my-10 bg-gray-50 rounded-lg px-10 py-5">
+      {msg && <Alert alert={alert} />}
+      <form
+        className="my-10 bg-gray-50 rounded-lg px-10 py-5"
+        onSubmit={handleSubmit}
+      >
         <div className="my-5">
           <label
             htmlFor="email"
@@ -19,6 +59,8 @@ const Login = () => {
             id="email"
             placeholder="Register email"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-100"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
         </div>
         <div className="my-5">
@@ -33,6 +75,8 @@ const Login = () => {
             id="password"
             placeholder="Register password"
             className="w-full mt-3 p-3 border rounded-xl bg-gray-100"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         <input
