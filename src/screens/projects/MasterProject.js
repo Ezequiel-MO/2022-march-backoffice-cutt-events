@@ -28,13 +28,13 @@ const MasterProject = () => {
       {currentProjectIsLive ? (
         <ul className="indent-6 text-white-100">
           <li
-            onClick={() => navigate("/hotel/list")}
+            onClick={() => navigate("/app/hotel/list")}
             className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Add a Hotel to current project
           </li>
           <li
-            onClick={() => navigate("/project/schedule")}
+            onClick={() => navigate("/app/project/schedule")}
             className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Configure schedule for current project
@@ -49,13 +49,15 @@ const MasterProject = () => {
       ) : (
         <ul className="indent-6 text-white-100">
           <li
-            onClick={() => navigate("/project/list")}
+            onClick={() => navigate("/app/project/list")}
             className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Get a List of All Projects in the Data Base
           </li>
           <li
-            onClick={() => navigate("/project/specs", { state: { project } })}
+            onClick={() =>
+              navigate("/app/project/specs", { state: { project } })
+            }
             className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
           >
             Create a New Project and Save in the Data Base

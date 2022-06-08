@@ -21,7 +21,7 @@ const ProjectListItem = ({
       <SwipeAction
         className="bg-green-500 text-lime-50 px-10 mr-10 font-bold rounded uppercase"
         onClick={() =>
-          navigate(`/project/specs`, {
+          navigate(`/app/project/specs`, {
             state: { project },
           })
         }

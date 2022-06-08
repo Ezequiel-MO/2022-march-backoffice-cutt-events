@@ -24,7 +24,7 @@ const EventListItem = ({
       <SwipeAction
         className="bg-green-500 text-lime-50 px-10 font-bold rounded uppercase"
         onClick={() =>
-          navigate(`/event/specs`, {
+          navigate(`/app/event/specs`, {
             state: { event },
           })
         }

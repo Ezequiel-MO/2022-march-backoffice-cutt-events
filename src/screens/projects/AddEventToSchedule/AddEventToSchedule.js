@@ -53,7 +53,7 @@ const AddEventToSchedule = () => {
       })
     );
     toast.success("Event Added to Schedule", toastOptions);
-    navigate("/project/schedule");
+    navigate("/app/project/schedule");
   };
 
   return (

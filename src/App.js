@@ -34,6 +34,7 @@ import {
 } from "./screens";
 import { AuthProvider } from "./context/AuthProvider";
 import ProtectedRoute from "./layouts/ProtectedRoute";
+import GeneralLayout from "./layouts/GeneralLayout";
 
 function App() {
   return (
@@ -61,39 +62,52 @@ function App() {
             </Route>
             <Route path="/app" element={<ProtectedRoute />}>
               <Route index element={<Dashboard />} />
-              <Route path="project" element={<MasterProject />} />
-              <Route path="hotel" element={<MasterHotel />} />
-              <Route path="restaurant" element={<MasterRestaurant />} />
-              <Route path="event" element={<MasterEvent />} />
-              <Route path="transfer" element={<MasterTransfer />} />
-              <Route path="client" element={<MasterClient />} />
-            </Route>
 
-            <Route path="/hotel/:hotelId/add" element={<AddHotelToProject />} />
-            <Route
-              path="/project/schedule"
-              element={<AddScheduleToProject />}
-            />
-            <Route
-              path="/project/schedule/:eventId/event"
-              element={<AddEventToSchedule />}
-            />
-            <Route
-              path="/project/schedule/transfers_in_out"
-              element={<AddTransfersINOUTToSchedule />}
-            />
-            <Route path="/project/specs" element={<ProjectSpecs />} />
-            <Route path="/project/list" element={<ProjectList />} />
-            <Route path="/hotel/specs" element={<HotelSpecs />} />
-            <Route path="/hotel/list" element={<HotelList />} />
-            <Route path="/restaurant/specs" element={<RestaurantSpecs />} />
-            <Route path="/restaurant/list" element={<RestaurantList />} />
-            <Route path="/event/specs" element={<EventSpecs />} />
-            <Route path="/event/list" element={<EventList />} />
-            <Route path="/transfer/specs" element={<TransferSpecs />} />
-            <Route path="/transfer/list" element={<TransferList />} />
-            <Route path="/client/specs" element={<ClientSpecs />} />
-            <Route path="/client/list" element={<ClientList />} />
+              <Route path="project" element={<GeneralLayout />}>
+                <Route index element={<MasterProject />} />
+                <Route path="list" element={<ProjectList />} />
+                <Route path="specs" element={<ProjectSpecs />} />
+                <Route path="schedule" element={<GeneralLayout />}>
+                  <Route index element={<AddScheduleToProject />} />
+                  <Route path=":eventId" element={<AddEventToSchedule />} />
+                  <Route
+                    path="transfers_in_out"
+                    element={<AddTransfersINOUTToSchedule />}
+                  />
+                </Route>
+              </Route>
+
+              <Route path="hotel" element={<GeneralLayout />}>
+                <Route index element={<MasterHotel />} />
+                <Route path="list" element={<HotelList />} />
+                <Route path="specs" element={<HotelSpecs />} />
+                <Route path=":hotelId" element={<AddHotelToProject />} />
+              </Route>
+
+              <Route path="restaurant" element={<GeneralLayout />}>
+                <Route index element={<MasterRestaurant />} />
+                <Route path="list" element={<RestaurantList />} />
+                <Route path="specs" element={<RestaurantSpecs />} />
+              </Route>
+
+              <Route path="event" element={<GeneralLayout />}>
+                <Route index element={<MasterEvent />} />
+                <Route path="list" element={<EventList />} />
+                <Route path="specs" element={<EventSpecs />} />
+              </Route>
+
+              <Route path="transfer" element={<GeneralLayout />}>
+                <Route index element={<MasterTransfer />} />
+                <Route path="list" element={<TransferList />} />
+                <Route path="specs" element={<TransferSpecs />} />
+              </Route>
+
+              <Route path="client" element={<GeneralLayout />}>
+                <Route index element={<MasterClient />} />
+                <Route path="list" element={<ClientList />} />
+                <Route path="specs" element={<ClientSpecs />} />
+              </Route>
+            </Route>
 
             <Route
               path="*"

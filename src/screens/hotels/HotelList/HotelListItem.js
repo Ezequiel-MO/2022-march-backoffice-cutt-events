@@ -14,7 +14,7 @@ const HotelListItem = ({ hotel, handleDeleteHotel, canBeAddedToProject }) => {
   const navigate = useNavigate();
 
   const addHotelToProject = () => {
-    navigate(`/hotel/${hotel._id}/add`, {
+    navigate(`/app/hotel/${hotel._id}`, {
       state: { hotelName: hotel.name },
     });
   };

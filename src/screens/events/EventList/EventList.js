@@ -67,7 +67,7 @@ const EventList = () => {
   };
 
   const addEventToProject = (event) => {
-    navigate(`/project/schedule/${event._id}/event`, {
+    navigate(`/app/project/schedule/${event._id}`, {
       state: {
         event,
         dayOfEvent: location.state.dayOfEvent,

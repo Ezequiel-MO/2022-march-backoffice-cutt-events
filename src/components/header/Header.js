@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import header_image from "../../assets/header_image.jpg";
 import cutt_logo from "../../assets/CUTT_LOGO.png";
 import { Icon } from "@iconify/react";
@@ -7,14 +8,20 @@ import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [dropdownActive, setDropdownActive] = useState(false);
   const { auth } = useAuth();
+
+  const signout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
   return (
     <div className="relative h-32 my-4 bg-white-50 rounded-lg">
       <div className="absolute z-30 flex w-full h-full">
         <div className="relative z-30 w-5/6 px-6 py-8 text-white md:py-10 md:w-1/2">
-          <Link to="/">
+          <Link to="/app">
             <img
               alt="Backoffice header"
               className="object-cover h-6"
@@ -69,7 +76,10 @@ const Header = () => {
               Hello, <span className="text-orange-500">{auth.name}</span>
             </p>
           </div>
-          <div className="font-bold text-black-50 cursor-pointer flex items-center">
+          <div
+            className="font-bold text-black-50 cursor-pointer flex items-center"
+            onClick={signout}
+          >
             <Icon icon="bx:log-out" />
             <p className="ml-2">Sign Out</p>
           </div>

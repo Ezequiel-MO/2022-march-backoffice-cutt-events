@@ -75,7 +75,7 @@ const ProjectList = () => {
     try {
       const res = await baseAPI.get(`v1/projects/${projectId}`);
       dispatch(SET_CURRENT_PROJECT(res.data.data.data));
-      navigate("/project/schedule");
+      navigate("/app/project/schedule");
     } catch (error) {
       console.log(error);
     }

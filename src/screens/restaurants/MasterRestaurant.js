@@ -9,14 +9,14 @@ const MasterRestaurant = () => {
       <h1 className="text-2xl">Manage Restaurants</h1>
       <ul className="indent-6 text-white-100">
         <li
-          onClick={() => navigate("/restaurant/list")}
+          onClick={() => navigate("/app/restaurant/list")}
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >
           Get a List of All Restaurants in the Data Base
         </li>
         <li
           onClick={() =>
-            navigate("/restaurant/specs", { state: { restaurant } })
+            navigate("/app/restaurant/specs", { state: { restaurant } })
           }
           className="hover:text-orange-50 border-l-4 border-transparent hover:border-white-50 hover:cursor-pointer"
         >

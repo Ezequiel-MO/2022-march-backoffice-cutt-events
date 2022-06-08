@@ -75,7 +75,7 @@ const AddTransfersINOUTToSchedule = () => {
       );
     }
     toast.success("Transfer added", toastOptions);
-    navigate("/project/schedule");
+    navigate("/app/project/schedule");
   };
 
   const transferList = transfers.map((transfer) => (

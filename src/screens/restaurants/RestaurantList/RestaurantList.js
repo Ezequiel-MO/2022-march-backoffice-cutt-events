@@ -67,7 +67,7 @@ const RestaurantList = () => {
   };
 
   const addRestaurantToProject = (restaurant) => {
-    navigate(`/project/schedule/${restaurant._id}/event`, {
+    navigate(`/app/project/schedule/${restaurant._id}`, {
       state: {
         event: restaurant,
         dayOfEvent: location.state.dayOfEvent,

@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import baseAPI from "../../axios/axiosConfig";
 import Alert from "../../UI/error/Alert";
 import useAuth from "../../hooks/useAuth";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [alert, setAlert] = useState({});
@@ -25,9 +27,13 @@ const Login = () => {
         email,
         password,
       });
-      setAlert({});
+      setAlert({
+        error: false,
+        msg: "Access granted",
+      });
       localStorage.setItem("token", data.token);
       setAuth(data);
+      navigate("/app");
     } catch (error) {
       setAlert({
         error: true,
