@@ -20,7 +20,7 @@ const TransferSpecs = () => {
         toast.success("Transfer service created", toastOptions);
       }
       setTimeout(() => {
-        navigate("/transfer/list");
+        navigate("/app/transfer/list");
       }, 2500);
     } catch (error) {
       console.log(error);

@@ -24,7 +24,7 @@ const AddHotelToProject = () => {
     if (hotels.find((hotel) => hotel._id === hotelId)) {
       toast.error("Hotel already in project", toastOptions);
       setTimeout(() => {
-        navigate("/project");
+        navigate("/app/project");
       }, 1000);
       return;
     }
@@ -34,7 +34,7 @@ const AddHotelToProject = () => {
       hotel.price = [values];
       dispatch(ADD_HOTEL_TO_PROJECT(hotel));
       toast.success("Hotel added to project", toastOptions);
-      navigate("/project");
+      navigate("/app/project/schedule");
     } catch (error) {
       console.log(error);
     }

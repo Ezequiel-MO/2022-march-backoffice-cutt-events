@@ -70,14 +70,15 @@ const Header = () => {
           dropdownActive ? "block" : "hidden"
         } absolute top-20 right-10 bg-white-100`}
       >
-        <div className="border border-1 rounded p-5">
-          <div className=" font-bold text-black-50">
+        <div className="rounded">
+          <div className="font-bold text-black-50 border-3 border-b border-gray-500 p-3">
             <p>
               Hello, <span className="text-orange-500">{auth.name}</span>
             </p>
           </div>
+
           <div
-            className="font-bold text-black-50 cursor-pointer flex items-center"
+            className="font-bold text-black-50 border-3 border-b border-gray-800 p-3 flex items-center cursor-pointer"
             onClick={signout}
           >
             <Icon icon="bx:log-out" />

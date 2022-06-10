@@ -21,7 +21,7 @@ const EventSpecs = () => {
         toast.success("Event created", toastOptions);
       }
       setTimeout(() => {
-        navigate("/");
+        navigate("/app");
       }, 2500);
     } catch (error) {
       console.log(error);

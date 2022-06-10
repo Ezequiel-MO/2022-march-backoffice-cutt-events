@@ -21,7 +21,7 @@ const ClientSpecs = () => {
         toast.success("Client Created", toastOptions);
       }
       setTimeout(() => {
-        navigate("/client/list");
+        navigate("/app/client/list");
       }, 2500);
     } catch (error) {
       toast.error(`Error Creating Client, ${error.message}`, toastOptions);

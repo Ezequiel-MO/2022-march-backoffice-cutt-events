@@ -56,7 +56,7 @@ const ProjectSpecs = () => {
         dispatch(SET_CURRENT_PROJECT(res.data.data.data));
         toast.success("Project updated", toastOptions);
         setTimeout(() => {
-          navigate("/");
+          navigate("/app");
         }, 1500);
       } else {
         const res = await baseAPI.post(`v1/${endPoint}`, transformedData);

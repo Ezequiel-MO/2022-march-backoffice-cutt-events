@@ -31,7 +31,7 @@ const PatchProject = ({ projectIntro }) => {
         projectIntro,
       });
       toast.success("Project Completed, congratulations !!", toastOptions);
-      setTimeout(() => navigate("/project/schedule"), 1000);
+      setTimeout(() => navigate("/app/project/schedule"), 1000);
     } catch (error) {
       console.log(error);
     }
