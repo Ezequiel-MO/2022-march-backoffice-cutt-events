@@ -17,6 +17,7 @@ const PatchProject = ({ projectIntro }) => {
 
   useEffect(() => {
     dispatch(EXPAND_TRANSFERS_TO_OPTIONS());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

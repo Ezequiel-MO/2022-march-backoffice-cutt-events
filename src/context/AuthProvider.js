@@ -33,6 +33,7 @@ const AuthProvider = ({ children }) => {
       }
     };
     authenticateUser();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <AuthContext.Provider value={{ setAuth, auth, loading }}>
